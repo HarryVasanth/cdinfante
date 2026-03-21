@@ -11,6 +11,9 @@ const resources = {
         contact: 'Contact',
       },
       hero: {
+        location: 'Funchal, Madeira',
+        club_name: 'Clube Desportivo',
+        club_suffix: 'Dom Henrique',
         title: 'Clube Desportivo Infante Dom Henrique',
         subtitle: 'A sports association promoting athletics and youth sports, focusing on running and handball.',
         cta: 'Join Us',
@@ -21,6 +24,8 @@ const resources = {
         subtitle: 'Founded to foster sports among youth and adults, our club promotes values such as teamwork, resilience, and respect for sport. We regularly compete in regional and national events, excelling in running and handball.',
         years_label: 'Years of Excellence',
         members_label: 'Active Members',
+        since: 'Since 1980',
+        promotion: 'Promoting Excellence in Madeira Sports',
       },
       sports: {
         title: 'Our Sports',
@@ -59,6 +64,9 @@ const resources = {
         contact: 'Contactos',
       },
       hero: {
+        location: 'Funchal, Madeira',
+        club_name: 'Clube Desportivo',
+        club_suffix: 'Dom Henrique',
         title: 'Clube Desportivo Infante Dom Henrique',
         subtitle: 'Uma associação dedicada à promoção do atletismo e do desporto juvenil.',
         cta: 'Junta-te a nós',
@@ -67,8 +75,10 @@ const resources = {
         title: 'Sobre Nós',
         content: 'O Clube Desportivo Infante Dom Henrique é uma associação dedicada à promoção do atletismo e do desporto juvenil, com destaque para corrida de estrada, trail running, km vertical, skyrunning, atletismo de pista e uma equipa júnior de andebol. Incentivamos a prática desportiva e o desenvolvimento de jovens talentos na região.',
         subtitle: 'Fundado para fomentar a prática desportiva entre jovens e adultos, o clube promove valores como espírito de equipa, superação e respeito pelo desporto. Participamos regularmente em competições regionais e nacionais, destacando-nos nas modalidades de corrida e andebol.',
-        years_label: 'Anos de Excelência',
+        years_label: 'Anos de Excellence',
         members_label: 'Membros Ativos',
+        since: 'Desde 1980',
+        promotion: 'Promovendo a Excelência no Desporto da Madeira',
       },
       sports: {
         title: 'Modalidades',
