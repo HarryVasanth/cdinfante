@@ -107,7 +107,7 @@ const NavItem = ({ href, children, onClick }: { href: string; children: React.Re
 
 /**
  * Bento Grid Card Component
- * Implements Glassmorphism with edge-lighting and hover effects.
+ * Implements Glassmorphism with dynamic edge-lighting and hover effects.
  */
 const BentoCard = ({
   title,
@@ -123,11 +123,21 @@ const BentoCard = ({
   delay?: number;
 }) => {
   const { t } = useTranslation();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
+      onMouseMove={handleMouseMove}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         "group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between",
@@ -135,6 +145,18 @@ const BentoCard = ({
         className
       )}
     >
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition duration-300"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              400px circle at ${mouseX}px ${mouseY}px,
+              rgba(182, 23, 30, 0.1),
+              transparent 80%
+            )
+          `,
+        }}
+      />
       {imageUrl && (
         <div className="absolute inset-0 z-0">
           <img
@@ -316,9 +338,9 @@ export default function App() {
               <span className="inline-block py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-brand-red/20 shadow-sm">
                 {t('hero.location')}
               </span>
-              <h1 className="text-7xl md:text-[9rem] font-[900] text-brand-navy dark:text-white mb-8 tracking-[-0.05em] leading-[0.85]">
+              <h1 className="text-5xl sm:text-7xl md:text-[9rem] font-[900] text-brand-navy dark:text-white mb-8 tracking-[-0.05em] leading-[0.85] break-words">
                 {t('hero.club_name')} <br className="hidden md:block" />
-                <span className="text-brand-red">Infante</span> {t('hero.club_suffix')}
+                <span className="text-brand-red">Infante</span> Dom Henrique
               </h1>
               <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
                 {t('hero.subtitle')}
@@ -345,9 +367,9 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.8 }}
-                className="absolute bottom-16 left-1/2 -translate-x-1/2"
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
               >
-                <div className="w-7 h-12 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1.5 backdrop-blur-sm shadow-sm">
+                <div className="w-6 h-10 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm shadow-sm">
                   <motion.div
                     animate={{ y: [0, 16, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -378,11 +400,11 @@ export default function App() {
                 </div>
                 <div className="grid grid-cols-2 gap-10">
                   <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
-                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">40+</div>
+                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">{t('about.years_count')}</div>
                     <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">{t('about.years_label')}</div>
                   </div>
                   <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
-                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">500+</div>
+                    <div className="text-5xl sm:text-6xl font-black text-brand-red mb-2 tracking-tighter">{t('about.members_count')}</div>
                     <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">{t('about.members_label')}</div>
                   </div>
                 </div>
@@ -439,37 +461,37 @@ export default function App() {
               <BentoCard
                 title={t('sports.trail_running')}
                 icon={Mountain}
-                imageUrl="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?q=80&w=2070&auto=format&fit=crop"
                 delay={0.2}
               />
               <BentoCard
                 title={t('sports.vertical_km')}
                 icon={Target}
-                imageUrl="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1593133917812-78d107386121?q=80&w=2070&auto=format&fit=crop"
                 delay={0.3}
               />
               <BentoCard
                 title={t('sports.skyrunning')}
                 icon={ArrowUpRight}
-                imageUrl="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1541624393906-c1474577af3c?q=80&w=2070&auto=format&fit=crop"
                 delay={0.4}
               />
               <BentoCard
                 title={t('sports.track_field')}
                 icon={Footprints}
-                imageUrl="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1530549387074-d76f964b33c6?q=80&w=2070&auto=format&fit=crop"
                 delay={0.5}
               />
               <BentoCard
                 title={t('sports.handball')}
                 icon={CircleDot}
-                imageUrl="https://images.unsplash.com/photo-1628779238951-be2c9f2a59f4?q=80&w=1974&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1628779238951-be2c9f2a59f4?q=80&w=2070&auto=format&fit=crop"
                 delay={0.6}
               />
               <BentoCard
                 title={t('sports.judo')}
                 icon={ShieldCheck}
-                imageUrl="https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=2072&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1509838143105-03d15d947ca8?q=80&w=2070&auto=format&fit=crop"
                 className="md:col-span-2"
                 delay={0.7}
               />
@@ -495,7 +517,7 @@ export default function App() {
                       </div>
                       <div>
                         <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">{t('contact.address_label')}</div>
-                        <div className="text-white text-xl font-bold leading-relaxed">{t('contact.address')}</div>
+                        <div className="text-white text-xl font-bold leading-relaxed whitespace-pre-line">{t('contact.address')}</div>
                       </div>
                     </div>
 
@@ -505,17 +527,17 @@ export default function App() {
                       </div>
                       <div>
                         <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">{t('contact.phone_label')}</div>
-                        <div className="text-white text-xl font-bold">+351 291 783 775</div>
+                        <div className="text-white text-xl font-bold">{t('contact.phone_value')}</div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden">
+                  <div className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer" onClick={() => window.open('https://maps.app.goo.gl/3cU7eBi1goi7NWax7', '_blank')}>
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.556209804895!2d-16.9238383!3d32.6713437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc605ff8586c0e53%3A0xc66513476839352e!2sCol%C3%A9gio%20Infante%20D.%20Henrique!5e0!3m2!1spt!2spt!4v1710758500000!5m2!1spt!2spt"
                       width="100%"
                       height="300"
-                      style={{ border: 0, borderRadius: '2rem' }}
+                      style={{ border: 0, borderRadius: '2rem', pointerEvents: 'none' }}
                       allowFullScreen
                       loading="lazy"
                       className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100"
