@@ -534,7 +534,7 @@ export default function App() {
 
                   <div className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer" onClick={() => window.open('https://maps.app.goo.gl/3cU7eBi1goi7NWax7', '_blank')}>
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.556209804895!2d-16.9238383!3d32.6713437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc605ff8586c0e53%3A0xc66513476839352e!2sCol%C3%A9gio%20Infante%20D.%20Henrique!5e0!3m2!1spt!2spt!4v1710758500000!5m2!1spt!2spt"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.4057142371284!2d-16.9032822!3d32.675255299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6061ab187bf7d1%3A0xc3243053e116fb0b!2sClube%20Desportivo%20Infante%20Dom%20Henrique!5e0!3m2!1sen!2spt!4v1774133527004!5m2!1sen!2spt"
                       width="100%"
                       height="300"
                       style={{ border: 0, borderRadius: '2rem', pointerEvents: 'none' }}
