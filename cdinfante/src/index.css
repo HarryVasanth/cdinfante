@@ -1,3 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", "system-ui", "sans-serif";
+  --radius-4xl: 2rem;
+  --radius-5xl: 3rem;
+
+  --color-brand-navy: #001e40;
+  --color-brand-red: #b6171e;
+}
+
 @variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fdfdfd;
+  --foreground: #001e40;
+}
+
+.dark {
+  --background: #001124; /* Deeper navy for dark background */
+  --foreground: #f8fafc;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

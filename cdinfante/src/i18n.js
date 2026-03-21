@@ -12,12 +12,13 @@ const resources = {
       },
       hero: {
         title: 'Clube Desportivo Infante Dom Henrique',
-        subtitle: 'Promoting excellence in athletics and youth sports since 1980.',
+        subtitle: 'A sports association promoting athletics and youth sports, focusing on running and handball.',
         cta: 'Join Us',
       },
       about: {
         title: 'About Us',
-        content: 'Founded to foster sports among youth and adults, our club promotes values such as teamwork, resilience, and respect for sport. We regularly compete in regional and national events, excelling in running and handball.',
+        content: 'Clube Desportivo Infante Dom Henrique is a sports association promoting athletics and youth sports, focusing on road running, trail running, vertical km, skyrunning, track & field, and a junior handball team. We encourage sports practice and the development of young talents in our region.',
+        subtitle: 'Founded to foster sports among youth and adults, our club promotes values such as teamwork, resilience, and respect for sport. We regularly compete in regional and national events, excelling in running and handball.',
         years_label: 'Years of Excellence',
         members_label: 'Active Members',
       },
@@ -59,12 +60,13 @@ const resources = {
       },
       hero: {
         title: 'Clube Desportivo Infante Dom Henrique',
-        subtitle: 'Promovendo a excelência no atletismo e desporto juvenil desde 1980.',
+        subtitle: 'Uma associação dedicada à promoção do atletismo e do desporto juvenil.',
         cta: 'Junta-te a nós',
       },
       about: {
         title: 'Sobre Nós',
-        content: 'Fundado para fomentar a prática desportiva entre jovens e adultos, o clube promove valores como espírito de equipa, superação e respeito pelo desporto. Participamos regularmente em competições regionais e nacionais, destacando-nos nas modalidades de corrida e andebol.',
+        content: 'O Clube Desportivo Infante Dom Henrique é uma associação dedicada à promoção do atletismo e do desporto juvenil, com destaque para corrida de estrada, trail running, km vertical, skyrunning, atletismo de pista e uma equipa júnior de andebol. Incentivamos a prática desportiva e o desenvolvimento de jovens talentos na região.',
+        subtitle: 'Fundado para fomentar a prática desportiva entre jovens e adultos, o clube promove valores como espírito de equipa, superação e respeito pelo desporto. Participamos regularmente em competições regionais e nacionais, destacando-nos nas modalidades de corrida e andebol.',
         years_label: 'Anos de Excelência',
         members_label: 'Membros Ativos',
       },
