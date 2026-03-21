@@ -42,11 +42,13 @@ const NavItem = ({ href, children, onClick }: { href: string; children: React.Re
 const BentoCard = ({
   title,
   icon: Icon,
+  imageUrl,
   className,
   delay = 0
 }: {
   title: string;
   icon: LucideIcon;
+  imageUrl?: string;
   className?: string;
   delay?: number;
 }) => {
@@ -58,22 +60,35 @@ const BentoCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
       className={cn(
-        "group relative overflow-hidden rounded-3xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300",
+        "group relative overflow-hidden rounded-3xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 min-h-[240px]",
         className
       )}
     >
+      {imageUrl && (
+        <div className="absolute inset-0 z-0">
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-40 dark:opacity-20 grayscale group-hover:grayscale-0"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-slate-950 dark:via-slate-950/80 dark:to-transparent" />
+        </div>
+      )}
+
       <div className="relative z-10 h-full flex flex-col justify-between">
-        <div className="w-12 h-12 bg-red-50 dark:bg-red-950/30 rounded-2xl flex items-center justify-center text-red-600 mb-4 group-hover:scale-110 transition-transform">
+        <div className="w-12 h-12 bg-red-50 dark:bg-red-950/30 rounded-2xl flex items-center justify-center text-red-600 mb-4 group-hover:scale-110 transition-transform shadow-sm">
           <Icon size={24} />
         </div>
         <div>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{title}</h3>
-          <div className="flex items-center text-red-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex items-center text-red-600 font-semibold text-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
             {t('sports.learn_more')} <ChevronRight size={16} />
           </div>
         </div>
       </div>
-      <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
+      {!imageUrl && (
+        <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
+      )}
     </motion.div>
   );
 };
@@ -200,8 +215,13 @@ export default function App() {
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 to-slate-50 dark:from-black/50 dark:to-[#0a0a0a] z-10" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full bg-red-600/5 blur-[120px] rounded-full" />
+            <img
+              src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop"
+              alt="Background Athletics"
+              className="w-full h-full object-cover opacity-30 dark:opacity-20 grayscale brightness-75"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-50/70 via-slate-50 to-slate-50 dark:from-black/70 dark:via-[#0a0a0a] dark:to-[#0a0a0a] z-10" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full bg-red-600/10 blur-[120px] rounded-full" />
           </div>
 
           <div className="relative z-20 text-center px-6 max-w-4xl">
@@ -250,7 +270,7 @@ export default function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-24 px-6">
+        <section id="about" className="py-24 px-6 bg-white dark:bg-slate-950">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -281,11 +301,11 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl"
+                className="relative aspect-square rounded-[2rem] overflow-hidden shadow-2xl"
               >
                 <div className="absolute inset-0 bg-red-600/10 z-10" />
                 <img
-                  src="https://images.unsplash.com/photo-1461896756981-93e1850d2916?q=80&w=2070&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?q=80&w=2070&auto=format&fit=crop"
                   alt="Athletics"
                   className="w-full h-full object-cover"
                 />
@@ -295,7 +315,7 @@ export default function App() {
         </section>
 
         {/* Sports Section */}
-        <section id="sports" className="py-24 px-6 bg-white dark:bg-slate-950/50">
+        <section id="sports" className="py-24 px-6 bg-slate-50 dark:bg-black">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
@@ -307,20 +327,53 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <BentoCard title={t('sports.road_running')} icon={Activity} className="md:col-span-2 md:row-span-1" delay={0.1} />
-              <BentoCard title={t('sports.trail_running')} icon={Mountain} delay={0.2} />
-              <BentoCard title={t('sports.vertical_km')} icon={Target} delay={0.3} />
-              <BentoCard title={t('sports.skyrunning')} icon={ArrowUpRight} className="md:col-span-2" delay={0.4} />
-              <BentoCard title={t('sports.track_field')} icon={Footprints} delay={0.5} />
-              <BentoCard title={t('sports.handball')} icon={Trophy} className="md:col-span-3" delay={0.6} />
+              <BentoCard
+                title={t('sports.road_running')}
+                icon={Activity}
+                imageUrl="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=2070&auto=format&fit=crop"
+                className="md:col-span-2"
+                delay={0.1}
+              />
+              <BentoCard
+                title={t('sports.trail_running')}
+                icon={Mountain}
+                imageUrl="https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?q=80&w=2070&auto=format&fit=crop"
+                delay={0.2}
+              />
+              <BentoCard
+                title={t('sports.vertical_km')}
+                icon={Target}
+                imageUrl="https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80&w=2070&auto=format&fit=crop"
+                delay={0.3}
+              />
+              <BentoCard
+                title={t('sports.skyrunning')}
+                icon={ArrowUpRight}
+                imageUrl="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
+                className="md:col-span-2"
+                delay={0.4}
+              />
+              <BentoCard
+                title={t('sports.track_field')}
+                icon={Footprints}
+                imageUrl="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
+                delay={0.5}
+              />
+              <BentoCard
+                title={t('sports.handball')}
+                icon={Trophy}
+                imageUrl="https://images.unsplash.com/photo-1511067007398-7e4b90cfa4bc?q=80&w=2069&auto=format&fit=crop"
+                className="md:col-span-3"
+                delay={0.6}
+              />
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-24 px-6">
+        <section id="contact" className="py-24 px-6 bg-white dark:bg-slate-950">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-slate-900 dark:bg-red-950/20 rounded-[3rem] p-12 md:p-20 overflow-hidden relative">
+            <div className="bg-slate-900 dark:bg-red-950/20 rounded-[3rem] p-12 md:p-20 overflow-hidden relative shadow-2xl">
               <div className="absolute top-0 right-0 w-1/2 h-full bg-red-600/10 blur-[100px] rounded-full translate-x-1/2" />
 
               <div className="grid lg:grid-cols-2 gap-16 relative z-10">
@@ -349,7 +402,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="p-1 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <div className="p-1 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm shadow-inner">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.556209804895!2d-16.9238383!3d32.6713437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc605ff8586c0e53%3A0xc66513476839352e!2sCol%C3%A9gio%20Infante%20D.%20Henrique!5e0!3m2!1spt!2spt!4v1710758500000!5m2!1spt!2spt"
                       width="100%"
@@ -362,23 +415,23 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 shadow-xl">
                   <form className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-400">{t('contact.form.name')}</label>
-                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors" />
+                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-all" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-400">{t('contact.form.email')}</label>
-                        <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors" />
+                        <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-all" />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-slate-400">{t('contact.form.message')}</label>
-                      <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors" />
+                      <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-all" />
                     </div>
-                    <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-red-600/20 active:scale-[0.98]">
+                    <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-red-600/40 active:scale-[0.98]">
                       {t('contact.form.send')}
                     </button>
                   </form>
@@ -390,7 +443,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-200 dark:border-slate-800 text-center">
+      <footer className="py-16 border-t border-slate-200 dark:border-slate-800 text-center bg-white dark:bg-black">
         <div className="max-w-7xl mx-auto px-6">
           <Logo />
           <p className="mt-8 text-slate-500 dark:text-slate-400 text-sm">
