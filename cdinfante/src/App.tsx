@@ -7,21 +7,38 @@ import {
   Trophy, Activity, Target, LucideIcon,
   Facebook, Instagram
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Utility for Tailwind class merging
+ */
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Interactive Spotlight Component
+ * Provides a mouse-tracking radial gradient glow.
+ * Uses Framer Motion springs for fluid, high-performance movement.
+ */
 const Spotlight = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 30, stiffness: 200, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const background = useMotionTemplate`radial-gradient(600px at ${smoothX}px ${smoothY}px, rgba(182, 23, 30, 0.08), transparent 80%)`;
+
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
     const handleMouseEnter = () => setOpacity(1);
     const handleMouseLeave = () => setOpacity(0);
@@ -35,49 +52,62 @@ const Spotlight = () => {
       document.body.removeEventListener('mouseenter', handleMouseEnter);
       document.body.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [mouseX, mouseY]); // Static values from useMotionValue are stable
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-0 z-50 transition-opacity duration-300"
-      animate={{
-        background: `radial-gradient(600px at ${position.x}px ${position.y}px, rgba(182, 23, 30, 0.05), transparent 80%)`,
-        opacity
-      }}
+      className="pointer-events-none fixed inset-0 z-50"
+      style={{ background }}
+      animate={{ opacity }}
+      transition={{ duration: 0.3 }}
     />
   );
 };
 
-// Logo Component
-const Logo = () => (
-  <div className="flex items-center gap-3 group cursor-pointer">
-    <div className="relative">
-      <div className="absolute inset-0 bg-brand-red/20 blur-xl rounded-full group-hover:bg-brand-red/40 transition-colors" />
-      <img
-        src="/cdinfante/cdi_logo_transparent.png"
-        alt="CDI Logo"
-        className="relative w-12 h-12 object-contain group-hover:scale-105 transition-transform duration-500"
-      />
+/**
+ * Modern Branding Logo
+ */
+const Logo = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex items-center gap-3 group cursor-pointer">
+      <div className="relative">
+        <div className="absolute inset-0 bg-brand-red/20 blur-xl rounded-full group-hover:bg-brand-red/40 transition-colors duration-500" />
+        <img
+          src="/cdinfante/cdi_logo_transparent.png"
+          alt="CDI Logo"
+          className="relative w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-500 ease-out"
+        />
+      </div>
+      <div className="flex flex-col">
+        <span className="font-extrabold text-xl leading-none tracking-tighter text-brand-navy dark:text-white transition-colors">
+          {t('hero.club_name')}
+        </span>
+        <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.2em] mt-0.5">
+          {t('hero.club_suffix')}
+        </span>
+      </div>
     </div>
-    <div className="flex flex-col">
-      <span className="font-extrabold text-xl leading-none tracking-tighter text-brand-navy dark:text-white">CD INFANTE</span>
-      <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.2em] mt-0.5">Dom Henrique</span>
-    </div>
-  </div>
-);
+  );
+};
 
-// Navigation Item
+/**
+ * Navigation Link Component
+ */
 const NavItem = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => (
   <a
     href={href}
     onClick={onClick}
-    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-colors py-2 px-1 tracking-wide"
+    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide"
   >
     {children}
   </a>
 );
 
-// Bento Card Component
+/**
+ * Bento Grid Card Component
+ * Implements Glassmorphism with edge-lighting and hover effects.
+ */
 const BentoCard = ({
   title,
   icon: Icon,
@@ -96,10 +126,10 @@ const BentoCard = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-500 min-h-[260px] flex flex-col justify-between",
+        "group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between",
         "before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/40 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/10 dark:before:to-transparent",
         className
       )}
@@ -109,25 +139,25 @@ const BentoCard = ({
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 dark:opacity-30 grayscale group-hover:grayscale-0"
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 dark:opacity-30 grayscale group-hover:grayscale-0"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent dark:from-brand-navy dark:via-brand-navy/60 dark:to-transparent" />
         </div>
       )}
 
       <div className="relative z-10 h-full flex flex-col justify-between pointer-events-none">
-        <div className="w-12 h-12 bg-brand-red/10 dark:bg-brand-red/20 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:bg-brand-red group-hover:text-white transition-all duration-300 shadow-sm">
+        <div className="w-12 h-12 bg-brand-red/10 dark:bg-brand-red/20 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 shadow-sm">
           <Icon size={24} />
         </div>
         <div>
-          <h3 className="text-2xl font-black text-brand-navy dark:text-white mb-2 tracking-tight">{title}</h3>
-          <div className="flex items-center text-brand-red font-bold text-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+          <h3 className="text-2xl font-black text-brand-navy dark:text-white mb-2 tracking-tight transition-colors">{title}</h3>
+          <div className="flex items-center text-brand-red font-bold text-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
             {t('sports.learn_more')} <ChevronRight size={16} className="ml-1" />
           </div>
         </div>
       </div>
       {!imageUrl && (
-        <div className="absolute top-0 right-0 w-40 h-40 bg-brand-red/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700" />
+        <div className="absolute top-0 right-0 w-40 h-40 bg-brand-red/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000" />
       )}
     </motion.div>
   );
@@ -139,12 +169,14 @@ export default function App() {
   const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Handle Scroll state for Navbar
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Theme Management
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -165,68 +197,69 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-500 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden">
+    <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-700 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden">
       <Spotlight />
+
       {/* Navbar */}
       <nav className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6",
         scrolled ? "mt-4" : "mt-0"
       )}>
         <div className={cn(
-          "max-w-7xl mx-auto transition-all duration-500",
+          "max-w-7xl mx-auto transition-all duration-700",
           scrolled
             ? "bg-white/80 dark:bg-black/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 py-3 px-8 rounded-full shadow-2xl"
             : "bg-transparent py-8 px-0"
         )}>
           <div className="flex items-center justify-between">
-          <Logo />
+            <Logo />
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <NavItem key={link.name} href={link.href}>{link.name}</NavItem>
-            ))}
-          </div>
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-10">
+              {navLinks.map((link) => (
+                <NavItem key={link.name} href={link.href}>{link.name}</NavItem>
+              ))}
+            </div>
 
-          <div className="hidden md:flex items-center gap-4">
-            <button
-              onClick={toggleLanguage}
-              className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300"
-              aria-label="Toggle language"
-            >
-              <Globe size={20} />
-            </button>
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
+            <div className="hidden md:flex items-center gap-4">
+              <button
+                onClick={toggleLanguage}
+                className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300"
+                aria-label="Toggle language"
+              >
+                <Globe size={20} />
+              </button>
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="p-2 text-brand-navy dark:text-slate-300"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-brand-navy dark:text-slate-300"
-              aria-label="Menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+            {/* Mobile Menu Toggle */}
+            <div className="flex md:hidden items-center gap-2">
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className="p-2 text-brand-navy dark:text-slate-300"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 text-brand-navy dark:text-slate-300"
+                aria-label="Menu"
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -234,7 +267,7 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-brand-navy pt-24 px-6 md:hidden"
+            className="fixed inset-0 z-40 bg-white dark:bg-black pt-24 px-6 md:hidden"
           >
             <div className="flex flex-col gap-8 text-center">
               {navLinks.map((link) => (
@@ -242,7 +275,7 @@ export default function App() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-3xl font-bold text-brand-navy dark:text-white"
+                  className="text-3xl font-black text-brand-navy dark:text-white"
                 >
                   {link.name}
                 </a>
@@ -277,14 +310,14 @@ export default function App() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="inline-block py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-brand-red/20 shadow-sm">
-                Funchal, Madeira
+                {t('hero.location')}
               </span>
-              <h1 className="text-7xl md:text-[9rem] font-[800] text-brand-navy dark:text-white mb-8 tracking-[-0.05em] leading-[0.85]">
-                Clube Desportivo <br className="hidden md:block" />
-                <span className="text-brand-red">Infante</span> Dom Henrique
+              <h1 className="text-7xl md:text-[9rem] font-[900] text-brand-navy dark:text-white mb-8 tracking-[-0.05em] leading-[0.85]">
+                {t('hero.club_name')} <br className="hidden md:block" />
+                <span className="text-brand-red">Infante</span> {t('hero.club_suffix')}
               </h1>
               <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
                 {t('hero.subtitle')}
@@ -321,14 +354,14 @@ export default function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-32 px-6 bg-transparent">
+        <section id="about" className="py-32 px-6 bg-transparent relative">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-20 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <h2 className="text-5xl md:text-7xl font-black text-brand-navy dark:text-white mb-10 tracking-tight leading-tight">
                   {t('about.title')}
@@ -352,18 +385,18 @@ export default function App() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl group"
               >
-                <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
+                <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-1000 z-10" />
                 <img
                   src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?q=80&w=2070&auto=format&fit=crop"
                   alt="Athletics"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute bottom-8 left-8 right-8 z-20 p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 text-white">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-2">Since 1980</p>
-                  <p className="text-xl font-bold">Promoting Excellence in Madeira Sports</p>
+                <div className="absolute bottom-8 left-8 right-8 z-20 p-8 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 text-white shadow-2xl">
+                  <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-2">{t('about.since')}</p>
+                  <p className="text-2xl font-black tracking-tight">{t('about.promotion')}</p>
                 </div>
               </motion.div>
             </div>
@@ -376,7 +409,7 @@ export default function App() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
               <div className="max-w-2xl">
                 <span className="text-brand-red font-bold uppercase tracking-[0.3em] text-xs mb-4 block">{t('nav.sports')}</span>
-                <h2 className="text-5xl md:text-7xl font-[800] text-brand-navy dark:text-white mb-6 tracking-tight">
+                <h2 className="text-5xl md:text-7xl font-[900] text-brand-navy dark:text-white mb-6 tracking-tight">
                   {t('sports.title')}
                 </h2>
                 <p className="text-xl text-brand-navy/60 dark:text-slate-400 font-medium">
@@ -437,7 +470,7 @@ export default function App() {
         {/* Contact Section */}
         <section id="contact" className="py-32 px-6 bg-transparent">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/10">
+            <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/10 transition-colors duration-700">
               <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/20 blur-[120px] rounded-full" />
               <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-brand-navy/20 blur-[120px] rounded-full" />
 
@@ -447,7 +480,7 @@ export default function App() {
 
                   <div className="space-y-10 mb-16">
                     <div className="flex gap-8 items-start group">
-                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-300 border border-white/10">
+                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
                         <MapPin size={28} />
                       </div>
                       <div>
@@ -457,7 +490,7 @@ export default function App() {
                     </div>
 
                     <div className="flex gap-8 items-start group">
-                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-300 border border-white/10">
+                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
                         <Phone size={28} />
                       </div>
                       <div>
@@ -475,26 +508,26 @@ export default function App() {
                       style={{ border: 0, borderRadius: '2rem' }}
                       allowFullScreen
                       loading="lazy"
-                      className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:brightness-100"
+                      className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100"
                     />
                   </div>
                 </div>
 
                 <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl">
-                  <form className="space-y-8">
+                  <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                     <div className="grid grid-cols-1 gap-8">
                       <div className="space-y-3">
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{t('contact.form.name')}</label>
-                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all" />
+                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300" />
                       </div>
                       <div className="space-y-3">
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{t('contact.form.email')}</label>
-                        <input type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all" />
+                        <input type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300" />
                       </div>
                     </div>
                     <div className="space-y-3">
                       <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{t('contact.form.message')}</label>
-                      <textarea rows={5} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all" />
+                      <textarea rows={5} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300" />
                     </div>
                     <button className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest">
                       {t('contact.form.send')}
@@ -508,20 +541,20 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="py-24 border-t border-slate-200/50 dark:border-white/5 bg-[#FBFBFD] dark:bg-black">
+      <footer className="py-24 border-t border-slate-200/50 dark:border-white/5 bg-[#FBFBFD] dark:bg-black transition-colors duration-700">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
           <Logo />
 
           <div className="flex gap-6 mt-10">
-            <a href="https://www.facebook.com/CDInfante" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm">
+            <a href="https://www.facebook.com/CDInfante" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm">
               <Facebook size={20} />
             </a>
-            <a href="https://www.instagram.com/cdinfante_atletismo/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm">
+            <a href="https://www.instagram.com/cdinfante_atletismo/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm">
               <Instagram size={20} />
             </a>
           </div>
 
-          <div className="flex gap-8 mt-12 mb-12">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mt-12 mb-12">
             {navLinks.map((link) => (
               <a key={link.name} href={link.href} className="text-sm font-bold text-brand-navy/50 dark:text-slate-500 hover:text-brand-red transition-colors uppercase tracking-widest">
                 {link.name}
@@ -529,7 +562,7 @@ export default function App() {
             ))}
           </div>
           <div className="w-20 h-1 bg-brand-red/20 rounded-full mb-12" />
-          <p className="text-brand-navy/40 dark:text-slate-500 text-xs font-bold uppercase tracking-[0.3em] text-center">
+          <p className="text-brand-navy/40 dark:text-slate-500 text-xs font-bold uppercase tracking-[0.3em] text-center leading-relaxed">
             © {new Date().getFullYear()} Clube Desportivo Infante Dom Henrique <br className="md:hidden" />
             <span className="hidden md:inline mx-2">•</span> {t('footer.rights')}
           </p>
