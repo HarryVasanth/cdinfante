@@ -75,7 +75,7 @@ const Logo = () => {
       <div className="relative">
         <div className="absolute inset-0 bg-brand-red/20 blur-xl rounded-full group-hover:bg-brand-red/40 transition-colors duration-500" />
         <img
-          src="/cdinfante/icons/cdi_logo_transparent.png"
+          src="/icons/cdi_logo_transparent.png"
           alt="CDI-M Logo"
           className="relative w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-500 ease-out"
         />
