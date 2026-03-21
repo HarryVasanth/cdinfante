@@ -317,8 +317,8 @@ export default function App() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-          <div className="absolute inset-0 z-0">
+        <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
+          <div className="absolute inset-0 z-0 overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop"
               alt="Background Athletics"
@@ -338,11 +338,11 @@ export default function App() {
               <span className="inline-block py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-brand-red/20 shadow-sm">
                 {t('hero.location')}
               </span>
-              <h1 className="text-5xl sm:text-7xl md:text-[9rem] font-[900] text-brand-navy dark:text-white mb-8 tracking-[-0.05em] leading-[0.85] break-words">
+              <h1 className="text-5xl sm:text-7xl lg:text-[9rem] font-[900] text-brand-navy dark:text-white mb-6 tracking-[-0.05em] leading-[0.85] break-words">
                 {t('hero.club_name')} <br className="hidden md:block" />
                 <span className="text-brand-red">Infante</span> Dom Henrique
               </h1>
-              <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
+              <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-8 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
