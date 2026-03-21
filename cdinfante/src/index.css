@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "system-ui", "sans-serif";
+  --font-sans: "Plus Jakarta Sans", "Inter", "system-ui", "sans-serif";
   --radius-4xl: 2rem;
   --radius-5xl: 3rem;
 
@@ -17,7 +17,7 @@
 }
 
 .dark {
-  --background: #001124; /* Deeper navy for dark background */
+  --background: #020202; /* True black for OLED-like experience */
   --foreground: #f8fafc;
 }
 

@@ -15,15 +15,53 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+const Spotlight = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    const handleMouseEnter = () => setOpacity(1);
+    const handleMouseLeave = () => setOpacity(0);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.body.addEventListener('mouseenter', handleMouseEnter);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.body.removeEventListener('mouseenter', handleMouseEnter);
+      document.body.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      className="pointer-events-none fixed inset-0 z-50 transition-opacity duration-300"
+      animate={{
+        background: `radial-gradient(600px at ${position.x}px ${position.y}px, rgba(182, 23, 30, 0.05), transparent 80%)`,
+        opacity
+      }}
+    />
+  );
+};
+
 // Logo Component
 const Logo = () => (
-  <div className="flex items-center gap-2 group cursor-pointer">
-    <div className="w-10 h-10 bg-brand-red rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-105 transition-transform">
-      I
+  <div className="flex items-center gap-3 group cursor-pointer">
+    <div className="relative">
+      <div className="absolute inset-0 bg-brand-red/20 blur-xl rounded-full group-hover:bg-brand-red/40 transition-colors" />
+      <img
+        src="/cdinfante/cdi_logo_transparent.png"
+        alt="CDI Logo"
+        className="relative w-12 h-12 object-contain group-hover:scale-105 transition-transform duration-500"
+      />
     </div>
     <div className="flex flex-col">
-      <span className="font-bold text-lg leading-tight tracking-tight text-brand-navy dark:text-white">CD INFANTE</span>
-      <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Dom Henrique</span>
+      <span className="font-extrabold text-xl leading-none tracking-tighter text-brand-navy dark:text-white">CD INFANTE</span>
+      <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.2em] mt-0.5">Dom Henrique</span>
     </div>
   </div>
 );
@@ -61,7 +99,8 @@ const BentoCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
       className={cn(
-        "group relative overflow-hidden rounded-3xl p-8 bg-white dark:bg-brand-navy/20 border border-slate-100 dark:border-white/5 shadow-sm hover:shadow-2xl transition-all duration-500 min-h-[260px]",
+        "group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-500 min-h-[260px] flex flex-col justify-between",
+        "before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/40 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/10 dark:before:to-transparent",
         className
       )}
     >
@@ -76,12 +115,12 @@ const BentoCard = ({
         </div>
       )}
 
-      <div className="relative z-10 h-full flex flex-col justify-between">
-        <div className="w-12 h-12 bg-brand-red/5 dark:bg-brand-red/10 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:bg-brand-red group-hover:text-white transition-all duration-300 shadow-sm">
+      <div className="relative z-10 h-full flex flex-col justify-between pointer-events-none">
+        <div className="w-12 h-12 bg-brand-red/10 dark:bg-brand-red/20 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:bg-brand-red group-hover:text-white transition-all duration-300 shadow-sm">
           <Icon size={24} />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-brand-navy dark:text-white mb-2 tracking-tight">{title}</h3>
+          <h3 className="text-2xl font-black text-brand-navy dark:text-white mb-2 tracking-tight">{title}</h3>
           <div className="flex items-center text-brand-red font-bold text-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
             {t('sports.learn_more')} <ChevronRight size={16} className="ml-1" />
           </div>
@@ -126,15 +165,20 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-brand-navy transition-colors duration-500 selection:bg-brand-red/20 selection:text-brand-navy">
+    <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-500 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden">
+      <Spotlight />
       {/* Navbar */}
       <nav className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
-          ? "bg-white/90 dark:bg-brand-navy/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/5 py-3 shadow-sm"
-          : "bg-transparent border-transparent py-6"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6",
+        scrolled ? "mt-4" : "mt-0"
       )}>
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className={cn(
+          "max-w-7xl mx-auto transition-all duration-500",
+          scrolled
+            ? "bg-white/80 dark:bg-black/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 py-3 px-8 rounded-full shadow-2xl"
+            : "bg-transparent py-8 px-0"
+        )}>
+          <div className="flex items-center justify-between">
           <Logo />
 
           {/* Desktop Nav */}
@@ -178,6 +222,7 @@ export default function App() {
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
+          </div>
         </div>
       </nav>
 
@@ -216,16 +261,16 @@ export default function App() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
           <div className="absolute inset-0 z-0">
             <img
               src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop"
               alt="Background Athletics"
-              className="w-full h-full object-cover opacity-20 dark:opacity-10 grayscale brightness-50"
+              className="w-full h-full object-cover opacity-20 dark:opacity-5 grayscale brightness-50"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-50/50 to-slate-50 dark:via-brand-navy/50 dark:to-brand-navy z-10" />
-            <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-brand-red/5 blur-[120px] rounded-full" />
-            <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-brand-navy/10 blur-[120px] rounded-full" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FBFBFD]/50 to-[#FBFBFD] dark:via-black/50 dark:to-black z-10" />
+            <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-brand-red/10 blur-[120px] rounded-full animate-pulse" />
+            <div className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-brand-navy/10 dark:bg-brand-red/5 blur-[120px] rounded-full animate-pulse" />
           </div>
 
           <div className="relative z-20 text-center px-6 max-w-5xl">
@@ -237,21 +282,21 @@ export default function App() {
               <span className="inline-block py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-brand-red/20 shadow-sm">
                 Funchal, Madeira
               </span>
-              <h1 className="text-6xl md:text-8xl font-black text-brand-navy dark:text-white mb-8 tracking-tighter leading-[0.95]">
+              <h1 className="text-7xl md:text-[9rem] font-[800] text-brand-navy dark:text-white mb-8 tracking-[-0.05em] leading-[0.85]">
                 Clube Desportivo <br className="hidden md:block" />
                 <span className="text-brand-red">Infante</span> Dom Henrique
               </h1>
-              <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto font-medium">
+              <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-xl shadow-brand-red/20 hover:scale-105 active:scale-95 flex items-center gap-2">
+                <button className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2">
                   {t('hero.cta')}
                   <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="px-10 py-5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 transition-all shadow-sm"
+                  className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm"
                 >
                   {t('nav.about')}
                 </button>
@@ -276,7 +321,7 @@ export default function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-32 px-6 bg-white dark:bg-brand-navy">
+        <section id="about" className="py-32 px-6 bg-transparent">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-20 items-center">
               <motion.div
@@ -285,21 +330,21 @@ export default function App() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="text-4xl md:text-6xl font-black text-brand-navy dark:text-white mb-10 tracking-tight leading-tight">
+                <h2 className="text-5xl md:text-7xl font-black text-brand-navy dark:text-white mb-10 tracking-tight leading-tight">
                   {t('about.title')}
                 </h2>
-                <div className="space-y-6 text-lg text-brand-navy/70 dark:text-slate-300 leading-relaxed mb-12 font-medium">
+                <div className="space-y-6 text-xl text-brand-navy/70 dark:text-slate-400 leading-relaxed mb-12 font-medium">
                   <p>{t('about.content')}</p>
                   <p>{t('about.subtitle')}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-10">
-                  <div className="p-6 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
-                    <div className="text-4xl font-black text-brand-red mb-2">40+</div>
-                    <div className="text-xs font-bold text-brand-navy/40 dark:text-slate-400 uppercase tracking-widest">{t('about.years_label')}</div>
+                  <div className="p-8 rounded-[2.5rem] bg-white dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-sm">
+                    <div className="text-5xl font-black text-brand-red mb-2 tracking-tighter">40+</div>
+                    <div className="text-xs font-bold text-brand-navy/40 dark:text-slate-500 uppercase tracking-widest">{t('about.years_label')}</div>
                   </div>
-                  <div className="p-6 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
-                    <div className="text-4xl font-black text-brand-red mb-2">500+</div>
-                    <div className="text-xs font-bold text-brand-navy/40 dark:text-slate-400 uppercase tracking-widest">{t('about.members_label')}</div>
+                  <div className="p-8 rounded-[2.5rem] bg-white dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-sm">
+                    <div className="text-5xl font-black text-brand-red mb-2 tracking-tighter">500+</div>
+                    <div className="text-xs font-bold text-brand-navy/40 dark:text-slate-500 uppercase tracking-widest">{t('about.members_label')}</div>
                   </div>
                 </div>
               </motion.div>
@@ -326,12 +371,12 @@ export default function App() {
         </section>
 
         {/* Sports Section */}
-        <section id="sports" className="py-32 px-6 bg-slate-50 dark:bg-black/40">
+        <section id="sports" className="py-32 px-6 bg-transparent">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
               <div className="max-w-2xl">
                 <span className="text-brand-red font-bold uppercase tracking-[0.3em] text-xs mb-4 block">{t('nav.sports')}</span>
-                <h2 className="text-4xl md:text-6xl font-black text-brand-navy dark:text-white mb-6 tracking-tight">
+                <h2 className="text-5xl md:text-7xl font-[800] text-brand-navy dark:text-white mb-6 tracking-tight">
                   {t('sports.title')}
                 </h2>
                 <p className="text-xl text-brand-navy/60 dark:text-slate-400 font-medium">
@@ -390,15 +435,15 @@ export default function App() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-32 px-6 bg-white dark:bg-brand-navy">
+        <section id="contact" className="py-32 px-6 bg-transparent">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-brand-navy dark:bg-black/40 rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/5">
-              <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/10 blur-[120px] rounded-full" />
-              <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-white/5 blur-[120px] rounded-full" />
+            <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/10">
+              <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/20 blur-[120px] rounded-full" />
+              <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-brand-navy/20 blur-[120px] rounded-full" />
 
               <div className="grid lg:grid-cols-2 gap-24 relative z-10">
                 <div>
-                  <h2 className="text-5xl font-black text-white mb-10 tracking-tight">{t('contact.title')}</h2>
+                  <h2 className="text-6xl font-black text-white mb-10 tracking-tight">{t('contact.title')}</h2>
 
                   <div className="space-y-10 mb-16">
                     <div className="flex gap-8 items-start group">
@@ -463,7 +508,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="py-24 border-t border-slate-200 dark:border-white/5 bg-white dark:bg-black">
+      <footer className="py-24 border-t border-slate-200/50 dark:border-white/5 bg-[#FBFBFD] dark:bg-black">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
           <Logo />
 
