@@ -320,7 +320,7 @@ export default function App() {
         <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop"
+              src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=edt5Fx1uqte6cp5ylp1Edg&_nc_ss=7a32e&oh=00_Afz0P2BPVRVnrvkC6-DOFQzos0iGlj_nTKsmQjgiuhIZ9w&oe=69C4DC6F"
               alt="Background Athletics"
               className="w-full h-full object-cover opacity-20 dark:opacity-5 grayscale brightness-50"
             />
@@ -418,7 +418,7 @@ export default function App() {
               >
                 <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-1000 z-10" />
                 <img
-                  src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?q=80&w=2070&auto=format&fit=crop"
+                  src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=uyA9mJLxqDtrvhZk4E0cfw&_nc_ss=7a32e&oh=00_AfwpMTgEPcn8fBedGAmiyY_XldF31tFKXL5ass-KCBEEnA&oe=69C4DC6F"
                   alt="Athletics"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
@@ -455,44 +455,44 @@ export default function App() {
               <BentoCard
                 title={t('sports.road_running')}
                 icon={Activity}
-                imageUrl="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?q=80&w=2074&auto=format&fit=crop"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517777586_1243954357521566_3621410186097974538_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_ohc=7L6w1coJ96YQ7kNvwEVHyWx&_nc_oc=AdpLoS71-Vx8kqInZgPDev31MSmBoYc2dh8N8VoM8HqSVyBvw0fC5JylXh7PPwwcks-XLm1gMpcXnm8fGaRnoClB&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=cWPYyWSwyhmO3Ve4bMqgYQ&_nc_ss=7a32e&oh=00_Afy1I0TSntTMDdVoQiPSWyhQ9pZ7A8ciNgJlU7EDlRg-zA&oe=69C4E17A"
                 delay={0.1}
+                className="md:col-span-2"
               />
               <BentoCard
                 title={t('sports.trail_running')}
                 icon={Mountain}
-                imageUrl="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/485159335_1155820153001654_1938730724457588876_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=P9_FnaLitFYQ7kNvwHlu41B&_nc_oc=Adp-Er0ZvuwVBzAKaUT8SIYj0GijxH4NGg5lvb-PrjLdQAFcl8GyHP_pqs1no78d3VO-rjyS00J1IIhSOvovVX0-&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=r-2Tt8FZ2wCTXM4X683ULQ&_nc_ss=7a32e&oh=00_Afy_1RuLvHsLcfKshGp3uGF1rpE3u7Hgqv-vgOI0mnhPdw&oe=69C4E3AB"
                 delay={0.2}
               />
               <BentoCard
                 title={t('sports.vertical_km')}
                 icon={Target}
-                imageUrl="https://images.unsplash.com/photo-1593133917812-78d107386121?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/515670604_1236248098292192_510837140913093732_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=ERYxzvi401kQ7kNvwGM_2Bl&_nc_oc=AdojSDSmT6NYyVgo_s7wFYvNATj8inBwQ9JaG_EOZqkCLJHqC2hHd-lf4wq3JkK-ZGewXC9sKYSZPzgnP6yngewW&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=iyiP7QsuMzM3ifvmo4yZgQ&_nc_ss=7a32e&oh=00_Afx_zjTLETNt-7_8Ui8AqiDZ8hsne0aT-QdSH03WL-wDqQ&oe=69C4D20B"
                 delay={0.3}
               />
               <BentoCard
                 title={t('sports.skyrunning')}
                 icon={ArrowUpRight}
-                imageUrl="https://images.unsplash.com/photo-1541624393906-c1474577af3c?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/510277858_1230731038843898_1160586756874725884_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=osLbrT2WYiQQ7kNvwGdugV_&_nc_oc=AdrR4Zgu6Z39yazK8fn90AgCbDaZm_j4fkd8oka_NecDB_Y-bABfo2rAT35oWTDIMLmW1c618Wngv4XdwivATKC6&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=OYE2Y_lhBM1JepwoxX7hoQ&_nc_ss=7a32e&oh=00_AfxFExCt3JewNI48lUiueF16z4MUPIXkPoiD-XxENXhZQw&oe=69C4D9E1"
                 delay={0.4}
               />
               <BentoCard
                 title={t('sports.track_field')}
                 icon={Footprints}
-                imageUrl="https://images.unsplash.com/photo-1530549387074-d76f964b33c6?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/649290213_1439487161301617_5655099727395803523_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=eACygkDOTs0Q7kNvwFWjhMo&_nc_oc=AdpT-TJG4dcm2IM5vq-NpYvDKoCBm-gXn-7DDzfe2CIRw_WJbHASTBj4S648xGZ1HP4h1-ABiyHdfF8eRcsNsHWE&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=JgKuhD5JM0_XABj8ZLNKCw&_nc_ss=7a32e&oh=00_Afz823wvgXEumZTikjsntonhAW-KDC78Y91yMHuPHOlOsw&oe=69C4D5EC"
                 delay={0.5}
               />
               <BentoCard
                 title={t('sports.handball')}
                 icon={CircleDot}
-                imageUrl="https://images.unsplash.com/photo-1628779238951-be2c9f2a59f4?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/518312337_1247530197163982_3412159863800210848_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=13d280&_nc_ohc=P0ZNf1iZLmsQ7kNvwEH3V3h&_nc_oc=Adrg-UbPIRXcVfohDjcg4RXVq3yZ1ROBlS-2GtIrtCgBwzbfyLNua36NaWGgf87cgKTQBWrqMVHBOCTrC1gCsz61&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=pNOZlqjyp9xfOdE8ibhIsQ&_nc_ss=7a32e&oh=00_AfwZIPqzhGQFtoaCdMBXEZQxDUnOnDtT2oghbaFYa9ZavQ&oe=69C4D3D0"
                 delay={0.6}
               />
               <BentoCard
                 title={t('sports.judo')}
                 icon={ShieldCheck}
-                imageUrl="https://images.unsplash.com/photo-1509838143105-03d15d947ca8?q=80&w=2070&auto=format&fit=crop"
-                className="md:col-span-2"
+                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/555491580_1308130501103951_8891449616780622006_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_ohc=xpgmdzP878QQ7kNvwGqRCtl&_nc_oc=AdpZXSWk7KiCW8K_3r5nPpQIUwNVXwZIEA8mZ6KAyQV79FxhlN2w0wYfUaRJw7J8JbV9zi6pPdFlJ6jpppzd3hzM&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=RlJQhi2lOGz7RGJbsYe7qg&_nc_ss=7a32e&oh=00_Afw8Nv5rABDDlnu75o-3dZasO6hSls7UNaRKrSBQbVSfxQ&oe=69C4E034"
                 delay={0.7}
               />
             </div>
