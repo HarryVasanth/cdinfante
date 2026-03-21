@@ -5,7 +5,8 @@ import {
   ChevronRight, MapPin, Phone,
   Footprints, Mountain, ArrowUpRight,
   Trophy, Activity, Target, LucideIcon,
-  Facebook, Instagram
+  Facebook, Instagram, ShieldCheck,
+  CircleDot
 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 import { clsx, type ClassValue } from 'clsx';
@@ -202,14 +203,14 @@ export default function App() {
 
       {/* Navbar */}
       <nav className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6",
-        scrolled ? "mt-4" : "mt-0"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6",
+        scrolled ? "mt-6" : "mt-0"
       )}>
         <div className={cn(
-          "max-w-7xl mx-auto transition-all duration-700",
+          "max-w-7xl mx-auto transition-all duration-500",
           scrolled
             ? "bg-white/80 dark:bg-black/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 py-3 px-8 rounded-full shadow-2xl"
-            : "bg-transparent py-8 px-0"
+            : "bg-transparent border-transparent py-8 px-0"
         )}>
           <div className="flex items-center justify-between">
             <Logo />
@@ -337,20 +338,25 @@ export default function App() {
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2"
-          >
-            <div className="w-7 h-12 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1.5 backdrop-blur-sm">
+          <AnimatePresence>
+            {!scrolled && (
               <motion.div
-                animate={{ y: [0, 16, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1.5 h-1.5 bg-brand-red rounded-full"
-              />
-            </div>
-          </motion.div>
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.8 }}
+                className="absolute bottom-16 left-1/2 -translate-x-1/2"
+              >
+                <div className="w-7 h-12 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1.5 backdrop-blur-sm shadow-sm">
+                  <motion.div
+                    animate={{ y: [0, 16, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-1.5 h-1.5 bg-brand-red rounded-full"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
 
         {/* About Section */}
@@ -371,13 +377,13 @@ export default function App() {
                   <p>{t('about.subtitle')}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-10">
-                  <div className="p-8 rounded-[2.5rem] bg-white dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-sm">
-                    <div className="text-5xl font-black text-brand-red mb-2 tracking-tighter">40+</div>
-                    <div className="text-xs font-bold text-brand-navy/40 dark:text-slate-500 uppercase tracking-widest">{t('about.years_label')}</div>
+                  <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
+                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">40+</div>
+                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">{t('about.years_label')}</div>
                   </div>
-                  <div className="p-8 rounded-[2.5rem] bg-white dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-sm">
-                    <div className="text-5xl font-black text-brand-red mb-2 tracking-tighter">500+</div>
-                    <div className="text-xs font-bold text-brand-navy/40 dark:text-slate-500 uppercase tracking-widest">{t('about.members_label')}</div>
+                  <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
+                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">500+</div>
+                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">{t('about.members_label')}</div>
                   </div>
                 </div>
               </motion.div>
@@ -423,31 +429,29 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <BentoCard
                 title={t('sports.road_running')}
                 icon={Activity}
-                imageUrl="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=2070&auto=format&fit=crop"
-                className="md:col-span-2"
+                imageUrl="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?q=80&w=2074&auto=format&fit=crop"
                 delay={0.1}
               />
               <BentoCard
                 title={t('sports.trail_running')}
                 icon={Mountain}
-                imageUrl="https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop"
                 delay={0.2}
               />
               <BentoCard
                 title={t('sports.vertical_km')}
                 icon={Target}
-                imageUrl="https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80&w=2070&auto=format&fit=crop"
+                imageUrl="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop"
                 delay={0.3}
               />
               <BentoCard
                 title={t('sports.skyrunning')}
                 icon={ArrowUpRight}
                 imageUrl="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
-                className="md:col-span-2"
                 delay={0.4}
               />
               <BentoCard
@@ -458,10 +462,16 @@ export default function App() {
               />
               <BentoCard
                 title={t('sports.handball')}
-                icon={Trophy}
-                imageUrl="https://images.unsplash.com/photo-1511067007398-7e4b90cfa4bc?q=80&w=2069&auto=format&fit=crop"
-                className="md:col-span-3"
+                icon={CircleDot}
+                imageUrl="https://images.unsplash.com/photo-1628779238951-be2c9f2a59f4?q=80&w=1974&auto=format&fit=crop"
                 delay={0.6}
+              />
+              <BentoCard
+                title={t('sports.judo')}
+                icon={ShieldCheck}
+                imageUrl="https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=2072&auto=format&fit=crop"
+                className="md:col-span-2"
+                delay={0.7}
               />
             </div>
           </div>
@@ -513,7 +523,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl">
+                <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl ring-1 ring-white/10">
                   <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                     <div className="grid grid-cols-1 gap-8">
                       <div className="space-y-3">
