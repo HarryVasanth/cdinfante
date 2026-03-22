@@ -1,6 +1,17 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * Clube Desportivo Infante Dom Henrique - Official Website
+ *
+ * Features:
+ * - Multilingual support (PT/EN) using i18next
+ * - Responsive design with Tailwind CSS
+ * - Interactive UI with Framer Motion (Spotlight, Bento Cards)
+ * - Dark/Light theme toggle
+ */
+
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  // Navigation & UI Icons
   Menu,
   X,
   Globe,
@@ -9,17 +20,22 @@ import {
   ChevronRight,
   MapPin,
   Phone,
+
+  // Sports & Brand Icons
   Footprints,
   Mountain,
   ArrowUpRight,
-  Trophy,
   Activity,
   Target,
-  LucideIcon,
-  Facebook,
-  Instagram,
   ShieldCheck,
   CircleDot,
+
+  // Social Icons
+  Facebook,
+  Instagram,
+
+  // Types
+  type LucideIcon,
 } from 'lucide-react';
 import {
   motion,
@@ -113,6 +129,10 @@ const Logo = () => {
 
 /**
  * Navigation Link Component
+ *
+ * @param href - Target anchor or URL
+ * @param children - Link text or element
+ * @param onClick - Optional click handler for mobile menu closing
  */
 const NavItem = ({
   href,
@@ -126,7 +146,7 @@ const NavItem = ({
   <a
     href={href}
     onClick={onClick}
-    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide"
+    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
   >
     {children}
   </a>
@@ -134,7 +154,14 @@ const NavItem = ({
 
 /**
  * Bento Grid Card Component
- * Implements Glassmorphism with dynamic edge-lighting and hover effects.
+ *
+ * Implements premium Glassmorphism with dynamic edge-lighting and hover effects.
+ *
+ * @param title - Sports discipline name
+ * @param icon - Lucide icon component
+ * @param imageUrl - Background image URL
+ * @param className - Optional additional Tailwind classes
+ * @param delay - Animation delay for staggered reveal
  */
 const BentoCard = ({
   title,
@@ -225,14 +252,21 @@ export default function App() {
   const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Handle Scroll state for Navbar
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+  /**
+   * Updates scroll state to trigger navbar transitions
+   */
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 20);
   }, []);
 
-  // Theme Management
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  /**
+   * Manages Dark Mode class on the document element
+   */
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -241,8 +275,13 @@ export default function App() {
     }
   }, [isDark]);
 
+  /**
+   * Toggles between Portuguese and English
+   */
   const toggleLanguage = () => {
-    i18n.changeLanguage(i18n.language === 'pt' ? 'en' : 'pt');
+    const nextLang = i18n.language === 'pt' ? 'en' : 'pt';
+    i18n.changeLanguage(nextLang);
+    document.documentElement.lang = nextLang;
   };
 
   const navLinks = [
@@ -677,7 +716,10 @@ export default function App() {
                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                       />
                     </div>
-                    <button className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest">
+                    <button
+                      type="submit"
+                      className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest cursor-pointer focus-visible:ring-4 focus-visible:ring-brand-red/40"
+                    >
                       {t('contact.form.send')}
                     </button>
                   </form>

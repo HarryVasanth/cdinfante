@@ -1,0 +1,21 @@
+{
+  "name": "Clube Desportivo Infante Dom Henrique",
+  "short_name": "CDI-M",
+  "description": "A premier sports association in Funchal, Madeira, dedicated to athletics, running, and handball.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#001e40",
+  "theme_color": "#001e40",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
