@@ -12,19 +12,19 @@ permissions: write-all
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: "🚀 Deploy React + Vite app to GitHub Pages"
+    name: '🚀 Deploy React + Vite app to GitHub Pages'
     steps:
-      - name: "🐧 Checkout code"
+      - name: '🐧 Checkout code'
         uses: actions/checkout@v6
-      - name: "⚙️ Set up Node.js"
+      - name: '⚙️ Set up Node.js'
         uses: actions/setup-node@v6
         with:
-          node-version: "24"
-      - name: "📦 Install dependencies"
+          node-version: '24'
+      - name: '📦 Install dependencies'
         run: npm install
-      - name: "🏗️ Build the app"
+      - name: '🏗️ Build the app'
         run: npm run build
-      - name: "🚀 Deploy to GitHub Pages"
+      - name: '🚀 Deploy to GitHub Pages'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

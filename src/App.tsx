@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Menu, X, Globe, Moon, Sun,
-  ChevronRight, MapPin, Phone,
-  Footprints, Mountain, ArrowUpRight,
-  Trophy, Activity, Target, LucideIcon,
-  Facebook, Instagram, ShieldCheck,
-  CircleDot
+  Menu,
+  X,
+  Globe,
+  Moon,
+  Sun,
+  ChevronRight,
+  MapPin,
+  Phone,
+  Footprints,
+  Mountain,
+  ArrowUpRight,
+  Trophy,
+  Activity,
+  Target,
+  LucideIcon,
+  Facebook,
+  Instagram,
+  ShieldCheck,
+  CircleDot,
 } from 'lucide-react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
+} from 'framer-motion';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -95,7 +114,15 @@ const Logo = () => {
 /**
  * Navigation Link Component
  */
-const NavItem = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => (
+const NavItem = ({
+  href,
+  children,
+  onClick,
+}: {
+  href: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+}) => (
   <a
     href={href}
     onClick={onClick}
@@ -114,7 +141,7 @@ const BentoCard = ({
   icon: Icon,
   imageUrl,
   className,
-  delay = 0
+  delay = 0,
 }: {
   title: string;
   icon: LucideIcon;
@@ -126,7 +153,11 @@ const BentoCard = ({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: React.MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -136,13 +167,13 @@ const BentoCard = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       onMouseMove={handleMouseMove}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between",
-        "before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/40 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/10 dark:before:to-transparent",
-        className
+        'group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between',
+        'before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/40 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/10 dark:before:to-transparent',
+        className,
       )}
     >
       <motion.div
@@ -173,7 +204,9 @@ const BentoCard = ({
           <Icon size={24} />
         </div>
         <div>
-          <h3 className="text-2xl font-black text-brand-navy dark:text-white mb-2 tracking-tight transition-colors">{title}</h3>
+          <h3 className="text-2xl font-black text-brand-navy dark:text-white mb-2 tracking-tight transition-colors">
+            {title}
+          </h3>
           <div className="flex items-center text-brand-red font-bold text-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
             {t('sports.learn_more')} <ChevronRight size={16} className="ml-1" />
           </div>
@@ -224,23 +257,29 @@ export default function App() {
       <Spotlight />
 
       {/* Navbar */}
-      <nav className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6",
-        scrolled ? "mt-6" : "mt-0"
-      )}>
-        <div className={cn(
-          "max-w-7xl mx-auto transition-all duration-500",
-          scrolled
-            ? "bg-white/80 dark:bg-black/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 py-3 px-8 rounded-full shadow-2xl"
-            : "bg-transparent border-transparent py-8 px-0"
-        )}>
+      <nav
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6',
+          scrolled ? 'mt-6' : 'mt-0',
+        )}
+      >
+        <div
+          className={cn(
+            'max-w-7xl mx-auto transition-all duration-500',
+            scrolled
+              ? 'bg-white/80 dark:bg-black/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 py-3 px-8 rounded-full shadow-2xl'
+              : 'bg-transparent border-transparent py-8 px-0',
+          )}
+        >
           <div className="flex items-center justify-between">
             <Logo />
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-10">
               {navLinks.map((link) => (
-                <NavItem key={link.name} href={link.href}>{link.name}</NavItem>
+                <NavItem key={link.name} href={link.href}>
+                  {link.name}
+                </NavItem>
               ))}
             </div>
 
@@ -305,10 +344,14 @@ export default function App() {
               ))}
               <div className="h-px bg-slate-100 dark:bg-white/10 my-4" />
               <button
-                onClick={() => { toggleLanguage(); setIsMenuOpen(false); }}
+                onClick={() => {
+                  toggleLanguage();
+                  setIsMenuOpen(false);
+                }}
                 className="flex items-center justify-center gap-3 text-brand-navy/70 dark:text-slate-400 font-bold text-lg"
               >
-                <Globe size={24} /> {i18n.language === 'pt' ? 'English' : 'Português'}
+                <Globe size={24} />{' '}
+                {i18n.language === 'pt' ? 'English' : 'Português'}
               </button>
             </div>
           </motion.div>
@@ -346,12 +389,27 @@ export default function App() {
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById('contact')
+                      ?.scrollIntoView({ behavior: 'smooth' })
+                  }
+                  className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2"
+                >
                   {t('hero.cta')}
-                  <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+
+                  <ChevronRight
+                    size={20}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
                 </button>
                 <button
-                  onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() =>
+                    document
+                      .getElementById('about')
+                      ?.scrollIntoView({ behavior: 'smooth' })
+                  }
                   className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm"
                 >
                   {t('nav.about')}
@@ -372,7 +430,11 @@ export default function App() {
                 <div className="w-6 h-10 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm shadow-sm">
                   <motion.div
                     animate={{ y: [0, 16, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
                     className="w-1.5 h-1.5 bg-brand-red rounded-full"
                   />
                 </div>
@@ -389,7 +451,7 @@ export default function App() {
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
               >
                 <h2 className="text-5xl md:text-7xl font-black text-brand-navy dark:text-white mb-10 tracking-tight leading-tight">
                   {t('about.title')}
@@ -400,12 +462,20 @@ export default function App() {
                 </div>
                 <div className="grid grid-cols-2 gap-10">
                   <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
-                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">{t('about.years_count')}</div>
-                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">{t('about.years_label')}</div>
+                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">
+                      {t('about.years_count')}
+                    </div>
+                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">
+                      {t('about.years_label')}
+                    </div>
                   </div>
                   <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
-                    <div className="text-5xl sm:text-6xl font-black text-brand-red mb-2 tracking-tighter">{t('about.members_count')}</div>
-                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">{t('about.members_label')}</div>
+                    <div className="text-5xl sm:text-6xl font-black text-brand-red mb-2 tracking-tighter">
+                      {t('about.members_count')}
+                    </div>
+                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">
+                      {t('about.members_label')}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -423,8 +493,12 @@ export default function App() {
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute bottom-8 left-8 right-8 z-20 p-8 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 text-white shadow-2xl">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-2">{t('about.since')}</p>
-                  <p className="text-2xl font-black tracking-tight">{t('about.promotion')}</p>
+                  <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-2">
+                    {t('about.since')}
+                  </p>
+                  <p className="text-2xl font-black tracking-tight">
+                    {t('about.promotion')}
+                  </p>
                 </div>
               </motion.div>
             </div>
@@ -436,7 +510,9 @@ export default function App() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
               <div className="max-w-2xl">
-                <span className="text-brand-red font-bold uppercase tracking-[0.3em] text-xs mb-4 block">{t('nav.sports')}</span>
+                <span className="text-brand-red font-bold uppercase tracking-[0.3em] text-xs mb-4 block">
+                  {t('nav.sports')}
+                </span>
                 <h2 className="text-5xl md:text-7xl font-[900] text-brand-navy dark:text-white mb-6 tracking-tight">
                   {t('sports.title')}
                 </h2>
@@ -508,7 +584,9 @@ export default function App() {
 
               <div className="grid lg:grid-cols-2 gap-24 relative z-10">
                 <div>
-                  <h2 className="text-6xl font-black text-white mb-10 tracking-tight">{t('contact.title')}</h2>
+                  <h2 className="text-6xl font-black text-white mb-10 tracking-tight">
+                    {t('contact.title')}
+                  </h2>
 
                   <div className="space-y-10 mb-16">
                     <div className="flex gap-8 items-start group">
@@ -516,8 +594,12 @@ export default function App() {
                         <MapPin size={28} />
                       </div>
                       <div>
-                        <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">{t('contact.address_label')}</div>
-                        <div className="text-white text-xl font-bold leading-relaxed whitespace-pre-line">{t('contact.address')}</div>
+                        <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
+                          {t('contact.address_label')}
+                        </div>
+                        <div className="text-white text-xl font-bold leading-relaxed whitespace-pre-line">
+                          {t('contact.address')}
+                        </div>
                       </div>
                     </div>
 
@@ -526,18 +608,34 @@ export default function App() {
                         <Phone size={28} />
                       </div>
                       <div>
-                        <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">{t('contact.phone_label')}</div>
-                        <div className="text-white text-xl font-bold">{t('contact.phone_value')}</div>
+                        <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
+                          {t('contact.phone_label')}
+                        </div>
+                        <div className="text-white text-xl font-bold">
+                          {t('contact.phone_value')}
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer" onClick={() => window.open('https://maps.app.goo.gl/3cU7eBi1goi7NWax7', '_blank')}>
+                  <div
+                    className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer"
+                    onClick={() =>
+                      window.open(
+                        'https://maps.app.goo.gl/3cU7eBi1goi7NWax7',
+                        '_blank',
+                      )
+                    }
+                  >
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.4057142371284!2d-16.9032822!3d32.675255299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6061ab187bf7d1%3A0xc3243053e116fb0b!2sClube%20Desportivo%20Infante%20Dom%20Henrique!5e0!3m2!1sen!2spt!4v1774133527004!5m2!1sen!2spt"
                       width="100%"
                       height="300"
-                      style={{ border: 0, borderRadius: '2rem', pointerEvents: 'none' }}
+                      style={{
+                        border: 0,
+                        borderRadius: '2rem',
+                        pointerEvents: 'none',
+                      }}
                       allowFullScreen
                       loading="lazy"
                       className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100"
@@ -546,20 +644,38 @@ export default function App() {
                 </div>
 
                 <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl ring-1 ring-white/10">
-                  <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                  <form
+                    className="space-y-8"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
                     <div className="grid grid-cols-1 gap-8">
                       <div className="space-y-3">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{t('contact.form.name')}</label>
-                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300" />
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                          {t('contact.form.name')}
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                        />
                       </div>
                       <div className="space-y-3">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{t('contact.form.email')}</label>
-                        <input type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300" />
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                          {t('contact.form.email')}
+                        </label>
+                        <input
+                          type="email"
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                        />
                       </div>
                     </div>
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{t('contact.form.message')}</label>
-                      <textarea rows={5} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300" />
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                        {t('contact.form.message')}
+                      </label>
+                      <textarea
+                        rows={5}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                      />
                     </div>
                     <button className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest">
                       {t('contact.form.send')}
@@ -578,25 +694,41 @@ export default function App() {
           <Logo />
 
           <div className="flex gap-6 mt-10">
-            <a href="https://www.facebook.com/CDInfante" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm">
+            <a
+              href="https://www.facebook.com/CDInfante"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm"
+            >
               <Facebook size={20} />
             </a>
-            <a href="https://www.instagram.com/cdinfante_atletismo/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm">
+            <a
+              href="https://www.instagram.com/cdinfante_atletismo/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm"
+            >
               <Instagram size={20} />
             </a>
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mt-12 mb-12">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="text-sm font-bold text-brand-navy/50 dark:text-slate-500 hover:text-brand-red transition-colors uppercase tracking-widest">
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm font-bold text-brand-navy/50 dark:text-slate-500 hover:text-brand-red transition-colors uppercase tracking-widest"
+              >
                 {link.name}
               </a>
             ))}
           </div>
           <div className="w-20 h-1 bg-brand-red/20 rounded-full mb-12" />
           <p className="text-brand-navy/40 dark:text-slate-500 text-xs font-bold uppercase tracking-[0.3em] text-center leading-relaxed">
-            © {new Date().getFullYear()} Clube Desportivo Infante Dom Henrique <br className="md:hidden" />
-            <span className="hidden md:inline mx-2">•</span> {t('footer.rights')}
+            © {new Date().getFullYear()} Clube Desportivo Infante Dom Henrique{' '}
+            <br className="md:hidden" />
+            <span className="hidden md:inline mx-2">•</span>{' '}
+            {t('footer.rights')}
           </p>
         </div>
       </footer>
