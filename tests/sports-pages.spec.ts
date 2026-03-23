@@ -11,7 +11,7 @@ test('verify sports pages and navigation', async ({ page }) => {
   await handballCard.click();
 
   // Should be on sports page
-  await expect(page).toHaveURL(/#\/sports\/handball/);
+  await expect(page).toHaveURL(/\/sports\/handball/);
 
   // Verify sport name is visible
   await expect(page.locator('h1')).toContainText('Andebol');
@@ -22,12 +22,12 @@ test('verify sports pages and navigation', async ({ page }) => {
 
   // Go back home
   await page.click('text=Voltar ao Início');
-  await expect(page).toHaveURL(/#\/$/);
+  await expect(page).toHaveURL(/\/$/);
 
   // Try another sport (Road Running)
   const roadRunningCard = page.locator('h3:has-text("Corrida de Estrada")');
   await roadRunningCard.click();
-  await expect(page).toHaveURL(/#\/sports\/road-running/);
+  await expect(page).toHaveURL(/\/sports\/road-running/);
   await expect(page.locator('h1')).toContainText('Corrida de Estrada');
 
   // Verify multiple posts exist in the sidebar
