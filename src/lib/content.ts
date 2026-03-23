@@ -25,10 +25,10 @@ interface FrontMatterAttributes {
 
 /**
  * Uses Vite's glob import to automatically discover all Markdown files in the
- * src/content/sports directory. This ensures new posts are picked up without
+ * src/content directory. This ensures new posts are picked up without
  * manual registration in a JSON manifest.
  */
-const allPosts = import.meta.glob('../content/sports/**/*.md', {
+const allPosts = import.meta.glob('../content/**/*.md', {
   query: '?raw',
   import: 'default',
 });
@@ -36,13 +36,22 @@ const allPosts = import.meta.glob('../content/sports/**/*.md', {
 /**
  * Fetches and parses a specific post's markdown content.
  *
- * @param sport - The directory name of the sport (e.g., 'handball').
+ * @param category - The directory name of the category (e.g., 'sports/handball' or 'others').
  * @param slug - The filename of the post without the .md extension.
  * @returns A Post object.
  */
-export async function getPost(sport: string, slug: string): Promise<Post> {
-  const path = `../content/sports/${sport}/${slug}.md`;
-  const fetcher = allPosts[path];
+export async function getPost(category: string, slug: string): Promise<Post> {
+  const path = category.includes('/')
+    ? `../content/${category}/${slug}.md`
+    : `../content/sports/${category}/${slug}.md`;
+
+  let fetcher = allPosts[path];
+
+  // Fallback for when category is not 'sports/...' but just 'others'
+  if (!fetcher && !category.includes('/')) {
+    const alternativePath = `../content/${category}/${slug}.md`;
+    fetcher = allPosts[alternativePath];
+  }
 
   if (!fetcher) {
     throw new Error(`Post not found: ${path}`);
@@ -54,7 +63,7 @@ export async function getPost(sport: string, slug: string): Promise<Post> {
 
   return {
     slug,
-    sport,
+    sport: category.split('/').pop() || category,
     ...(attributes as FrontMatterAttributes),
     content: body as string,
   };
@@ -68,14 +77,17 @@ export async function getPost(sport: string, slug: string): Promise<Post> {
  */
 export async function getSportPosts(sport: string): Promise<Post[]> {
   try {
-    const sportPrefix = `../content/sports/${sport}/`;
+    const sportPrefix = sport === 'others'
+      ? `../content/others/`
+      : `../content/sports/${sport}/`;
+
     const sportPosts = Object.keys(allPosts).filter((path) =>
       path.startsWith(sportPrefix),
     );
 
     const postPromises = sportPosts.map(async (path) => {
       const slug = path.split('/').pop()?.replace('.md', '') || '';
-      return getPost(sport, slug);
+      return getPost(sport === 'others' ? 'others' : sport, slug);
     });
 
     const results = await Promise.all(postPromises);
