@@ -7,9 +7,10 @@ import {
 } from 'framer-motion';
 
 /**
- * Interactive Spotlight Component
- * Provides a mouse-tracking radial gradient glow.
- * Uses Framer Motion springs for fluid, high-performance movement.
+ * Premium mouse-tracking spotlight effect.
+ * Uses Framer Motion springs to provide fluid, lag-free movement.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
  */
 export const Spotlight = () => {
   const mouseX = useMotionValue(0);
@@ -19,7 +20,14 @@ export const Spotlight = () => {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  const background = useMotionTemplate`radial-gradient(600px at ${smoothX}px ${smoothY}px, rgba(182, 23, 30, 0.08), transparent 80%)`;
+  const background = useMotionTemplate`
+    radial-gradient(
+      800px circle at ${smoothX}px ${smoothY}px,
+      rgba(182, 23, 30, 0.08) 0%,
+      rgba(0, 30, 64, 0.03) 40%,
+      transparent 80%
+    )
+  `;
 
   const [opacity, setOpacity] = useState(0);
 
