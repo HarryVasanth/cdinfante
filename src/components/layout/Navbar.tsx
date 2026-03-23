@@ -34,7 +34,7 @@ const NavItem = ({
   if (isHash) {
     return (
       <Link
-        to={`/${href}`}
+        to={href === '#' ? '/' : `/${href}`}
         onClick={() => {
           if (onClick) onClick();
         }}
@@ -165,7 +165,7 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
-                  to={`/${link.href}`}
+                  to={link.href === '#' ? '/' : `/${link.href}`}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-3xl font-black text-brand-navy dark:text-white"
                 >
