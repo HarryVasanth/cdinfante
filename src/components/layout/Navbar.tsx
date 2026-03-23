@@ -35,7 +35,20 @@ const NavItem = ({
     return (
       <Link
         to={href === '#' ? '/' : `/${href}`}
-        onClick={() => {
+        onClick={(e) => {
+          // If we are already on the home page, just scroll
+          if (window.location.pathname === '/') {
+            e.preventDefault();
+            const id = href.replace('#', '');
+            const element = id ? document.getElementById(id) : null;
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            } else if (!id) {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            // Update hash without triggering reload
+            window.history.pushState(null, '', href === '#' ? '/' : `/${href}`);
+          }
           if (onClick) onClick();
         }}
         className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
@@ -106,7 +119,9 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             <ul className="hidden md:flex items-center gap-10">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <NavItem href={link.href}>{link.name}</NavItem>
+                  <NavItem href={link.href}>
+                    {link.name}
+                  </NavItem>
                 </li>
               ))}
             </ul>
@@ -164,7 +179,22 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
                 <Link
                   key={link.name}
                   to={link.href === '#' ? '/' : `/${link.href}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      const id = link.href.replace('#', '');
+                      const element = id ? document.getElementById(id) : null;
+                      if (element || !id) {
+                        e.preventDefault();
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                        window.history.pushState(null, '', link.href === '#' ? '/' : `/${link.href}`);
+                      }
+                    }
+                    setIsMenuOpen(false);
+                  }}
                   className="text-3xl font-black text-brand-navy dark:text-white"
                 >
                   {link.name}
