@@ -41,8 +41,6 @@ images:
   - 'https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/572950954_26047938131462668_7637579457993483730_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=dd6889&_nc_ohc=PpZxtTSHDJQQ7kNvwFJd0Em&_nc_oc=Adqn8VfgLINA4TodnWA7QM327oOvXvKXlWKY37lI0_dDp27lioW6ZG15bn8P1th2z3CFEl5TncbbTarv3u1--6dj&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=DlgXEPSx7iP19WvFOg6q5g&_nc_ss=7a32e&oh=00_AfxwkCQ5LCKcROxCYEiPPYi804l4WfkELkwzpUTAZKleUw&oe=69C70EEF'
 
   - 'https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/572767655_26047934641463017_5848341432944158172_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=dd6889&_nc_ohc=_AgdUcaYWRoQ7kNvwELEV_Z&_nc_oc=AdrvwZI45m4GNhVeb1Pgg3PF8FVt46rCgENEjXMqS0Tb5mQcqNxHPZGvfEJpoAKfMlypWqDo7rUiLHE2001kIrBK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=V6NYfsQbvfLUEr_Y0bWtGg&_nc_ss=7a32e&oh=00_Afw9iIKEReNIT5Njl_gjmRBrEY_NTz7rKL4MNmpDVQKZPQ&oe=69C70EC7'
-
-
 ---
 
 O Clube Desportivo Infante organizou um agradável convívio e almoço na Fazenda Sá, onde também se celebraram os aniversários dos atletas Carla Patrícia Jardim Pombo e Simão Mendonça. A Fazenda tem conquistado cada vez mais visitantes e curiosos pelo seu café e pelos produtos regionais, refletindo a harmonia entre a natureza, os animais e a dedicação de quem lá trabalha.
