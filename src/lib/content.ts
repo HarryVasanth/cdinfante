@@ -77,9 +77,8 @@ export async function getPost(category: string, slug: string): Promise<Post> {
  */
 export async function getSportPosts(sport: string): Promise<Post[]> {
   try {
-    const sportPrefix = sport === 'others'
-      ? `../content/others/`
-      : `../content/sports/${sport}/`;
+    const sportPrefix =
+      sport === 'others' ? `../content/others/` : `../content/sports/${sport}/`;
 
     const sportPosts = Object.keys(allPosts).filter((path) =>
       path.startsWith(sportPrefix),
