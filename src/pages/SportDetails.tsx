@@ -128,7 +128,7 @@ const SportDetails: React.FC = () => {
       try {
         await navigator.share({
           title: post.title,
-          text: post.description,
+          text: post.title,
           url: url,
         });
       } catch (err) {
