@@ -37,6 +37,7 @@ import {
   Target,
   ShieldCheck,
   CircleDot,
+  LayoutGrid,
 
   // Social Icons
   Facebook,
@@ -693,6 +694,14 @@ function MainContent() {
                       delay={0.7}
                       slug="judo"
                     />
+                    <BentoCard
+                      title={t('sports.others')}
+                      icon={LayoutGrid}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/470481023_1117604636823206_4513685651347012395_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Y8o9Z-729QQ7kNvwGeW9vY&_nc_oc=AdoK8T0J4y6Q-n5hX_G9kK9vG7G9V-X-v-R6zJ_I-Z9X-7Y8t-I-X-I-X-I-X-I-X&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=A_X_I_X_I_X_I_X_I_X_I_X&_nc_ss=7a32e&oh=00_AY_I_X_I_X_I_X_I_X_I_X&oe=69C4D5EC"
+                      delay={0.8}
+                      className="md:col-span-2"
+                      slug="others"
+                    />
                   </div>
                 </div>
               </section>
@@ -760,6 +769,7 @@ function MainContent() {
                             }}
                             allowFullScreen
                             loading="lazy"
+                              title="Google Maps"
                             className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100"
                           />
                         </div>
