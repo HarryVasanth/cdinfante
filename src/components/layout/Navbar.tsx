@@ -95,7 +95,7 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
           className={cn(
             'max-w-7xl mx-auto transition-all duration-500',
             scrolled
-              ? 'bg-white/80 dark:bg-black/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 py-3 px-8 rounded-full shadow-2xl'
+              ? 'bg-white/70 dark:bg-black/60 backdrop-blur-2xl border border-white/30 dark:border-white/10 py-3 px-8 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
               : 'bg-transparent border-transparent py-8 px-0',
           )}
         >
@@ -106,7 +106,9 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             <ul className="hidden md:flex items-center gap-10">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <NavItem href={link.href}>{link.name}</NavItem>
+                  <NavItem href={link.href}>
+                    {link.name}
+                  </NavItem>
                 </li>
               ))}
             </ul>

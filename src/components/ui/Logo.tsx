@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 /**
- * Modern Branding Logo
+ * Official Branding Logo.
+ * Features a glowing background effect on hover.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
  */
 export const Logo = () => {
   const { t } = useTranslation();

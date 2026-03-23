@@ -206,14 +206,16 @@ const SportDetails: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
                     {featuredPost.image && (
                       <div
-                        className="aspect-video w-full overflow-hidden cursor-zoom-in"
+                        className="aspect-video w-full overflow-hidden cursor-zoom-in group/image relative"
                         onClick={() => setSelectedImageIndex(0)}
                       >
                         <img
                           src={featuredPost.image}
                           alt={featuredPost.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                          className="w-full h-full object-cover transition-all duration-700 group-hover/image:scale-105"
                         />
+                        <div className="absolute inset-0 bg-white/0 dark:bg-black/0 group-hover/image:bg-white/10 dark:group-hover/image:bg-white/5 backdrop-blur-[0px] group-hover/image:backdrop-blur-[2px] transition-all duration-700" />
+                        <div className="absolute inset-0 border-[0px] group-hover/image:border-[1px] border-white/20 transition-all duration-500 rounded-[2.5rem]" />
                       </div>
                     )}
                     <div className="p-8 md:p-12">
@@ -266,13 +268,14 @@ const SportDetails: React.FC = () => {
                                       setSelectedImageIndex(index);
                                     }
                                   }}
-                                  className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-zoom-in"
+                                  className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-zoom-in group/gallery relative"
                                 >
                                   <img
                                     src={img}
                                     alt=""
-                                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                                    className="w-full h-full object-cover transition-all duration-700 group-hover/gallery:scale-110"
                                   />
+                                  <div className="absolute inset-0 bg-white/0 dark:bg-black/0 group-hover/gallery:bg-white/10 dark:group-hover/gallery:bg-white/5 backdrop-blur-[0px] group-hover/gallery:backdrop-blur-[2px] transition-all duration-700" />
                                 </div>
                               ))}
                             </div>

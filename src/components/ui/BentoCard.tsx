@@ -6,15 +6,10 @@ import { ChevronRight, type LucideIcon } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 /**
- * Bento Grid Card Component
+ * Interactive Bento Card with premium glassmorphism.
+ * Features dynamic edge-lighting and high-performance hover effects.
  *
- * Implements premium Glassmorphism with dynamic edge-lighting and hover effects.
- *
- * @param title - Sports discipline name
- * @param icon - Lucide icon component
- * @param imageUrl - Background image URL
- * @param className - Optional additional Tailwind classes
- * @param delay - Animation delay for staggered reveal
+ * @author Harry Vasanth (harryvasanth.com)
  */
 export const BentoCard = ({
   title,
@@ -55,8 +50,8 @@ export const BentoCard = ({
       onClick={() => navigate(`/sports/${slug}`)}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        'group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between cursor-pointer',
-        'before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/40 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/10 dark:before:to-transparent',
+        'group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/70 dark:bg-white/[0.03] backdrop-blur-2xl border border-white/30 dark:border-white/[0.1] shadow-xl hover:shadow-[0_32px_64px_-16px_rgba(182,23,30,0.1)] transition-all duration-700 min-h-[260px] flex flex-col justify-between cursor-pointer',
+        'before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/50 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/20 dark:before:to-transparent',
         className,
       )}
     >
@@ -77,9 +72,9 @@ export const BentoCard = ({
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 dark:opacity-30 grayscale group-hover:grayscale-0"
+            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 opacity-80 dark:opacity-40 group-hover:opacity-100 dark:group-hover:opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent dark:from-brand-navy dark:via-brand-navy/60 dark:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-black dark:via-black/60 dark:to-transparent" />
         </div>
       )}
 

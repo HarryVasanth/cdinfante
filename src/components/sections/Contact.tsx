@@ -8,7 +8,7 @@ export const Contact = () => {
   return (
     <section id="contact" className="py-32 px-6 bg-transparent">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/10 transition-colors duration-700">
+        <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/[0.08] transition-colors duration-700">
           <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/20 blur-[120px] rounded-full" />
           <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-brand-navy/20 blur-[120px] rounded-full" />
 
@@ -48,15 +48,7 @@ export const Contact = () => {
                 </div>
               </div>
 
-              <div
-                className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer"
-                onClick={() =>
-                  window.open(
-                    'https://maps.app.goo.gl/3cU7eBi1goi7NWax7',
-                    '_blank',
-                  )
-                }
-              >
+              <div className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.4057142371284!2d-16.9032822!3d32.675255299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6061ab187bf7d1%3A0xc3243053e116fb0b!2sClube%20Desportivo%20Infante%20Dom%20Henrique!5e0!3m2!1sen!2spt!4v1774133527004!5m2!1sen!2spt"
                   width="100%"
@@ -64,7 +56,6 @@ export const Contact = () => {
                   style={{
                     border: 0,
                     borderRadius: '2rem',
-                    pointerEvents: 'none',
                   }}
                   allowFullScreen
                   loading="lazy"
@@ -74,8 +65,11 @@ export const Contact = () => {
               </div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl ring-1 ring-white/10">
-              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+            <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/[0.08] shadow-2xl ring-1 ring-white/10">
+              <form
+                className="space-y-8"
+                onSubmit={(e) => e.preventDefault()}
+              >
                 <div className="grid grid-cols-1 gap-8">
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
