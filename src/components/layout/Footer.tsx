@@ -53,8 +53,7 @@ export const Footer = () => {
         <p className="text-brand-navy/40 dark:text-slate-500 text-xs font-bold uppercase tracking-[0.3em] text-center leading-relaxed">
           © {new Date().getFullYear()} Clube Desportivo Infante Dom Henrique{' '}
           <br className="md:hidden" />
-          <span className="hidden md:inline mx-2">•</span>{' '}
-          {t('footer.rights')}
+          <span className="hidden md:inline mx-2">•</span> {t('footer.rights')}
         </p>
       </div>
     </footer>

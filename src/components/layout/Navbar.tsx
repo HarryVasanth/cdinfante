@@ -119,9 +119,7 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             <ul className="hidden md:flex items-center gap-10">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <NavItem href={link.href}>
-                    {link.name}
-                  </NavItem>
+                  <NavItem href={link.href}>{link.name}</NavItem>
                 </li>
               ))}
             </ul>
@@ -190,7 +188,11 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
                         } else {
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
-                        window.history.pushState(null, '', link.href === '#' ? '/' : `/${link.href}`);
+                        window.history.pushState(
+                          null,
+                          '',
+                          link.href === '#' ? '/' : `/${link.href}`,
+                        );
                       }
                     }
                     setIsMenuOpen(false);

@@ -66,10 +66,7 @@ export const Contact = () => {
             </div>
 
             <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/[0.08] shadow-2xl ring-1 ring-white/10">
-              <form
-                className="space-y-8"
-                onSubmit={(e) => e.preventDefault()}
-              >
+              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                 <div className="grid grid-cols-1 gap-8">
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
