@@ -81,7 +81,7 @@ const SportDetails: React.FC = () => {
   // All images for the lightbox (header + gallery), deduplicated
   const allImages = useMemo(() => {
     if (!featuredPost) return [];
-    const images = [];
+    const images: string[] = [];
     if (featuredPost.image) {
       images.push(featuredPost.image);
     }
@@ -147,7 +147,7 @@ const SportDetails: React.FC = () => {
 
   // Get sport display name
   const sportKey = sportId?.replace('-', '_') || '';
-  const sportName = t(`sports.${sportKey}`, sportId);
+  const sportName = t(`sports.${sportKey}`, sportId || '');
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#020202] text-brand-navy dark:text-white pt-32 pb-20 px-6">
@@ -179,7 +179,9 @@ const SportDetails: React.FC = () => {
 
         {posts.length === 0 ? (
           <div className="bg-white dark:bg-white/5 rounded-[2.5rem] p-12 text-center shadow-sm border border-slate-200 dark:border-white/10">
-            <h2 className="text-2xl font-semibold mb-4">{t('sports.no_posts')}</h2>
+            <h2 className="text-2xl font-semibold mb-4">
+              {t('sports.no_posts')}
+            </h2>
             <p className="text-slate-600 dark:text-slate-400">
               {t('sports.check_back_soon')}
             </p>
