@@ -24,20 +24,30 @@ interface FrontMatterAttributes {
 }
 
 /**
- * Fetches and parses a specific post's markdown file.
+ * Uses Vite's glob import to automatically discover all Markdown files in the
+ * src/content/sports directory. This ensures new posts are picked up without
+ * manual registration in a JSON manifest.
+ */
+const allPosts = import.meta.glob('../content/sports/**/*.md', { query: '?raw', import: 'default' });
+
+/**
+ * Fetches and parses a specific post's markdown content.
  *
  * @param sport - The directory name of the sport (e.g., 'handball').
  * @param slug - The filename of the post without the .md extension.
  * @returns A Post object.
  */
 export async function getPost(sport: string, slug: string): Promise<Post> {
-  const response = await fetch(`/content/sports/${sport}/${slug}.md`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch post: ${slug}`);
+  const path = `../content/sports/${sport}/${slug}.md`;
+  const fetcher = allPosts[path];
+
+  if (!fetcher) {
+    throw new Error(`Post not found: ${path}`);
   }
-  const text = await response.text();
+
+  const rawContent = await fetcher() as string;
   // @ts-expect-error front-matter return type
-  const { attributes, body } = fm(text);
+  const { attributes, body } = fm(rawContent);
 
   return {
     slug,
@@ -48,32 +58,27 @@ export async function getPost(sport: string, slug: string): Promise<Post> {
 }
 
 /**
- * Fetches the list of post filenames for a given sport from a manifest file.
- * Since we are in a static client-side environment, we'll use a `posts.json` manifest
- * per sport that needs to be updated or we will fetch it from an API/Search if available.
+ * Discovers all posts for a given sport by scanning the imported glob.
  *
- * For simplicity and GitHub editing friendliness, we'll recommend maintaining a
- * `posts.json` in each sport's directory or we could fetch the directory list
- * if the server allows it. In GitHub Pages/Vite, we can't easily list files at runtime
- * without an external API (like GitHub's).
- *
- * Strategy: A small JSON index file in each directory.
+ * @param sport - The directory name of the sport.
+ * @returns An array of Post objects sorted by date descending.
  */
 export async function getSportPosts(sport: string): Promise<Post[]> {
   try {
-    const response = await fetch(`/content/sports/${sport}/index.json`);
-    if (!response.ok) {
-      return [];
-    }
-    const { posts }: { posts: string[] } = await response.json();
+    const sportPrefix = `../content/sports/${sport}/`;
+    const sportPosts = Object.keys(allPosts).filter(path => path.startsWith(sportPrefix));
 
-    const postPromises = posts.map(slug => getPost(sport, slug));
-    const allPosts = await Promise.all(postPromises);
+    const postPromises = sportPosts.map(async (path) => {
+      const slug = path.split('/').pop()?.replace('.md', '') || '';
+      return getPost(sport, slug);
+    });
+
+    const results = await Promise.all(postPromises);
 
     // Sort by date descending
-    return allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return results.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
-    console.error(`Error fetching posts for ${sport}:`, error);
+    console.error(`Error discovering posts for ${sport}:`, error);
     return [];
   }
 }

@@ -152,17 +152,28 @@ const NavItem = ({
   children: React.ReactNode;
   onClick?: () => void;
 }) => {
-  const isExternal = href.startsWith('http') || href.startsWith('#');
+  const isHash = href.startsWith('#');
+  const isAbsolute = href.startsWith('http');
 
-  if (isExternal) {
+  if (isAbsolute) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
+      >
+        {children}
+      </a>
+    );
+  }
+
+  if (isHash) {
     return (
       <Link
         to={`/${href}`}
-        onClick={(e) => {
+        onClick={() => {
           if (onClick) onClick();
-          if (window.location.pathname !== '/') {
-            // Navigation handled by Link to /, but we might need to scroll after
-          }
         }}
         className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
       >
