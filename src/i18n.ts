@@ -150,6 +150,15 @@ const resources = {
   },
 };
 
+/**
+ * Internationalization Setup
+ *
+ * Default: pt-PT
+ * Fallback: en-GB
+ * Persistence: localStorage ('i18nextLng')
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ */
 i18n.use(initReactI18next).init({
   resources,
   lng: localStorage.getItem('i18nextLng') || 'pt-PT',

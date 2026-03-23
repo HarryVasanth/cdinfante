@@ -20,7 +20,7 @@ export const Contact = () => {
 
               <div className="space-y-10 mb-16">
                 <div className="flex gap-8 items-start group">
-                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
+                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 cursor-pointer">
                     <MapPin size={28} />
                   </div>
                   <div>
@@ -34,7 +34,7 @@ export const Contact = () => {
                 </div>
 
                 <div className="flex gap-8 items-start group">
-                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
+                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 cursor-pointer">
                     <Phone size={28} />
                   </div>
                   <div>

@@ -116,14 +116,14 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             <div className="hidden md:flex items-center gap-4">
               <button
                 onClick={toggleLanguage}
-                className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300"
+                className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300 cursor-pointer"
                 aria-label="Toggle language"
               >
                 <Globe size={20} />
               </button>
               <button
                 onClick={() => setIsDark(!isDark)}
-                className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300"
+                className="p-2.5 hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-all text-brand-navy dark:text-slate-300 cursor-pointer"
                 aria-label="Toggle theme"
               >
                 {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -134,14 +134,14 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             <div className="flex md:hidden items-center gap-2">
               <button
                 onClick={() => setIsDark(!isDark)}
-                className="p-2 text-brand-navy dark:text-slate-300"
+                className="p-2 text-brand-navy dark:text-slate-300 cursor-pointer"
                 aria-label="Toggle theme"
               >
                 {isDark ? <Sun size={20} /> : <Moon size={20} />}
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-brand-navy dark:text-slate-300"
+                className="p-2 text-brand-navy dark:text-slate-300 cursor-pointer"
                 aria-label="Menu"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -178,7 +178,7 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
                   toggleLanguage();
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center justify-center gap-3 text-brand-navy/70 dark:text-slate-400 font-bold text-lg"
+                className="flex items-center justify-center gap-3 text-brand-navy/70 dark:text-slate-400 font-bold text-lg cursor-pointer"
               >
                 <Globe size={24} />{' '}
                 {i18n.language.startsWith('pt') ? 'English' : 'Português'}
