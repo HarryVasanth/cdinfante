@@ -7,7 +7,7 @@ import {
   ChevronLeft,
   Calendar,
   Image as ImageIcon,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react';
 import { getSportPosts, type Post } from '../lib/content';
 
@@ -24,7 +24,7 @@ const SportDetails: React.FC = () => {
   useEffect(() => {
     if (sportId) {
       setLoading(true);
-      getSportPosts(sportId).then(data => {
+      getSportPosts(sportId).then((data) => {
         setPosts(data);
         if (data.length > 0) {
           setFeaturedPost(data[0]);
@@ -54,7 +54,10 @@ const SportDetails: React.FC = () => {
           to="/"
           className="inline-flex items-center text-brand-red font-semibold mb-8 hover:underline group"
         >
-          <ChevronLeft size={20} className="mr-1 group-hover:-translate-x-1 transition-transform" />
+          <ChevronLeft
+            size={20}
+            className="mr-1 group-hover:-translate-x-1 transition-transform"
+          />
           {t('common.back_home', 'Voltar ao Início')}
         </Link>
 
@@ -72,8 +75,18 @@ const SportDetails: React.FC = () => {
 
         {posts.length === 0 ? (
           <div className="bg-white dark:bg-white/5 rounded-[2.5rem] p-12 text-center shadow-sm border border-slate-200 dark:border-white/10">
-            <h2 className="text-2xl font-semibold mb-4">{t('sports.no_posts', 'Nenhuma atualização disponível no momento.')}</h2>
-            <p className="text-slate-600 dark:text-slate-400">{t('sports.check_back_soon', 'Verifique brevemente para novas notícias e eventos.')}</p>
+            <h2 className="text-2xl font-semibold mb-4">
+              {t(
+                'sports.no_posts',
+                'Nenhuma atualização disponível no momento.',
+              )}
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400">
+              {t(
+                'sports.check_back_soon',
+                'Verifique brevemente para novas notícias e eventos.',
+              )}
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -112,21 +125,29 @@ const SportDetails: React.FC = () => {
                       </div>
 
                       {/* Post Gallery */}
-                      {featuredPost.images && featuredPost.images.length > 0 && (
-                        <div className="mt-12">
-                          <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                            <ImageIcon size={20} className="text-brand-red" />
-                            {t('sports.gallery', 'Galeria')}
-                          </h3>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {featuredPost.images.map((img, i) => (
-                              <div key={i} className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                                <img src={img} alt="" className="w-full h-full object-cover" />
-                              </div>
-                            ))}
+                      {featuredPost.images &&
+                        featuredPost.images.length > 0 && (
+                          <div className="mt-12">
+                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                              <ImageIcon size={20} className="text-brand-red" />
+                              {t('sports.gallery', 'Galeria')}
+                            </h3>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                              {featuredPost.images.map((img, i) => (
+                                <div
+                                  key={i}
+                                  className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10"
+                                >
+                                  <img
+                                    src={img}
+                                    alt=""
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
                     </div>
                   </motion.div>
                 )}
@@ -139,7 +160,7 @@ const SportDetails: React.FC = () => {
                 {t('sports.past_posts', 'Últimas Novidades')}
               </h3>
               <div className="space-y-4">
-                {posts.map(post => (
+                {posts.map((post) => (
                   <button
                     key={post.slug}
                     onClick={() => setFeaturedPost(post)}
@@ -149,17 +170,25 @@ const SportDetails: React.FC = () => {
                         : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-brand-red/50'
                     }`}
                   >
-                    <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${
-                      featuredPost?.slug === post.slug ? 'text-white/80' : 'text-brand-red'
-                    }`}>
+                    <p
+                      className={`text-xs font-bold uppercase tracking-widest mb-2 ${
+                        featuredPost?.slug === post.slug
+                          ? 'text-white/80'
+                          : 'text-brand-red'
+                      }`}
+                    >
                       {new Date(post.date).toLocaleDateString()}
                     </p>
                     <h4 className="font-bold leading-tight line-clamp-2">
                       {post.title}
                     </h4>
-                    <p className={`mt-3 text-sm line-clamp-2 ${
-                      featuredPost?.slug === post.slug ? 'text-white/70' : 'text-slate-600 dark:text-slate-400'
-                    }`}>
+                    <p
+                      className={`mt-3 text-sm line-clamp-2 ${
+                        featuredPost?.slug === post.slug
+                          ? 'text-white/70'
+                          : 'text-slate-600 dark:text-slate-400'
+                      }`}
+                    >
                       {post.description}
                     </p>
                     {featuredPost?.slug !== post.slug && (

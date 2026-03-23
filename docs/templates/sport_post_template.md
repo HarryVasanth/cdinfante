@@ -5,13 +5,13 @@ Save the file as `post-slug.md` in `src/content/sports/sport-name/`.
 
 ```markdown
 ---
-title: "Título Impactante"
-date: "YYYY-MM-DD"
-image: "/images/highlight-image.jpg"
-description: "Resumo curto do post para a lista de novidades."
+title: 'Título Impactante'
+date: 'YYYY-MM-DD'
+image: '/images/highlight-image.jpg'
+description: 'Resumo curto do post para a lista de novidades.'
 images:
-  - "/images/gallery-image-1.jpg"
-  - "/images/gallery-image-2.jpg"
+  - '/images/gallery-image-1.jpg'
+  - '/images/gallery-image-2.jpg'
 ---
 
 O conteúdo do seu post em **Markdown** vai aqui.

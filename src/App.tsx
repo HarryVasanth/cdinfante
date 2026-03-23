@@ -15,7 +15,7 @@ import {
   Route,
   Link,
   useLocation,
-  useNavigate
+  useNavigate,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -467,346 +467,353 @@ function MainContent() {
 
       <Routes>
         <Route path="/sports/:sportId" element={<SportDetails />} />
-        <Route path="/" element={
-          <main>
-        <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <img
-              src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=edt5Fx1uqte6cp5ylp1Edg&_nc_ss=7a32e&oh=00_Afz0P2BPVRVnrvkC6-DOFQzos0iGlj_nTKsmQjgiuhIZ9w&oe=69C4DC6F"
-              alt="Background Athletics"
-              className="w-full h-full object-cover opacity-20 dark:opacity-5 grayscale brightness-50"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FBFBFD]/50 to-[#FBFBFD] dark:via-black/50 dark:to-black z-10" />
-            <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-brand-red/10 blur-[120px] rounded-full animate-pulse" />
-            <div className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-brand-navy/10 dark:bg-brand-red/5 blur-[120px] rounded-full animate-pulse" />
-          </div>
-
-          <div className="relative z-20 text-center px-6 max-w-5xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="inline-block py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-brand-red/20 shadow-sm">
-                {t('hero.location')}
-              </span>
-              <h1 className="text-5xl sm:text-7xl lg:text-[9rem] font-[900] text-brand-navy dark:text-white mb-6 tracking-[-0.05em] leading-[0.85] break-words">
-                {t('hero.club_name')} <br className="hidden md:block" />
-                <span className="text-brand-red">Infante</span> Dom Henrique
-              </h1>
-              <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-8 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
-                {t('hero.subtitle')}
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById('contact')
-                      ?.scrollIntoView({ behavior: 'smooth' })
-                  }
-                  className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2"
-                >
-                  {t('hero.cta')}
-
-                  <ChevronRight
-                    size={20}
-                    className="group-hover:translate-x-1 transition-transform"
+        <Route
+          path="/"
+          element={
+            <main>
+              <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                  <img
+                    src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=edt5Fx1uqte6cp5ylp1Edg&_nc_ss=7a32e&oh=00_Afz0P2BPVRVnrvkC6-DOFQzos0iGlj_nTKsmQjgiuhIZ9w&oe=69C4DC6F"
+                    alt="Background Athletics"
+                    className="w-full h-full object-cover opacity-20 dark:opacity-5 grayscale brightness-50"
                   />
-                </button>
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById('about')
-                      ?.scrollIntoView({ behavior: 'smooth' })
-                  }
-                  className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm"
-                >
-                  {t('nav.about')}
-                </button>
-              </div>
-            </motion.div>
-          </div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FBFBFD]/50 to-[#FBFBFD] dark:via-black/50 dark:to-black z-10" />
+                  <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-brand-red/10 blur-[120px] rounded-full animate-pulse" />
+                  <div className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-brand-navy/10 dark:bg-brand-red/5 blur-[120px] rounded-full animate-pulse" />
+                </div>
 
-          <AnimatePresence>
-            {!scrolled && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.8 }}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
-              >
-                <div className="w-6 h-10 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm shadow-sm">
+                <div className="relative z-20 text-center px-6 max-w-5xl">
                   <motion.div
-                    animate={{ y: [0, 16, 0] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                    className="w-1.5 h-1.5 bg-brand-red rounded-full"
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="py-32 px-6 bg-transparent relative">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-20 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-              >
-                <h2 className="text-5xl md:text-7xl font-black text-brand-navy dark:text-white mb-10 tracking-tight leading-tight">
-                  {t('about.title')}
-                </h2>
-                <div className="space-y-6 text-xl text-brand-navy/70 dark:text-slate-400 leading-relaxed mb-12 font-medium">
-                  <p>{t('about.content')}</p>
-                  <p>{t('about.subtitle')}</p>
-                </div>
-                <div className="grid grid-cols-2 gap-10">
-                  <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
-                    <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">
-                      {t('about.years_count')}
-                    </div>
-                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">
-                      {t('about.years_label')}
-                    </div>
-                  </div>
-                  <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
-                    <div className="text-5xl sm:text-6xl font-black text-brand-red mb-2 tracking-tighter">
-                      {t('about.members_count')}
-                    </div>
-                    <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">
-                      {t('about.members_label')}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl group"
-              >
-                <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-1000 z-10" />
-                <img
-                  src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=uyA9mJLxqDtrvhZk4E0cfw&_nc_ss=7a32e&oh=00_AfwpMTgEPcn8fBedGAmiyY_XldF31tFKXL5ass-KCBEEnA&oe=69C4DC6F"
-                  alt="Athletics"
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
-                <div className="absolute bottom-8 left-8 right-8 z-20 p-8 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 text-white shadow-2xl">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-2">
-                    {t('about.since')}
-                  </p>
-                  <p className="text-2xl font-black tracking-tight">
-                    {t('about.promotion')}
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Sports Section */}
-        <section id="sports" className="py-32 px-6 bg-transparent">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-              <div className="max-w-2xl">
-                <span className="text-brand-red font-bold uppercase tracking-[0.3em] text-xs mb-4 block">
-                  {t('nav.sports')}
-                </span>
-                <h2 className="text-5xl md:text-7xl font-[900] text-brand-navy dark:text-white mb-6 tracking-tight">
-                  {t('sports.title')}
-                </h2>
-                <p className="text-xl text-brand-navy/60 dark:text-slate-400 font-medium">
-                  {t('sports.subtitle')}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <div className="w-12 h-1 bg-brand-red rounded-full" />
-                <div className="w-4 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
-                <div className="w-4 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <BentoCard
-                title={t('sports.road_running')}
-                icon={Activity}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517777586_1243954357521566_3621410186097974538_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_ohc=7L6w1coJ96YQ7kNvwEVHyWx&_nc_oc=AdpLoS71-Vx8kqInZgPDev31MSmBoYc2dh8N8VoM8HqSVyBvw0fC5JylXh7PPwwcks-XLm1gMpcXnm8fGaRnoClB&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=cWPYyWSwyhmO3Ve4bMqgYQ&_nc_ss=7a32e&oh=00_Afy1I0TSntTMDdVoQiPSWyhQ9pZ7A8ciNgJlU7EDlRg-zA&oe=69C4E17A"
-                delay={0.1}
-                className="md:col-span-2"
-                slug="road-running"
-              />
-              <BentoCard
-                title={t('sports.trail_running')}
-                icon={Mountain}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/485159335_1155820153001654_1938730724457588876_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=P9_FnaLitFYQ7kNvwHlu41B&_nc_oc=Adp-Er0ZvuwVBzAKaUT8SIYj0GijxH4NGg5lvb-PrjLdQAFcl8GyHP_pqs1no78d3VO-rjyS00J1IIhSOvovVX0-&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=r-2Tt8FZ2wCTXM4X683ULQ&_nc_ss=7a32e&oh=00_Afy_1RuLvHsLcfKshGp3uGF1rpE3u7Hgqv-vgOI0mnhPdw&oe=69C4E3AB"
-                delay={0.2}
-                slug="trail-running"
-              />
-              <BentoCard
-                title={t('sports.vertical_km')}
-                icon={Target}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/515670604_1236248098292192_510837140913093732_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=ERYxzvi401kQ7kNvwGM_2Bl&_nc_oc=AdojSDSmT6NYyVgo_s7wFYvNATj8inBwQ9JaG_EOZqkCLJHqC2hHd-lf4wq3JkK-ZGewXC9sKYSZPzgnP6yngewW&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=iyiP7QsuMzM3ifvmo4yZgQ&_nc_ss=7a32e&oh=00_Afx_zjTLETNt-7_8Ui8AqiDZ8hsne0aT-QdSH03WL-wDqQ&oe=69C4D20B"
-                delay={0.3}
-                slug="vertical-km"
-              />
-              <BentoCard
-                title={t('sports.skyrunning')}
-                icon={ArrowUpRight}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/510277858_1230731038843898_1160586756874725884_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=osLbrT2WYiQQ7kNvwGdugV_&_nc_oc=AdrR4Zgu6Z39yazK8fn90AgCbDaZm_j4fkd8oka_NecDB_Y-bABfo2rAT35oWTDIMLmW1c618Wngv4XdwivATKC6&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=OYE2Y_lhBM1JepwoxX7hoQ&_nc_ss=7a32e&oh=00_AfxFExCt3JewNI48lUiueF16z4MUPIXkPoiD-XxENXhZQw&oe=69C4D9E1"
-                delay={0.4}
-                slug="skyrunning"
-              />
-              <BentoCard
-                title={t('sports.track_field')}
-                icon={Footprints}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/649290213_1439487161301617_5655099727395803523_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=eACygkDOTs0Q7kNvwFWjhMo&_nc_oc=AdpT-TJG4dcm2IM5vq-NpYvDKoCBm-gXn-7DDzfe2CIRw_WJbHASTBj4S648xGZ1HP4h1-ABiyHdfF8eRcsNsHWE&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=JgKuhD5JM0_XABj8ZLNKCw&_nc_ss=7a32e&oh=00_Afz823wvgXEumZTikjsntonhAW-KDC78Y91yMHuPHOlOsw&oe=69C4D5EC"
-                delay={0.5}
-                slug="track-field"
-              />
-              <BentoCard
-                title={t('sports.handball')}
-                icon={CircleDot}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/518312337_1247530197163982_3412159863800210848_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=13d280&_nc_ohc=P0ZNf1iZLmsQ7kNvwEH3V3h&_nc_oc=Adrg-UbPIRXcVfohDjcg4RXVq3yZ1ROBlS-2GtIrtCgBwzbfyLNua36NaWGgf87cgKTQBWrqMVHBOCTrC1gCsz61&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=pNOZlqjyp9xfOdE8ibhIsQ&_nc_ss=7a32e&oh=00_AfwZIPqzhGQFtoaCdMBXEZQxDUnOnDtT2oghbaFYa9ZavQ&oe=69C4D3D0"
-                delay={0.6}
-                slug="handball"
-              />
-              <BentoCard
-                title={t('sports.judo')}
-                icon={ShieldCheck}
-                imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/555491580_1308130501103951_8891449616780622006_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_ohc=xpgmdzP878QQ7kNvwGqRCtl&_nc_oc=AdpZXSWk7KiCW8K_3r5nPpQIUwNVXwZIEA8mZ6KAyQV79FxhlN2w0wYfUaRJw7J8JbV9zi6pPdFlJ6jpppzd3hzM&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=RlJQhi2lOGz7RGJbsYe7qg&_nc_ss=7a32e&oh=00_Afw8Nv5rABDDlnu75o-3dZasO6hSls7UNaRKrSBQbVSfxQ&oe=69C4E034"
-                delay={0.7}
-                slug="judo"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-32 px-6 bg-transparent">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/10 transition-colors duration-700">
-              <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/20 blur-[120px] rounded-full" />
-              <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-brand-navy/20 blur-[120px] rounded-full" />
-
-              <div className="grid lg:grid-cols-2 gap-24 relative z-10">
-                <div>
-                  <h2 className="text-6xl font-black text-white mb-10 tracking-tight">
-                    {t('contact.title')}
-                  </h2>
-
-                  <div className="space-y-10 mb-16">
-                    <div className="flex gap-8 items-start group">
-                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
-                        <MapPin size={28} />
-                      </div>
-                      <div>
-                        <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
-                          {t('contact.address_label')}
-                        </div>
-                        <div className="text-white text-xl font-bold leading-relaxed whitespace-pre-line">
-                          {t('contact.address')}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-8 items-start group">
-                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
-                        <Phone size={28} />
-                      </div>
-                      <div>
-                        <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
-                          {t('contact.phone_label')}
-                        </div>
-                        <div className="text-white text-xl font-bold">
-                          {t('contact.phone_value')}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer"
-                    onClick={() =>
-                      window.open(
-                        'https://maps.app.goo.gl/3cU7eBi1goi7NWax7',
-                        '_blank',
-                      )
-                    }
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.4057142371284!2d-16.9032822!3d32.675255299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6061ab187bf7d1%3A0xc3243053e116fb0b!2sClube%20Desportivo%20Infante%20Dom%20Henrique!5e0!3m2!1sen!2spt!4v1774133527004!5m2!1sen!2spt"
-                      width="100%"
-                      height="300"
-                      style={{
-                        border: 0,
-                        borderRadius: '2rem',
-                        pointerEvents: 'none',
-                      }}
-                      allowFullScreen
-                      loading="lazy"
-                      className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100"
+                    <span className="inline-block py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-brand-red/20 shadow-sm">
+                      {t('hero.location')}
+                    </span>
+                    <h1 className="text-5xl sm:text-7xl lg:text-[9rem] font-[900] text-brand-navy dark:text-white mb-6 tracking-[-0.05em] leading-[0.85] break-words">
+                      {t('hero.club_name')} <br className="hidden md:block" />
+                      <span className="text-brand-red">Infante</span> Dom
+                      Henrique
+                    </h1>
+                    <p className="text-xl md:text-2xl text-brand-navy/70 dark:text-slate-400 mb-8 leading-relaxed max-w-2xl mx-auto font-medium tracking-tight">
+                      {t('hero.subtitle')}
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                      <button
+                        onClick={() =>
+                          document
+                            .getElementById('contact')
+                            ?.scrollIntoView({ behavior: 'smooth' })
+                        }
+                        className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2"
+                      >
+                        {t('hero.cta')}
+
+                        <ChevronRight
+                          size={20}
+                          className="group-hover:translate-x-1 transition-transform"
+                        />
+                      </button>
+                      <button
+                        onClick={() =>
+                          document
+                            .getElementById('about')
+                            ?.scrollIntoView({ behavior: 'smooth' })
+                        }
+                        className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm"
+                      >
+                        {t('nav.about')}
+                      </button>
+                    </div>
+                  </motion.div>
+                </div>
+
+                <AnimatePresence>
+                  {!scrolled && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.8 }}
+                      className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
+                    >
+                      <div className="w-6 h-10 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm shadow-sm">
+                        <motion.div
+                          animate={{ y: [0, 16, 0] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          }}
+                          className="w-1.5 h-1.5 bg-brand-red rounded-full"
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </section>
+
+              {/* About Section */}
+              <section
+                id="about"
+                className="py-32 px-6 bg-transparent relative"
+              >
+                <div className="max-w-7xl mx-auto">
+                  <div className="grid md:grid-cols-2 gap-20 items-center">
+                    <motion.div
+                      initial={{ opacity: 0, x: -40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, ease: 'easeOut' }}
+                    >
+                      <h2 className="text-5xl md:text-7xl font-black text-brand-navy dark:text-white mb-10 tracking-tight leading-tight">
+                        {t('about.title')}
+                      </h2>
+                      <div className="space-y-6 text-xl text-brand-navy/70 dark:text-slate-400 leading-relaxed mb-12 font-medium">
+                        <p>{t('about.content')}</p>
+                        <p>{t('about.subtitle')}</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-10">
+                        <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
+                          <div className="text-6xl font-black text-brand-red mb-2 tracking-tighter">
+                            {t('about.years_count')}
+                          </div>
+                          <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">
+                            {t('about.years_label')}
+                          </div>
+                        </div>
+                        <div className="p-10 rounded-[2.5rem] bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg transition-transform hover:scale-[1.02] duration-500">
+                          <div className="text-5xl sm:text-6xl font-black text-brand-red mb-2 tracking-tighter">
+                            {t('about.members_count')}
+                          </div>
+                          <div className="text-sm font-bold text-brand-navy/60 dark:text-slate-400 uppercase tracking-widest">
+                            {t('about.members_label')}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                      className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl group"
+                    >
+                      <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-1000 z-10" />
+                      <img
+                        src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=uyA9mJLxqDtrvhZk4E0cfw&_nc_ss=7a32e&oh=00_AfwpMTgEPcn8fBedGAmiyY_XldF31tFKXL5ass-KCBEEnA&oe=69C4DC6F"
+                        alt="Athletics"
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      />
+                      <div className="absolute bottom-8 left-8 right-8 z-20 p-8 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 text-white shadow-2xl">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-2">
+                          {t('about.since')}
+                        </p>
+                        <p className="text-2xl font-black tracking-tight">
+                          {t('about.promotion')}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sports Section */}
+              <section id="sports" className="py-32 px-6 bg-transparent">
+                <div className="max-w-7xl mx-auto">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                    <div className="max-w-2xl">
+                      <span className="text-brand-red font-bold uppercase tracking-[0.3em] text-xs mb-4 block">
+                        {t('nav.sports')}
+                      </span>
+                      <h2 className="text-5xl md:text-7xl font-[900] text-brand-navy dark:text-white mb-6 tracking-tight">
+                        {t('sports.title')}
+                      </h2>
+                      <p className="text-xl text-brand-navy/60 dark:text-slate-400 font-medium">
+                        {t('sports.subtitle')}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="w-12 h-1 bg-brand-red rounded-full" />
+                      <div className="w-4 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
+                      <div className="w-4 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <BentoCard
+                      title={t('sports.road_running')}
+                      icon={Activity}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517777586_1243954357521566_3621410186097974538_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_ohc=7L6w1coJ96YQ7kNvwEVHyWx&_nc_oc=AdpLoS71-Vx8kqInZgPDev31MSmBoYc2dh8N8VoM8HqSVyBvw0fC5JylXh7PPwwcks-XLm1gMpcXnm8fGaRnoClB&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=cWPYyWSwyhmO3Ve4bMqgYQ&_nc_ss=7a32e&oh=00_Afy1I0TSntTMDdVoQiPSWyhQ9pZ7A8ciNgJlU7EDlRg-zA&oe=69C4E17A"
+                      delay={0.1}
+                      className="md:col-span-2"
+                      slug="road-running"
+                    />
+                    <BentoCard
+                      title={t('sports.trail_running')}
+                      icon={Mountain}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/485159335_1155820153001654_1938730724457588876_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=P9_FnaLitFYQ7kNvwHlu41B&_nc_oc=Adp-Er0ZvuwVBzAKaUT8SIYj0GijxH4NGg5lvb-PrjLdQAFcl8GyHP_pqs1no78d3VO-rjyS00J1IIhSOvovVX0-&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=r-2Tt8FZ2wCTXM4X683ULQ&_nc_ss=7a32e&oh=00_Afy_1RuLvHsLcfKshGp3uGF1rpE3u7Hgqv-vgOI0mnhPdw&oe=69C4E3AB"
+                      delay={0.2}
+                      slug="trail-running"
+                    />
+                    <BentoCard
+                      title={t('sports.vertical_km')}
+                      icon={Target}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/515670604_1236248098292192_510837140913093732_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=ERYxzvi401kQ7kNvwGM_2Bl&_nc_oc=AdojSDSmT6NYyVgo_s7wFYvNATj8inBwQ9JaG_EOZqkCLJHqC2hHd-lf4wq3JkK-ZGewXC9sKYSZPzgnP6yngewW&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=iyiP7QsuMzM3ifvmo4yZgQ&_nc_ss=7a32e&oh=00_Afx_zjTLETNt-7_8Ui8AqiDZ8hsne0aT-QdSH03WL-wDqQ&oe=69C4D20B"
+                      delay={0.3}
+                      slug="vertical-km"
+                    />
+                    <BentoCard
+                      title={t('sports.skyrunning')}
+                      icon={ArrowUpRight}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/510277858_1230731038843898_1160586756874725884_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=osLbrT2WYiQQ7kNvwGdugV_&_nc_oc=AdrR4Zgu6Z39yazK8fn90AgCbDaZm_j4fkd8oka_NecDB_Y-bABfo2rAT35oWTDIMLmW1c618Wngv4XdwivATKC6&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=OYE2Y_lhBM1JepwoxX7hoQ&_nc_ss=7a32e&oh=00_AfxFExCt3JewNI48lUiueF16z4MUPIXkPoiD-XxENXhZQw&oe=69C4D9E1"
+                      delay={0.4}
+                      slug="skyrunning"
+                    />
+                    <BentoCard
+                      title={t('sports.track_field')}
+                      icon={Footprints}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/649290213_1439487161301617_5655099727395803523_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=eACygkDOTs0Q7kNvwFWjhMo&_nc_oc=AdpT-TJG4dcm2IM5vq-NpYvDKoCBm-gXn-7DDzfe2CIRw_WJbHASTBj4S648xGZ1HP4h1-ABiyHdfF8eRcsNsHWE&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=JgKuhD5JM0_XABj8ZLNKCw&_nc_ss=7a32e&oh=00_Afz823wvgXEumZTikjsntonhAW-KDC78Y91yMHuPHOlOsw&oe=69C4D5EC"
+                      delay={0.5}
+                      slug="track-field"
+                    />
+                    <BentoCard
+                      title={t('sports.handball')}
+                      icon={CircleDot}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/518312337_1247530197163982_3412159863800210848_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=13d280&_nc_ohc=P0ZNf1iZLmsQ7kNvwEH3V3h&_nc_oc=Adrg-UbPIRXcVfohDjcg4RXVq3yZ1ROBlS-2GtIrtCgBwzbfyLNua36NaWGgf87cgKTQBWrqMVHBOCTrC1gCsz61&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=pNOZlqjyp9xfOdE8ibhIsQ&_nc_ss=7a32e&oh=00_AfwZIPqzhGQFtoaCdMBXEZQxDUnOnDtT2oghbaFYa9ZavQ&oe=69C4D3D0"
+                      delay={0.6}
+                      slug="handball"
+                    />
+                    <BentoCard
+                      title={t('sports.judo')}
+                      icon={ShieldCheck}
+                      imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/555491580_1308130501103951_8891449616780622006_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_ohc=xpgmdzP878QQ7kNvwGqRCtl&_nc_oc=AdpZXSWk7KiCW8K_3r5nPpQIUwNVXwZIEA8mZ6KAyQV79FxhlN2w0wYfUaRJw7J8JbV9zi6pPdFlJ6jpppzd3hzM&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=RlJQhi2lOGz7RGJbsYe7qg&_nc_ss=7a32e&oh=00_Afw8Nv5rABDDlnu75o-3dZasO6hSls7UNaRKrSBQbVSfxQ&oe=69C4E034"
+                      delay={0.7}
+                      slug="judo"
                     />
                   </div>
                 </div>
+              </section>
 
-                <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl ring-1 ring-white/10">
-                  <form
-                    className="space-y-8"
-                    onSubmit={(e) => e.preventDefault()}
-                  >
-                    <div className="grid grid-cols-1 gap-8">
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
-                          {t('contact.form.name')}
-                        </label>
-                        <input
-                          type="text"
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
-                        />
+              {/* Contact Section */}
+              <section id="contact" className="py-32 px-6 bg-transparent">
+                <div className="max-w-7xl mx-auto">
+                  <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/10 transition-colors duration-700">
+                    <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/20 blur-[120px] rounded-full" />
+                    <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-brand-navy/20 blur-[120px] rounded-full" />
+
+                    <div className="grid lg:grid-cols-2 gap-24 relative z-10">
+                      <div>
+                        <h2 className="text-6xl font-black text-white mb-10 tracking-tight">
+                          {t('contact.title')}
+                        </h2>
+
+                        <div className="space-y-10 mb-16">
+                          <div className="flex gap-8 items-start group">
+                            <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
+                              <MapPin size={28} />
+                            </div>
+                            <div>
+                              <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
+                                {t('contact.address_label')}
+                              </div>
+                              <div className="text-white text-xl font-bold leading-relaxed whitespace-pre-line">
+                                {t('contact.address')}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-8 items-start group">
+                            <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10">
+                              <Phone size={28} />
+                            </div>
+                            <div>
+                              <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
+                                {t('contact.phone_label')}
+                              </div>
+                              <div className="text-white text-xl font-bold">
+                                {t('contact.phone_value')}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden cursor-pointer"
+                          onClick={() =>
+                            window.open(
+                              'https://maps.app.goo.gl/3cU7eBi1goi7NWax7',
+                              '_blank',
+                            )
+                          }
+                        >
+                          <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.4057142371284!2d-16.9032822!3d32.675255299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6061ab187bf7d1%3A0xc3243053e116fb0b!2sClube%20Desportivo%20Infante%20Dom%20Henrique!5e0!3m2!1sen!2spt!4v1774133527004!5m2!1sen!2spt"
+                            width="100%"
+                            height="300"
+                            style={{
+                              border: 0,
+                              borderRadius: '2rem',
+                              pointerEvents: 'none',
+                            }}
+                            allowFullScreen
+                            loading="lazy"
+                            className="dark:invert dark:grayscale dark:contrast-125 dark:brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100"
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
-                          {t('contact.form.email')}
-                        </label>
-                        <input
-                          type="email"
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
-                        />
+
+                      <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl ring-1 ring-white/10">
+                        <form
+                          className="space-y-8"
+                          onSubmit={(e) => e.preventDefault()}
+                        >
+                          <div className="grid grid-cols-1 gap-8">
+                            <div className="space-y-3">
+                              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                                {t('contact.form.name')}
+                              </label>
+                              <input
+                                type="text"
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                              />
+                            </div>
+                            <div className="space-y-3">
+                              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                                {t('contact.form.email')}
+                              </label>
+                              <input
+                                type="email"
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-3">
+                            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                              {t('contact.form.message')}
+                            </label>
+                            <textarea
+                              rows={5}
+                              className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                            />
+                          </div>
+                          <button
+                            type="submit"
+                            className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest cursor-pointer focus-visible:ring-4 focus-visible:ring-brand-red/40"
+                          >
+                            {t('contact.form.send')}
+                          </button>
+                        </form>
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
-                        {t('contact.form.message')}
-                      </label>
-                      <textarea
-                        rows={5}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest cursor-pointer focus-visible:ring-4 focus-visible:ring-brand-red/40"
-                    >
-                      {t('contact.form.send')}
-                    </button>
-                  </form>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-          </main>
-        } />
+              </section>
+            </main>
+          }
+        />
       </Routes>
 
       {/* Footer */}
