@@ -16,7 +16,10 @@ import {
 import { getSportPosts, type Post } from '../lib/content';
 
 /**
- * Page component to display the list of posts and a featured post for a specific sport.
+ * Displays news and updates for a specific sport.
+ * Shows a main featured post with a gallery, and a list of historical updates.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
  */
 const SportDetails: React.FC = () => {
   const { sportId } = useParams<{ sportId: string }>();
@@ -30,7 +33,7 @@ const SportDetails: React.FC = () => {
   );
   const [copied, setCopied] = useState(false);
 
-  // Reset state when sportId changes to avoid showing old content while loading new data
+  // Clear old state when switching sports to prevent "content flickering"
   const [prevSportId, setPrevSportId] = useState(sportId);
   if (sportId !== prevSportId) {
     setPrevSportId(sportId);
@@ -47,7 +50,7 @@ const SportDetails: React.FC = () => {
     }
   }, [sportId]);
 
-  // Derive featured post from posts and URL hash
+  // Select the featured post - either from the URL hash or the most recent one
   const featuredPost = useMemo(() => {
     if (posts.length === 0) return null;
     const slug = hash.replace('#', '');
@@ -78,7 +81,7 @@ const SportDetails: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImageIndex]);
 
-  // All images for the lightbox (header + gallery), deduplicated
+  // Combine hero image and gallery for the Lightbox, avoiding duplicates
   const allImages = useMemo(() => {
     if (!featuredPost) return [];
     const images: string[] = [];
@@ -119,8 +122,8 @@ const SportDetails: React.FC = () => {
     }
   };
 
+  // Support native OS sharing or fallback to clipboard
   const handleShare = async (post: Post) => {
-    // Ensure the URL includes the post slug for direct linking
     const baseUrl = window.location.origin + window.location.pathname;
     const url = `${baseUrl}#${post.slug}`;
 

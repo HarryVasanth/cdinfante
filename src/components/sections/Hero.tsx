@@ -52,7 +52,7 @@ export const Hero = () => {
                   .getElementById('contact')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
             >
               {t('hero.cta')}
 
@@ -67,7 +67,7 @@ export const Hero = () => {
                   .getElementById('about')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm"
+              className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm cursor-pointer"
             >
               {t('nav.about')}
             </button>

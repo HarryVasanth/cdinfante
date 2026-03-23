@@ -1,11 +1,13 @@
 /**
  * Clube Desportivo Infante Dom Henrique - Official Website
+ * Built with React, Tailwind CSS, and Framer Motion.
  *
- * Features:
- * - Multilingual support (PT-PT/EN-GB) using i18next
- * - Responsive design with Tailwind CSS
- * - Interactive UI with Framer Motion (Spotlight, Bento Cards)
- * - Dark/Light theme toggle with persistence
+ * Main features:
+ * - Bilingual support (pt-PT / en-GB) via i18next
+ * - Persistent Dark/Light mode based on system preference and user choice
+ * - Modular architecture for clean maintenance
+ *
+ * @author Harry Vasanth (harryvasanth.com)
  */
 
 import React, { useState, useEffect } from 'react';
@@ -32,7 +34,7 @@ function MainContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
 
-  // Scroll to top or anchor on route change
+  // Keep navigation smooth by scrolling to top or specific sections on route changes
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
@@ -54,9 +56,7 @@ function MainContent() {
     return false;
   });
 
-  /**
-   * Manages Dark Mode class on the document element and persists preference
-   */
+  // Apply dark mode class and save preference to localStorage so it persists on refresh
   useEffect(() => {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     if (isDark) {
@@ -66,9 +66,7 @@ function MainContent() {
     }
   }, [isDark]);
 
-  /**
-   * Toggles between Portuguese and English and persists preference
-   */
+  // Switch between PT and EN while keeping the HTML lang attribute in sync
   const toggleLanguage = () => {
     const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT';
     i18n.changeLanguage(nextLang);
@@ -76,9 +74,7 @@ function MainContent() {
     document.documentElement.lang = nextLang;
   };
 
-  /**
-   * Sync document language on initial mount
-   */
+  // Ensure the document language matches i18n state on boot
   useEffect(() => {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
