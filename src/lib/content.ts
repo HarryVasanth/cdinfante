@@ -28,7 +28,10 @@ interface FrontMatterAttributes {
  * src/content/sports directory. This ensures new posts are picked up without
  * manual registration in a JSON manifest.
  */
-const allPosts = import.meta.glob('../content/sports/**/*.md', { query: '?raw', import: 'default' });
+const allPosts = import.meta.glob('../content/sports/**/*.md', {
+  query: '?raw',
+  import: 'default',
+});
 
 /**
  * Fetches and parses a specific post's markdown content.
@@ -45,7 +48,7 @@ export async function getPost(sport: string, slug: string): Promise<Post> {
     throw new Error(`Post not found: ${path}`);
   }
 
-  const rawContent = await fetcher() as string;
+  const rawContent = (await fetcher()) as string;
   // @ts-expect-error front-matter return type
   const { attributes, body } = fm(rawContent);
 
@@ -66,7 +69,9 @@ export async function getPost(sport: string, slug: string): Promise<Post> {
 export async function getSportPosts(sport: string): Promise<Post[]> {
   try {
     const sportPrefix = `../content/sports/${sport}/`;
-    const sportPosts = Object.keys(allPosts).filter(path => path.startsWith(sportPrefix));
+    const sportPosts = Object.keys(allPosts).filter((path) =>
+      path.startsWith(sportPrefix),
+    );
 
     const postPromises = sportPosts.map(async (path) => {
       const slug = path.split('/').pop()?.replace('.md', '') || '';
@@ -76,7 +81,9 @@ export async function getSportPosts(sport: string): Promise<Post[]> {
     const results = await Promise.all(postPromises);
 
     // Sort by date descending
-    return results.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return results.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
   } catch (error) {
     console.error(`Error discovering posts for ${sport}:`, error);
     return [];
