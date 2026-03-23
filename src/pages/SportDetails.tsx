@@ -257,11 +257,12 @@ const SportDetails: React.FC = () => {
                               {featuredPost.images.map((img, i) => (
                                 <div
                                   key={i}
-                                  onClick={() =>
-                                    setSelectedImageIndex(
-                                      i + (featuredPost.image ? 1 : 0),
-                                    )
-                                  }
+                                  onClick={() => {
+                                    const index = allImages.indexOf(img);
+                                    if (index !== -1) {
+                                      setSelectedImageIndex(index);
+                                    }
+                                  }}
                                   className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-zoom-in"
                                 >
                                   <img
