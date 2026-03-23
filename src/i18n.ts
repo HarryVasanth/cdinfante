@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 const resources = {
-  en: {
+  'en-GB': {
     translation: {
       nav: {
         home: 'Home',
@@ -75,7 +75,7 @@ const resources = {
       },
     },
   },
-  pt: {
+  'pt-PT': {
     translation: {
       nav: {
         home: 'Início',
@@ -152,8 +152,8 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'pt',
-  fallbackLng: 'en',
+  lng: localStorage.getItem('i18nextLng') || 'pt-PT',
+  fallbackLng: 'en-GB',
   interpolation: {
     escapeValue: false,
   },
