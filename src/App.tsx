@@ -9,6 +9,14 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  useNavigate
+} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   // Navigation & UI Icons
@@ -46,6 +54,7 @@ import {
 } from 'framer-motion';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import SportDetails from './pages/SportDetails';
 
 /**
  * Utility for Tailwind class merging
@@ -106,7 +115,7 @@ const Spotlight = () => {
 const Logo = () => {
   const { t } = useTranslation();
   return (
-    <div className="flex items-center gap-3 group cursor-pointer">
+    <Link to="/" className="flex items-center gap-3 group cursor-pointer">
       <div className="relative">
         <div className="absolute inset-0 bg-brand-red/20 blur-xl rounded-full group-hover:bg-brand-red/40 transition-colors duration-500" />
         <img
@@ -123,7 +132,7 @@ const Logo = () => {
           {t('hero.club_suffix')}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -142,15 +151,36 @@ const NavItem = ({
   href: string;
   children: React.ReactNode;
   onClick?: () => void;
-}) => (
-  <a
-    href={href}
-    onClick={onClick}
-    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
-  >
-    {children}
-  </a>
-);
+}) => {
+  const isExternal = href.startsWith('http') || href.startsWith('#');
+
+  if (isExternal) {
+    return (
+      <Link
+        to={`/${href}`}
+        onClick={(e) => {
+          if (onClick) onClick();
+          if (window.location.pathname !== '/') {
+            // Navigation handled by Link to /, but we might need to scroll after
+          }
+        }}
+        className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
+      >
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      to={href}
+      onClick={onClick}
+      className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-all py-2 px-1 tracking-wide focus-visible:outline-2 focus-visible:outline-brand-red focus-visible:outline-offset-4 rounded-sm"
+    >
+      {children}
+    </Link>
+  );
+};
 
 /**
  * Bento Grid Card Component
@@ -169,14 +199,17 @@ const BentoCard = ({
   imageUrl,
   className,
   delay = 0,
+  slug,
 }: {
   title: string;
   icon: LucideIcon;
   imageUrl?: string;
   className?: string;
   delay?: number;
+  slug: string;
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -196,9 +229,10 @@ const BentoCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       onMouseMove={handleMouseMove}
+      onClick={() => navigate(`/sports/${slug}`)}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        'group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between',
+        'group relative overflow-hidden rounded-[2.5rem] p-8 bg-white/60 dark:bg-white/[0.03] backdrop-blur-md border border-white/20 dark:border-white/[0.08] shadow-lg hover:shadow-2xl transition-all duration-700 min-h-[260px] flex flex-col justify-between cursor-pointer',
         'before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-white/40 before:to-transparent before:rounded-[2.5rem] before:-z-10 dark:before:from-white/10 dark:before:to-transparent',
         className,
       )}
@@ -226,7 +260,7 @@ const BentoCard = ({
         </div>
       )}
 
-      <div className="relative z-10 h-full flex flex-col justify-between pointer-events-none">
+      <div className="relative z-10 h-full flex flex-col justify-between">
         <div className="w-12 h-12 bg-brand-red/10 dark:bg-brand-red/20 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 shadow-sm">
           <Icon size={24} />
         </div>
@@ -247,7 +281,30 @@ const BentoCard = ({
 };
 
 export default function App() {
+  return (
+    <Router>
+      <MainContent />
+    </Router>
+  );
+}
+
+function MainContent() {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+
+  // Scroll to top or anchor on route change
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -372,14 +429,14 @@ export default function App() {
           >
             <div className="flex flex-col gap-8 text-center">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
+                  to={`/${link.href}`}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-3xl font-black text-brand-navy dark:text-white"
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
               <div className="h-px bg-slate-100 dark:bg-white/10 my-4" />
               <button
@@ -397,8 +454,10 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <main>
-        {/* Hero Section */}
+      <Routes>
+        <Route path="/sports/:sportId" element={<SportDetails />} />
+        <Route path="/" element={
+          <main>
         <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img
@@ -573,42 +632,49 @@ export default function App() {
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517777586_1243954357521566_3621410186097974538_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_ohc=7L6w1coJ96YQ7kNvwEVHyWx&_nc_oc=AdpLoS71-Vx8kqInZgPDev31MSmBoYc2dh8N8VoM8HqSVyBvw0fC5JylXh7PPwwcks-XLm1gMpcXnm8fGaRnoClB&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=cWPYyWSwyhmO3Ve4bMqgYQ&_nc_ss=7a32e&oh=00_Afy1I0TSntTMDdVoQiPSWyhQ9pZ7A8ciNgJlU7EDlRg-zA&oe=69C4E17A"
                 delay={0.1}
                 className="md:col-span-2"
+                slug="road-running"
               />
               <BentoCard
                 title={t('sports.trail_running')}
                 icon={Mountain}
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/485159335_1155820153001654_1938730724457588876_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=P9_FnaLitFYQ7kNvwHlu41B&_nc_oc=Adp-Er0ZvuwVBzAKaUT8SIYj0GijxH4NGg5lvb-PrjLdQAFcl8GyHP_pqs1no78d3VO-rjyS00J1IIhSOvovVX0-&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=r-2Tt8FZ2wCTXM4X683ULQ&_nc_ss=7a32e&oh=00_Afy_1RuLvHsLcfKshGp3uGF1rpE3u7Hgqv-vgOI0mnhPdw&oe=69C4E3AB"
                 delay={0.2}
+                slug="trail-running"
               />
               <BentoCard
                 title={t('sports.vertical_km')}
                 icon={Target}
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/515670604_1236248098292192_510837140913093732_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=ERYxzvi401kQ7kNvwGM_2Bl&_nc_oc=AdojSDSmT6NYyVgo_s7wFYvNATj8inBwQ9JaG_EOZqkCLJHqC2hHd-lf4wq3JkK-ZGewXC9sKYSZPzgnP6yngewW&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=iyiP7QsuMzM3ifvmo4yZgQ&_nc_ss=7a32e&oh=00_Afx_zjTLETNt-7_8Ui8AqiDZ8hsne0aT-QdSH03WL-wDqQ&oe=69C4D20B"
                 delay={0.3}
+                slug="vertical-km"
               />
               <BentoCard
                 title={t('sports.skyrunning')}
                 icon={ArrowUpRight}
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/510277858_1230731038843898_1160586756874725884_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=osLbrT2WYiQQ7kNvwGdugV_&_nc_oc=AdrR4Zgu6Z39yazK8fn90AgCbDaZm_j4fkd8oka_NecDB_Y-bABfo2rAT35oWTDIMLmW1c618Wngv4XdwivATKC6&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=OYE2Y_lhBM1JepwoxX7hoQ&_nc_ss=7a32e&oh=00_AfxFExCt3JewNI48lUiueF16z4MUPIXkPoiD-XxENXhZQw&oe=69C4D9E1"
                 delay={0.4}
+                slug="skyrunning"
               />
               <BentoCard
                 title={t('sports.track_field')}
                 icon={Footprints}
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/649290213_1439487161301617_5655099727395803523_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=eACygkDOTs0Q7kNvwFWjhMo&_nc_oc=AdpT-TJG4dcm2IM5vq-NpYvDKoCBm-gXn-7DDzfe2CIRw_WJbHASTBj4S648xGZ1HP4h1-ABiyHdfF8eRcsNsHWE&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=JgKuhD5JM0_XABj8ZLNKCw&_nc_ss=7a32e&oh=00_Afz823wvgXEumZTikjsntonhAW-KDC78Y91yMHuPHOlOsw&oe=69C4D5EC"
                 delay={0.5}
+                slug="track-field"
               />
               <BentoCard
                 title={t('sports.handball')}
                 icon={CircleDot}
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/518312337_1247530197163982_3412159863800210848_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=13d280&_nc_ohc=P0ZNf1iZLmsQ7kNvwEH3V3h&_nc_oc=Adrg-UbPIRXcVfohDjcg4RXVq3yZ1ROBlS-2GtIrtCgBwzbfyLNua36NaWGgf87cgKTQBWrqMVHBOCTrC1gCsz61&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=pNOZlqjyp9xfOdE8ibhIsQ&_nc_ss=7a32e&oh=00_AfwZIPqzhGQFtoaCdMBXEZQxDUnOnDtT2oghbaFYa9ZavQ&oe=69C4D3D0"
                 delay={0.6}
+                slug="handball"
               />
               <BentoCard
                 title={t('sports.judo')}
                 icon={ShieldCheck}
                 imageUrl="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/555491580_1308130501103951_8891449616780622006_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_ohc=xpgmdzP878QQ7kNvwGqRCtl&_nc_oc=AdpZXSWk7KiCW8K_3r5nPpQIUwNVXwZIEA8mZ6KAyQV79FxhlN2w0wYfUaRJw7J8JbV9zi6pPdFlJ6jpppzd3hzM&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=RlJQhi2lOGz7RGJbsYe7qg&_nc_ss=7a32e&oh=00_Afw8Nv5rABDDlnu75o-3dZasO6hSls7UNaRKrSBQbVSfxQ&oe=69C4E034"
                 delay={0.7}
+                slug="judo"
               />
             </div>
           </div>
@@ -728,7 +794,9 @@ export default function App() {
             </div>
           </div>
         </section>
-      </main>
+          </main>
+        } />
+      </Routes>
 
       {/* Footer */}
       <footer className="py-24 border-t border-slate-200/50 dark:border-white/5 bg-[#FBFBFD] dark:bg-black transition-colors duration-700">
@@ -756,13 +824,13 @@ export default function App() {
 
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mt-12 mb-12">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={`/${link.href}`}
                 className="text-sm font-bold text-brand-navy/50 dark:text-slate-500 hover:text-brand-red transition-colors uppercase tracking-widest"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="w-20 h-1 bg-brand-red/20 rounded-full mb-12" />
