@@ -20,8 +20,8 @@ export const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=edt5Fx1uqte6cp5ylp1Edg&_nc_ss=7a32e&oh=00_Afz0P2BPVRVnrvkC6-DOFQzos0iGlj_nTKsmQjgiuhIZ9w&oe=69C4DC6F"
-          alt="Background Athletics"
+          src="images/main/cover.avif"
+          alt="CDI-M Cover"
           className="w-full h-full object-cover opacity-20 dark:opacity-5 grayscale brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FBFBFD]/50 to-[#FBFBFD] dark:via-black/50 dark:to-black z-10" />

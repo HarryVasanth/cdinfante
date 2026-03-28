@@ -50,8 +50,8 @@ export const About = () => {
           >
             <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-1000 z-10" />
             <img
-              src="https://scontent.ffnc2-1.fna.fbcdn.net/v/t39.30808-6/517385675_1243952650855070_7174172134004013214_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Ht6miKefkLcQ7kNvwEF0PHR&_nc_oc=Adr-mJpcwFDsTfNJCMJkQ_3s4ITOvIuZ45iM85T5SyfFNlKAiEdmj2aZsOQaQZYU1n_vDUXwd0_t8U-db6nC64fK&_nc_zt=23&_nc_ht=scontent.ffnc2-1.fna&_nc_gid=uyA9mJLxqDtrvhZk4E0cfw&_nc_ss=7a32e&oh=00_AfwpMTgEPcn8fBedGAmiyY_XldF31tFKXL5ass-KCBEEnA&oe=69C4DC6F"
-              alt="Athletics"
+              src="images/main/cover.avif"
+              alt="About CDI-M"
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute bottom-8 left-8 right-8 z-20 p-8 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 text-white shadow-2xl">
