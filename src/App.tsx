@@ -19,6 +19,7 @@ import {
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SportDetails from './pages/SportDetails';
+import Docs from './pages/Docs';
 import { Spotlight } from './components/ui/Spotlight';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/sections/Hero';
@@ -95,6 +96,7 @@ function MainContent() {
       />
 
       <Routes>
+        <Route path="/docs" element={<Docs />} />
         <Route path="/sports/:sportId" element={<SportDetails />} />
         <Route
           path="/"
