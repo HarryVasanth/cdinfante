@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('verify docs page features', async ({ page }) => {
-  await page.goto('http://localhost:4173/docs');
+  await page.goto('http://localhost:5173/docs');
 
   // Wait for typography section
   await expect(page.locator('#typography')).toBeVisible();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft,
@@ -35,12 +35,34 @@ import { cn } from '../lib/utils';
 export default function Docs() {
   const { t } = useTranslation();
 
+  // Interactive States
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [checkboxChecked, setCheckboxChecked] = useState(true);
+  const [switchOn, setSwitchOn] = useState(true);
+  const [selectedRadio, setSelectedRadio] = useState('active');
+  const [sliderValue, setSliderValue] = useState(66);
+  const [activeToggle, setActiveToggle] = useState('right');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedId, setGeneratedId] = useState('AUTO-GENERATED-ID-123');
+
+  const handleGenerate = () => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      setGeneratedId(`ID-${Math.random().toString(36).substr(2, 9).toUpperCase()}`);
+      setIsGenerating(false);
+    }, 800);
+  };
+
   const sections = [
     { id: 'typography', label: t('docs.typography.title'), icon: Type },
     { id: 'theming', label: t('docs.theming.title'), icon: Palette },
     { id: 'components', label: t('docs.components.title'), icon: Box },
     { id: 'containers', label: t('docs.containers.title'), icon: Layout },
     { id: 'graphs', label: t('docs.components.graphs.title'), icon: BarChart3 },
+    { id: 'writing-posts', label: t('docs.writing_posts.title'), icon: List },
   ];
 
   return (
@@ -336,11 +358,15 @@ export default function Docs() {
                       <input
                         type="text"
                         readOnly
-                        value="AUTO-GENERATED-ID-123"
+                        value={generatedId}
                         className="flex-1 px-4 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-dashed border-slate-300 dark:border-white/20 text-slate-500 font-mono text-sm outline-none"
                       />
-                      <button className="p-2 bg-brand-navy text-white rounded-lg hover:bg-slate-800 transition-colors">
-                        <Zap size={20} />
+                      <button
+                        onClick={handleGenerate}
+                        disabled={isGenerating}
+                        className="p-2 bg-brand-navy text-white rounded-lg hover:bg-slate-800 transition-colors disabled:opacity-50 cursor-pointer"
+                      >
+                        <Zap size={20} className={cn(isGenerating && "animate-pulse")} />
                       </button>
                     </div>
                   </div>
@@ -353,45 +379,74 @@ export default function Docs() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8 rounded-2xl bg-slate-50 dark:bg-white/5">
                   <div className="space-y-4">
                     <label className="text-sm font-medium">{t('docs.components.form_controls.checkbox')}</label>
-                    <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded border-2 border-brand-red flex items-center justify-center bg-brand-red text-white cursor-pointer">
-                        <Check size={16} />
+                    <div
+                      className="flex items-center gap-3 cursor-pointer group"
+                      onClick={() => setCheckboxChecked(!checkboxChecked)}
+                    >
+                      <div className={cn(
+                        "w-6 h-6 rounded border-2 flex items-center justify-center transition-all",
+                        checkboxChecked ? "bg-brand-red border-brand-red text-white" : "border-slate-300 dark:border-white/20"
+                      )}>
+                        {checkboxChecked && <Check size={16} />}
                       </div>
-                      <span className="text-sm">Option selected</span>
+                      <span className="text-sm">Option {checkboxChecked ? 'selected' : 'unselected'}</span>
                     </div>
                   </div>
                   <div className="space-y-4">
                     <label className="text-sm font-medium">{t('docs.components.form_controls.switch')}</label>
-                    <div className="w-12 h-6 bg-brand-red rounded-full relative cursor-pointer">
-                      <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full" />
+                    <div
+                      className={cn(
+                        "w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-200",
+                        switchOn ? "bg-brand-red" : "bg-slate-300 dark:bg-white/10"
+                      )}
+                      onClick={() => setSwitchOn(!switchOn)}
+                    >
+                      <div className={cn(
+                        "absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-200 shadow-sm",
+                        switchOn ? "right-1" : "left-1"
+                      )} />
                     </div>
                   </div>
                   <div className="space-y-4">
                     <label className="text-sm font-medium">{t('docs.components.form_controls.radio')}</label>
-                    <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full border-2 border-brand-red flex items-center justify-center cursor-pointer">
-                        <div className="w-3 h-3 rounded-full bg-brand-red" />
-                      </div>
-                      <span className="text-sm">Radio active</span>
+                    <div className="flex flex-col gap-2">
+                      {['active', 'inactive'].map((option) => (
+                        <div
+                          key={option}
+                          className="flex items-center gap-3 cursor-pointer"
+                          onClick={() => setSelectedRadio(option)}
+                        >
+                          <div className={cn(
+                            "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                            selectedRadio === option ? "border-brand-red" : "border-slate-300 dark:border-white/20"
+                          )}>
+                            {selectedRadio === option && <div className="w-3 h-3 rounded-full bg-brand-red" />}
+                          </div>
+                          <span className="text-sm capitalize">Radio {option}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="space-y-4">
                     <label className="text-sm font-medium">{t('docs.components.form_controls.select')}</label>
-                    <div className="relative">
-                      <div className="w-full px-4 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between cursor-pointer">
-                        <span className="text-sm">Select option...</span>
+                    <div className="relative group">
+                      <div className="w-full px-4 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between cursor-pointer hover:border-brand-red transition-colors">
+                        <span className="text-sm">Option One</span>
                         <ChevronDown size={18} className="text-slate-400" />
                       </div>
                     </div>
                   </div>
                   <div className="space-y-4 lg:col-span-2">
-                    <label className="text-sm font-medium">{t('docs.components.form_controls.slider')}</label>
+                    <label className="text-sm font-medium">{t('docs.components.form_controls.slider')} ({sliderValue}%)</label>
                     <div className="relative w-full h-6 flex items-center">
-                      <div className="w-full h-1.5 bg-slate-200 dark:bg-white/10 rounded-full">
-                        <div className="w-2/3 h-full bg-brand-red rounded-full relative">
-                          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-red rounded-full shadow-md" />
-                        </div>
-                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={sliderValue}
+                        onChange={(e) => setSliderValue(parseInt(e.target.value))}
+                        className="w-full h-1.5 bg-slate-200 dark:bg-white/10 rounded-full appearance-none cursor-pointer accent-brand-red"
+                      />
                     </div>
                   </div>
                 </div>
@@ -402,16 +457,25 @@ export default function Docs() {
                 <h3 className="text-xl font-semibold mb-6">{t('docs.components.collapse.title')}</h3>
                 <div className="space-y-4 p-8 rounded-2xl border border-slate-200 dark:border-white/10">
                   <div className="border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden">
-                    <div className="p-4 bg-slate-50 dark:bg-white/5 flex items-center justify-between cursor-pointer font-bold text-sm">
+                    <div
+                      className="p-4 bg-slate-50 dark:bg-white/5 flex items-center justify-between cursor-pointer font-bold text-sm"
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      data-testid="collapse-header"
+                    >
                       {t('docs.components.collapse.collapsible')} Header
-                      <ChevronDown size={18} />
+                      <ChevronDown size={18} className={cn("transition-transform duration-200", isExpanded && "rotate-180")} />
                     </div>
-                    <div className="p-4 text-sm text-slate-500">
-                      Hidden content that expands when the header is clicked.
-                    </div>
+                    {isExpanded && (
+                      <div
+                        className="p-4 text-sm text-slate-500 animate-in fade-in slide-in-from-top-1 duration-200"
+                        data-testid="collapse-content"
+                      >
+                        {t('docs.components.collapse.content')}
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-center gap-4">
-                    <button className="px-4 py-2 text-xs font-bold bg-slate-100 dark:bg-white/5 rounded-lg flex items-center gap-2">
+                    <button className="px-4 py-2 text-xs font-bold bg-slate-100 dark:bg-white/5 rounded-lg flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer">
                       <List size={14} /> {t('docs.components.collapse.drop_down')}
                     </button>
                     <div className="px-3 py-1 bg-brand-red/10 text-brand-red rounded text-[10px] font-bold uppercase tracking-wider">
@@ -462,17 +526,42 @@ export default function Docs() {
                 <div>
                   <h3 className="text-xl font-semibold mb-6">{t('docs.components.toggle')} & {t('docs.components.toast')}</h3>
                   <div className="space-y-4 p-8 rounded-2xl bg-slate-50 dark:bg-white/5 h-full">
-                    <div className="flex gap-2">
-                      <button className="px-4 py-2 bg-white dark:bg-white/10 rounded-lg shadow-sm text-sm font-bold border border-slate-200 dark:border-white/10">Left</button>
-                      <button className="px-4 py-2 bg-brand-red text-white rounded-lg shadow-sm text-sm font-bold">Right</button>
+                    <div className="flex gap-2 p-1 bg-slate-200 dark:bg-white/5 rounded-xl w-fit">
+                      {['left', 'right'].map((dir) => (
+                        <button
+                          key={dir}
+                          onClick={() => setActiveToggle(dir)}
+                          className={cn(
+                            "px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer",
+                            activeToggle === dir ? "bg-brand-red text-white shadow-md" : "text-slate-500 hover:text-brand-navy dark:hover:text-white"
+                          )}
+                        >
+                          {dir.charAt(0).toUpperCase() + dir.slice(1)}
+                        </button>
+                      ))}
                     </div>
-                    <div className="p-4 bg-brand-navy text-white rounded-xl shadow-2xl flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Info size={18} className="text-brand-red" />
-                        <span className="text-sm font-medium">Changes saved successfully!</span>
+
+                    <button
+                      onClick={() => setShowToast(true)}
+                      className="w-full py-3 bg-brand-navy text-white rounded-xl font-bold hover:bg-slate-800 transition-colors cursor-pointer"
+                    >
+                      Trigger Toast
+                    </button>
+
+                    {showToast && (
+                      <div className="p-4 bg-brand-navy text-white rounded-xl shadow-2xl flex items-center justify-between animate-in slide-in-from-bottom-2">
+                        <div className="flex items-center gap-3">
+                          <Info size={18} className="text-brand-red" />
+                          <span className="text-sm font-medium">Changes saved successfully!</span>
+                        </div>
+                        <button
+                          onClick={() => setShowToast(false)}
+                          className="text-xs opacity-50 font-bold uppercase hover:opacity-100 cursor-pointer"
+                        >
+                          Dismiss
+                        </button>
                       </div>
-                      <button className="text-xs opacity-50 font-bold uppercase">Dismiss</button>
-                    </div>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -514,9 +603,63 @@ export default function Docs() {
               </div>
               <div className="space-y-4">
                  <p className="text-sm font-medium text-slate-400">{t('docs.components.containers.drawer')} & {t('docs.components.containers.modal')}</p>
-                 <div className="relative w-full aspect-video bg-slate-900/10 rounded-2xl overflow-hidden flex items-center justify-center">
-                    <div className="absolute left-0 top-0 bottom-0 w-1/3 bg-white dark:bg-slate-900 shadow-xl border-r border-slate-200 dark:border-white/10" />
-                    <div className="w-1/2 h-1/2 bg-white dark:bg-slate-800 rounded-xl shadow-2xl z-10 border border-slate-200 dark:border-white/10" />
+                 <div className="relative w-full aspect-video bg-slate-900/10 rounded-2xl overflow-hidden flex flex-col items-center justify-center gap-4">
+                    <div className="flex gap-4 z-20">
+                      <button
+                        onClick={() => setShowDrawer(true)}
+                        className="px-4 py-2 bg-white dark:bg-white/10 rounded-lg text-xs font-bold shadow-sm cursor-pointer"
+                      >
+                        Open Drawer
+                      </button>
+                      <button
+                        onClick={() => setShowModal(true)}
+                        className="px-4 py-2 bg-brand-red text-white rounded-lg text-xs font-bold shadow-sm cursor-pointer"
+                      >
+                        Open Modal
+                      </button>
+                    </div>
+
+                    {/* Drawer Overlay Backdrop Preview */}
+                    {(showDrawer || showModal) && (
+                      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-10" onClick={() => {setShowDrawer(false); setShowModal(false);}} />
+                    )}
+
+                    {/* Drawer Preview */}
+                    <div className={cn(
+                      "absolute left-0 top-0 bottom-0 w-1/3 bg-white dark:bg-slate-900 shadow-xl border-r border-slate-200 dark:border-white/10 z-30 transition-transform duration-300",
+                      showDrawer ? "translate-x-0" : "-translate-x-full"
+                    )}>
+                      <div className="p-4 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
+                        <span className="font-bold text-xs uppercase tracking-widest">Drawer</span>
+                        <ArrowLeft size={14} className="cursor-pointer" onClick={() => setShowDrawer(false)} />
+                      </div>
+                    </div>
+
+                    {/* Modal Preview */}
+                    {showModal && (
+                      <div
+                        data-testid="modal-preview"
+                        className="w-2/3 h-1/2 bg-white dark:bg-slate-800 rounded-xl shadow-2xl z-30 border border-slate-200 dark:border-white/10 p-4 animate-in fade-in zoom-in-95 duration-200"
+                      >
+                        <h4 className="font-bold text-sm mb-2">{t('docs.components.containers.modal_title_preview')}</h4>
+                        <p className="text-[10px] text-slate-500 mb-4">{t('docs.components.containers.modal_desc_preview')}</p>
+                        <div className="flex justify-end gap-2">
+                          <button
+                            className="px-3 py-1 bg-slate-100 dark:bg-white/5 rounded text-[10px] font-bold cursor-pointer"
+                            onClick={() => setShowModal(false)}
+                          >
+                            {t('docs.components.containers.modal_cancel')}
+                          </button>
+                          <button
+                            data-testid="modal-confirm-btn"
+                            className="px-3 py-1 bg-brand-red text-white rounded text-[10px] font-bold cursor-pointer"
+                            onClick={() => setShowModal(false)}
+                          >
+                            {t('docs.components.containers.modal_confirm')}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                  </div>
               </div>
             </div>
@@ -529,17 +672,17 @@ export default function Docs() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center">
-                <BarChart3 size={40} className="text-brand-red mb-4" />
+              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
+                <BarChart3 size={40} className="text-brand-red mb-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm font-medium">{t('docs.components.graphs.bar_graph')}</span>
               </div>
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center">
-                <LineChart size={40} className="text-brand-navy dark:text-white mb-4" />
+              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
+                <LineChart size={40} className="text-brand-navy dark:text-white mb-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm font-medium">{t('docs.components.graphs.line_graph')}</span>
               </div>
               <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center w-full">
                 <div className="w-full h-2 bg-slate-200 dark:bg-white/10 rounded-full mb-4 overflow-hidden">
-                   <div className="w-3/4 h-full bg-brand-red" />
+                   <div className="w-3/4 h-full bg-brand-red animate-pulse" />
                 </div>
                 <span className="text-sm font-medium">{t('docs.components.graphs.progress_bar')}</span>
               </div>
@@ -550,9 +693,98 @@ export default function Docs() {
                 </div>
                 <span className="text-sm font-medium">{t('docs.components.graphs.conic_graph')}</span>
               </div>
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center">
-                <Radar size={40} className="text-brand-navy dark:text-white mb-4" />
+              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
+                <Radar size={40} className="text-brand-navy dark:text-white mb-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm font-medium">{t('docs.components.graphs.radar_chart')}</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Writing Posts */}
+          <section id="writing-posts" className="scroll-mt-32">
+            <h2 className="text-3xl font-bold text-brand-navy dark:text-white mb-8 border-b border-slate-200 dark:border-white/10 pb-4">
+              {t('docs.writing_posts.title')}
+            </h2>
+
+            <div className="space-y-12">
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                {t('docs.writing_posts.intro')}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold flex items-center gap-2 text-green-600">
+                    <Check size={20} /> {t('docs.writing_posts.dos')}
+                  </h3>
+                  <ul className="space-y-3">
+                    {[
+                      t('docs.writing_posts.dos_list.images'),
+                      t('docs.writing_posts.dos_list.hashtags'),
+                      t('docs.writing_posts.dos_list.clear_text'),
+                    ].map((item, i) => (
+                      <li key={i} className="flex gap-3 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold flex items-center gap-2 text-brand-red">
+                    <ArrowLeft size={20} className="rotate-180" /> {t('docs.writing_posts.donts')}
+                  </h3>
+                  <ul className="space-y-3">
+                    {[
+                      t('docs.writing_posts.donts_list.formatting'),
+                      t('docs.writing_posts.donts_list.huge_files'),
+                      t('docs.writing_posts.donts_list.broken_links'),
+                    ].map((item, i) => (
+                      <li key={i} className="flex gap-3 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-brand-red mt-2 shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold">{t('docs.writing_posts.template')}</h3>
+                <div className="p-6 rounded-2xl bg-slate-900 text-slate-300 font-mono text-xs overflow-x-auto relative group">
+                  <div className="absolute top-4 right-4 text-[10px] uppercase font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Markdown
+                  </div>
+                  <pre>{`---
+title: 'Post Title'
+date: 'YYYY-MM-DD'
+image: 'https://example.com/cover.jpg'
+description: 'Short summary...'
+images:
+  - 'https://example.com/image1.jpg'
+---
+
+### Português
+Conteúdo em português...
+
+---
+
+### English
+English content...`}</pre>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[
+                  t('docs.writing_posts.guidelines.filename'),
+                  t('docs.writing_posts.guidelines.folder'),
+                  t('docs.writing_posts.guidelines.frontmatter'),
+                  t('docs.writing_posts.guidelines.bilingual'),
+                ].map((item, i) => (
+                  <div key={i} className="p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5">
+                    <p className="text-sm font-medium text-brand-navy dark:text-white">{item}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
