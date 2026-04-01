@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
   Search,
@@ -24,17 +23,12 @@ import {
   BarChart3,
   Activity,
   LineChart,
-  PieChart,
   ExternalLink,
   Maximize2,
   List,
-  MessageSquare,
   Zap,
-  Sliders,
-  ChevronRight,
   Menu,
-  Square,
-  Circle
+  Radar
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -166,7 +160,7 @@ export default function Docs() {
               <div>
                 <h3 className="text-xl font-semibold mb-6">{t('docs.theming.icons')}</h3>
                 <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-                  {[Bell, Settings, User, Calendar, Send, Mail, Search, Info, Flag, MousePointer, Box, Layout, Type, Palette, Check, ArrowLeft].map((Icon, i) => (
+                  {[Bell, Settings, User, Calendar, Send, Mail, Search, Info, FlagIcon, MousePointer, Box, Layout, Type, Palette, Check, ArrowLeft].map((Icon, i) => (
                     <div key={i} className="aspect-square flex items-center justify-center rounded-xl bg-slate-50 dark:bg-white/5 text-brand-navy dark:text-white">
                       <Icon size={24} />
                     </div>
@@ -534,7 +528,7 @@ export default function Docs() {
               {t('docs.components.graphs.title')}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
               <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center">
                 <BarChart3 size={40} className="text-brand-red mb-4" />
                 <span className="text-sm font-medium">{t('docs.components.graphs.bar_graph')}</span>
@@ -555,6 +549,10 @@ export default function Docs() {
                    <div className="absolute inset-0 rounded-full border-4 border-brand-red border-t-transparent animate-spin" />
                 </div>
                 <span className="text-sm font-medium">{t('docs.components.graphs.conic_graph')}</span>
+              </div>
+              <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col items-center">
+                <Radar size={40} className="text-brand-navy dark:text-white mb-4" />
+                <span className="text-sm font-medium">{t('docs.components.graphs.radar_chart')}</span>
               </div>
             </div>
           </section>
