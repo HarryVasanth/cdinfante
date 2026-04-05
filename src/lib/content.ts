@@ -28,30 +28,76 @@ interface FrontMatterAttributes {
  * src/content directory. This ensures new posts are picked up without
  * manual registration in a JSON manifest.
  */
-const allPosts = import.meta.glob('../content/**/*.md', {
+const allPosts = import.meta.glob('../content/**/index.md', {
   query: '?raw',
   import: 'default',
 });
 
 /**
+ * Discovers all images in the content directory to resolve them as static assets.
+ */
+const allImages = import.meta.glob('../content/**/*.{jpg,jpeg,png,webp,avif}', {
+  import: 'default',
+});
+
+/**
+ * Resolves a relative image path from a post's frontmatter to its processed URL.
+ *
+ * @param postDir - The directory path of the post.
+ * @param imagePath - The path from the frontmatter (e.g., './image.jpg').
+ * @returns The resolved image URL or the original path if it's external or absolute.
+ */
+async function resolveImagePath(
+  postDir: string,
+  imagePath: string,
+): Promise<string> {
+  // If it's an external URL or an absolute path starting with /, return it as-is.
+  if (!imagePath || imagePath.startsWith('http') || imagePath.startsWith('/')) {
+    return imagePath;
+  }
+
+  // Resolve relative paths like './image.jpg' or '../images/...'
+  // Normalize the path by joining postDir and imagePath
+  const parts = postDir.split('/');
+  const imageParts = imagePath.split('/');
+
+  for (const part of imageParts) {
+    if (part === '.') continue;
+    if (part === '..') {
+      parts.pop();
+    } else {
+      parts.push(part);
+    }
+  }
+
+  const resolvedPath = parts.join('/');
+  const fetcher = allImages[resolvedPath];
+
+  if (fetcher) {
+    return (await fetcher()) as string;
+  }
+
+  return imagePath;
+}
+
+/**
  * Fetches and parses a specific post's markdown content.
  *
  * @param category - The directory name of the category (e.g., 'sports/handball' or 'others').
- * @param slug - The filename of the post without the .md extension.
+ * @param slug - The directory name of the post.
  * @returns A Post object.
  */
 export async function getPost(category: string, slug: string): Promise<Post> {
-  const path = category.includes('/')
-    ? `../content/${category}/${slug}.md`
-    : `../content/sports/${category}/${slug}.md`;
+  const postDir =
+    category === 'others'
+      ? `../content/others/${slug}`
+      : category.includes('/')
+        ? `../content/${category}/${slug}`
+        : `../content/sports/${category}/${slug}`;
 
-  let fetcher = allPosts[path];
+  const path = `${postDir}/index.md`;
 
-  // Fallback for when category is not 'sports/...' but just 'others'
-  if (!fetcher && !category.includes('/')) {
-    const alternativePath = `../content/${category}/${slug}.md`;
-    fetcher = allPosts[alternativePath];
-  }
+  const fetcher = allPosts[path];
 
   if (!fetcher) {
     throw new Error(`Post not found: ${path}`);
@@ -61,10 +107,21 @@ export async function getPost(category: string, slug: string): Promise<Post> {
   // @ts-expect-error front-matter return type
   const { attributes, body } = fm(rawContent);
 
+  const attrs = attributes as FrontMatterAttributes;
+
+  const [resolvedImage, resolvedImages] = await Promise.all([
+    attrs.image ? resolveImagePath(postDir, attrs.image) : Promise.resolve(undefined),
+    attrs.images
+      ? Promise.all(attrs.images.map((img) => resolveImagePath(postDir, img)))
+      : Promise.resolve(undefined),
+  ]);
+
   return {
     slug,
     sport: category.split('/').pop() || category,
-    ...(attributes as FrontMatterAttributes),
+    ...attrs,
+    image: resolvedImage,
+    images: resolvedImages,
     content: body as string,
   };
 }
@@ -85,7 +142,9 @@ export async function getSportPosts(sport: string): Promise<Post[]> {
     );
 
     const postPromises = sportPosts.map(async (path) => {
-      const slug = path.split('/').pop()?.replace('.md', '') || '';
+      // Path is like '../content/sports/handball/2025-torneio-calheta-beach-handball/index.md'
+      const parts = path.split('/');
+      const slug = parts[parts.length - 2];
       return getPost(sport === 'others' ? 'others' : sport, slug);
     });
 
