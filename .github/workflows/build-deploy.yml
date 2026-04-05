@@ -1,32 +1,61 @@
 # Deploy React + Vite app to GitHub Pages
 # This workflow runs on pushes to the main branch and deploys the app to GitHub Pages
 name: 🚀 Deploy to GitHub Pages
+
 on:
   push:
     branches:
       - main
   workflow_dispatch:
 
-permissions: write-all
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    name: '🚀 Deploy React + Vite app to GitHub Pages'
+    name: "🏗️ Build Phase"
     steps:
-      - name: '🐧 Checkout code'
+      - name: "🐧 Checkout code"
         uses: actions/checkout@v6
-      - name: '⚙️ Set up Node.js'
+
+      - name: "⚙️ Set up Node.js"
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
-      - name: '📦 Install dependencies'
-        run: npm install --legacy-peer-deps
-      - name: '🏗️ Build the app'
+          node-version: "24"
+          cache: "npm"
+
+      - name: "📦 Install dependencies"
+        run: npm ci --legacy-peer-deps
+
+      - name: "🏗️ Build the app"
         run: npm run build
-      - name: '🚀 Deploy to GitHub Pages'
-        uses: peaceiris/actions-gh-pages@v4
+
+      - name: "🌐 Preserve CNAME"
+        run: echo "cdinfante.harryvasanth.com" > dist/CNAME
+
+      - name: "⚙️ Setup GitHub Pages"
+        uses: actions/configure-pages@v6
+
+      - name: "📤 Upload artifact"
+        uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
-          cname: cdinfante.harryvasanth.com
+          path: "dist"
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: "🚀 Deploy Phase"
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: "🚀 Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v5
