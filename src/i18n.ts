@@ -91,6 +91,131 @@ const resources = {
       footer: {
         rights: 'All rights reserved.',
       },
+      docs: {
+        title: 'Brand & Identity Documentation',
+        guidelines: 'Guidelines',
+        typography: {
+          title: 'Typography',
+          typefaces: 'Typefaces',
+          font_sizes: 'Font Sizes',
+          font_weights: 'Font Weights',
+        },
+        theming: {
+          title: 'Theming',
+          colors: 'Colors',
+          icons: 'Icons',
+          spinner: 'Spinner',
+        },
+        components: {
+          title: 'Components',
+          flags: 'Flags',
+          text_standards: {
+            title: 'Text Standards',
+            title_item: 'Title',
+            modal_title: 'Modal Title',
+            section: 'Section',
+            text: 'Text',
+            label: 'Label',
+          },
+          indicators: {
+            title: 'Indicators',
+            ribbon: 'Ribbon',
+            banner: 'Banner',
+          },
+          links: {
+            title: 'Links',
+            link: 'Link',
+            back_link: 'Back Link',
+          },
+          buttons: {
+            title: 'Buttons',
+            button: 'Button',
+            action: 'Action',
+          },
+          navbar: 'Navbar',
+          resizable_container: 'Resizable Container',
+          search_bar: 'Search Bar',
+          form_inputs: {
+            title: 'Form Inputs',
+            text_input: 'Text Input',
+            text_area: 'Text Area',
+            generate_input: 'Generate Input',
+          },
+          form_controls: {
+            title: 'Form Controls',
+            select: 'Select',
+            radio: 'Radio',
+            switch: 'Switch',
+            checkbox: 'Checkbox',
+            slider: 'Slider',
+          },
+          collapse: {
+            title: 'Collapse',
+            collapsible: 'Collapsible',
+            hideable: 'Hideable',
+            drop_down: 'Drop Down',
+            content:
+              'Hidden content that expands when the header is clicked. This component is now interactable!',
+          },
+          containers: {
+            title: 'Containers',
+            page_container: 'Page Container',
+            container_shadow: 'Container Shadow',
+            container_inset: 'Container Inset',
+            drawer: 'Drawer',
+            modal: 'Modal',
+            modal_title_preview: 'Confirm Action',
+            modal_desc_preview: 'Are you sure you want to proceed?',
+            modal_cancel: 'Cancel',
+            modal_confirm: 'Confirm',
+          },
+          cards: {
+            title: 'Cards',
+            card: 'Card',
+            list_card: 'List Card',
+            events_panel: 'Events Panel',
+          },
+          toggle: 'Toggle',
+          toast: 'Toast',
+          graphs: {
+            title: 'Graphs',
+            bar_graph: 'Bar Graph',
+            progress_bar: 'Progress Bar',
+            line_graph: 'Line Graph',
+            conic_graph: 'Conic Graph',
+            radar_chart: 'Radar Chart',
+          },
+        },
+        writing_posts: {
+          title: 'Writing Posts',
+          intro:
+            'Guidelines for creating news and sports updates using Markdown files.',
+          template: 'Markdown Template',
+          dos: 'Dos',
+          donts: "Don'ts",
+          guidelines: {
+            filename: 'Filename: Use the format YYYY-MM-DD-title-slug.md.',
+            folder:
+              'Location: Place the file in the correct subfolder under src/content/.',
+            frontmatter:
+              'Metadata: Ensure title, date, image, and description are provided.',
+            bilingual:
+              'Language: Always provide content in both Portuguese and English.',
+          },
+          dos_list: {
+            images: 'Use high-quality images and verify URLs.',
+            hashtags: 'Include official hashtags: #CDInfante #Madeira.',
+            clear_text:
+              'Keep descriptions under 150 characters for best display.',
+          },
+          donts_list: {
+            formatting: 'Avoid complex HTML; stick to standard Markdown.',
+            huge_files:
+              'Do not upload massive images (> 2MB) directly to the repo.',
+            broken_links: 'Check all links before submitting.',
+          },
+        },
+      },
     },
   },
   'pt-PT': {
@@ -182,10 +307,145 @@ const resources = {
       footer: {
         rights: 'Todos os direitos reservados.',
       },
+      docs: {
+        title: 'Documentação de Marca e Identidade',
+        guidelines: 'Diretrizes',
+        typography: {
+          title: 'Tipografia',
+          typefaces: 'Tipos de Letra',
+          font_sizes: 'Tamanhos de Letra',
+          font_weights: 'Pesos de Letra',
+        },
+        theming: {
+          title: 'Temas',
+          colors: 'Cores',
+          icons: 'Ícones',
+          spinner: 'Spinner',
+        },
+        components: {
+          title: 'Componentes',
+          flags: 'Bandeiras',
+          text_standards: {
+            title: 'Padrões de Texto',
+            title_item: 'Título',
+            modal_title: 'Título de Modal',
+            section: 'Secção',
+            text: 'Texto',
+            label: 'Etiqueta',
+          },
+          indicators: {
+            title: 'Indicadores',
+            ribbon: 'Fita',
+            banner: 'Banner',
+          },
+          links: {
+            title: 'Links',
+            link: 'Link',
+            back_link: 'Link de Voltar',
+          },
+          buttons: {
+            title: 'Botões',
+            button: 'Botão',
+            action: 'Ação',
+          },
+          navbar: 'Barra de Navegação',
+          resizable_container: 'Contentor Redimensionável',
+          search_bar: 'Barra de Pesquisa',
+          form_inputs: {
+            title: 'Entradas de Formulário',
+            text_input: 'Entrada de Texto',
+            text_area: 'Área de Texto',
+            generate_input: 'Gerar Entrada',
+          },
+          form_controls: {
+            title: 'Controlos de Formulário',
+            select: 'Seleção',
+            radio: 'Rádio',
+            switch: 'Interruptor',
+            checkbox: 'Caixa de Seleção',
+            slider: 'Deslizador',
+          },
+          collapse: {
+            title: 'Colapso',
+            collapsible: 'Colapsável',
+            hideable: 'Ocultável',
+            drop_down: 'Menu Suspenso',
+            content:
+              'Conteúdo que se expande quando o cabeçalho é clicado. Este componente é agora interativo!',
+          },
+          containers: {
+            title: 'Contentores',
+            page_container: 'Contentor de Página',
+            container_shadow: 'Sombra de Contentor',
+            container_inset: 'Contentor Inserido',
+            drawer: 'Gaveta',
+            modal: 'Modal',
+            modal_title_preview: 'Confirmar Ação',
+            modal_desc_preview: 'Tem a certeza que deseja continuar?',
+            modal_cancel: 'Cancelar',
+            modal_confirm: 'Confirmar',
+          },
+          cards: {
+            title: 'Cartões',
+            card: 'Cartão',
+            list_card: 'Cartão de Lista',
+            events_panel: 'Painel de Eventos',
+          },
+          toggle: 'Alternador',
+          toast: 'Notificação (Toast)',
+          graphs: {
+            title: 'Gráficos',
+            bar_graph: 'Gráfico de Barras',
+            progress_bar: 'Barra de Progresso',
+            line_graph: 'Gráfico de Linhas',
+            conic_graph: 'Gráfico Cónico',
+            radar_chart: 'Gráfico de Radar',
+          },
+        },
+        writing_posts: {
+          title: 'Escrever Publicações',
+          intro:
+            'Diretrizes para criar notícias e atualizações desportivas usando ficheiros Markdown.',
+          template: 'Modelo Markdown',
+          dos: 'O que fazer',
+          donts: 'O que não fazer',
+          guidelines: {
+            filename:
+              'Nome do Ficheiro: Usa o formato AAAA-MM-DD-slug-do-titulo.md.',
+            folder:
+              'Localização: Coloca o ficheiro na pasta correta em src/content/.',
+            frontmatter:
+              'Metadados: Garante que o título, data, imagem e descrição estão presentes.',
+            bilingual:
+              'Idioma: Fornece sempre o conteúdo em Português e Inglês.',
+          },
+          dos_list: {
+            images: 'Usa imagens de alta qualidade e verifica os URLs.',
+            hashtags: 'Inclui as hashtags oficiais: #CDInfante #Madeira.',
+            clear_text:
+              'Mantém as descrições abaixo de 150 caracteres para uma melhor visualização.',
+          },
+          donts_list: {
+            formatting: 'Evita HTML complexo; usa Markdown padrão.',
+            huge_files:
+              'Não envies imagens gigantes (> 2MB) diretamente para o repositório.',
+            broken_links: 'Verifica todos os links antes de submeter.',
+          },
+        },
+      },
     },
   },
 };
 
+/**
+ * Internationalization Setup
+ *
+ * Default: pt-PT
+ * Fallback: en-GB
+ * Persistence: localStorage ('i18nextLng')
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ */
 i18n.use(initReactI18next).init({
   resources,
   lng: localStorage.getItem('i18nextLng') || 'pt-PT',
