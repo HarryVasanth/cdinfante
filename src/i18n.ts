@@ -59,10 +59,17 @@ const resources = {
         title: 'Calendar & Events',
         subtitle:
           'Stay up to date with our upcoming competitions, training sessions, and club events.',
+        sync_button: 'Sync AARAM Calendar (.ics)',
         documents_title: 'Official Calendars & Documents',
         documents_subtitle:
-          'Download the official PDF calendars for each sport discipline.',
-        download_pdf: 'Download PDF',
+          'Access the official interactive and PDF calendars from regional and national associations.',
+        download_pdf: 'View / Download',
+        aaram_title: 'AARAM - Associação de Atletismo da R.A.M.',
+        fpa_title: 'FPA - Federação Portuguesa de Atletismo',
+        cal_aaram: 'Calendário AARAM',
+        cal_madeira_correr: 'Calendário Madeira a Correr',
+        cal_trail: 'Calendário Trail Madeira',
+        cal_nacional: 'Calendário Nacional (FPA)',
       },
       common: {
         back_home: 'Back to Home',
@@ -143,10 +150,17 @@ const resources = {
         title: 'Calendário e Eventos',
         subtitle:
           'Mantenha-se atualizado com as nossas próximas competições, treinos e eventos do clube.',
+        sync_button: 'Sincronizar Calendário AARAM (.ics)',
         documents_title: 'Calendários e Documentos Oficiais',
         documents_subtitle:
-          'Descarregue os calendários oficiais em PDF para cada disciplina desportiva.',
-        download_pdf: 'Descarregar PDF',
+          'Aceda aos calendários oficiais interativos e em PDF das associações regionais e nacionais.',
+        download_pdf: 'Ver / Descarregar',
+        aaram_title: 'AARAM - Associação de Atletismo da R.A.M.',
+        fpa_title: 'FPA - Federação Portuguesa de Atletismo',
+        cal_aaram: 'Calendário AARAM',
+        cal_madeira_correr: 'Calendário Madeira a Correr',
+        cal_trail: 'Calendário Trail Madeira',
+        cal_nacional: 'Calendário Nacional (FPA)',
       },
       common: {
         back_home: 'Voltar ao Início',

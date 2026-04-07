@@ -3,46 +3,76 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
-  FileText,
-  Download,
+  ExternalLink,
   Calendar as CalendarIcon,
+  Link as LinkIcon,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
+// ------------------------------------------------------------------
+// GOOGLE CALENDAR CONFIGURATION
+// ------------------------------------------------------------------
+// To add a new calendar in the future, simply add a new object to this array.
+// You need the Calendar ID (src) and a hex color code (color).
+// Note: Replace '#' in hex colors with '%23' (e.g., #d50000 -> %23d50000).
+const GOOGLE_CALENDARS = [
+  {
+    // 🏃 CDInfante - Calendário
+    id: '4003e3c4c371fd3f0790289e87ec2b282e36e5bf41bc34f3e4bb6358edc5a99b@group.calendar.google.com',
+    color: '%23d50000', // Red #d50000
+  },
+  {
+    // Atletismo da Madeira - Calendário
+    id: 'cv0bgl3r64ghto82nlv4eh76mg0shlnp@import.calendar.google.com',
+    color: '%234285f4', // Blue #4285f4
+  },
+  // Example of adding a new one:
+  // { id: 'YOUR_NEW_CALENDAR_ID', color: '%2333b679' }
+];
+
+// Helper function to dynamically construct the iframe URL
+const buildCalendarUrl = () => {
+  const baseUrl =
+    'https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Atlantic%2FMadeira&showPrint=0';
+
+  // Google Calendar requires all '&src=' params first, followed by all '&color=' params
+  const srcParams = GOOGLE_CALENDARS.map(
+    (cal) => `&src=${encodeURIComponent(cal.id)}`,
+  ).join('');
+  const colorParams = GOOGLE_CALENDARS.map((cal) => `&color=${cal.color}`).join(
+    '',
+  );
+
+  return `${baseUrl}${srcParams}${colorParams}`;
+};
+// ------------------------------------------------------------------
+
 const sportsDocuments = [
   {
-    id: 'road-running',
-    name: 'Road Running / Corrida de Estrada',
+    id: 'aaram',
+    nameKey: 'calendar.aaram_title',
     docs: [
       {
-        title: 'Calendário Regional de Estrada 2026',
-        size: '1.2 MB',
-        url: '#',
+        titleKey: 'calendar.cal_aaram',
+        url: 'https://atletismodamadeira.pt/competicao/calendario-pdf/',
       },
-      { title: 'Regulamento Madeira a Correr', size: '2.5 MB', url: '#' },
+      {
+        titleKey: 'calendar.cal_madeira_correr',
+        url: 'https://atletismodamadeira.pt/competicao/calendario-pdf/',
+      },
+      {
+        titleKey: 'calendar.cal_trail',
+        url: 'https://atletismodamadeira.pt/competicao/calendario-pdf/',
+      },
     ],
   },
   {
-    id: 'trail-running',
-    name: 'Trail Running',
-    docs: [
-      { title: 'Calendário Regional Trail 2026', size: '1.8 MB', url: '#' },
-      { title: 'Regulamento Trail Nacional', size: '3.1 MB', url: '#' },
-    ],
-  },
-  {
-    id: 'track-field',
-    name: 'Track & Field / Atletismo de Pista',
-    docs: [{ title: 'Calendário Pista 2026', size: '0.9 MB', url: '#' }],
-  },
-  {
-    id: 'handball',
-    name: 'Handball / Andebol',
+    id: 'fpa',
+    nameKey: 'calendar.fpa_title',
     docs: [
       {
-        title: 'Calendário Associação Andebol Madeira',
-        size: '1.5 MB',
-        url: '#',
+        titleKey: 'calendar.cal_nacional',
+        url: 'https://fpatletismo.pt/resultados-2/',
       },
     ],
   },
@@ -50,7 +80,7 @@ const sportsDocuments = [
 
 export default function CalendarEvents() {
   const { t } = useTranslation();
-  const [expandedId, setExpandedId] = useState<string | null>('road-running');
+  const [expandedId, setExpandedId] = useState<string | null>('aaram');
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-6">
@@ -68,7 +98,7 @@ export default function CalendarEvents() {
             <h1 className="text-5xl md:text-6xl font-black text-brand-navy dark:text-white mb-6 tracking-tight">
               {t('calendar.title')}
             </h1>
-            <p className="text-xl text-brand-navy/60 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-brand-navy/60 dark:text-slate-400 max-w-2xl mx-auto mb-8">
               {t('calendar.subtitle')}
             </p>
           </motion.div>
@@ -81,22 +111,21 @@ export default function CalendarEvents() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="bg-white/70 dark:bg-white/[0.03] backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-8 border border-white/30 dark:border-white/[0.1] shadow-2xl mb-20"
         >
-          {/* Note: The 'dark:invert dark:hue-rotate-180 dark:opacity-90' classes magically adapt the Google Calendar to dark mode! */}
           <div className="w-full aspect-square md:aspect-[16/9] rounded-2xl overflow-hidden bg-white shadow-inner">
             <iframe
-              src="https://calendar.google.com/calendar/embed?src=4003e3c4c371fd3f0790289e87ec2b282e36e5bf41bc34f3e4bb6358edc5a99b%40group.calendar.google.com&ctz=Atlantic%2FMadeira"
+              src={buildCalendarUrl()}
               style={{ border: 0 }}
               width="100%"
               height="100%"
               frameBorder="0"
               scrolling="no"
               className="dark:invert dark:hue-rotate-180 dark:opacity-90 transition-all duration-700"
-              title="CDInfante - Calendário"
+              title="CDI Calendar"
             ></iframe>
           </div>
         </motion.div>
 
-        {/* Accordion for PDFs */}
+        {/* Accordion for PDFs / Links */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -112,24 +141,26 @@ export default function CalendarEvents() {
           </div>
 
           <div className="grid gap-4">
-            {sportsDocuments.map((sport) => (
+            {sportsDocuments.map((category) => (
               <div
-                key={sport.id}
+                key={category.id}
                 className="bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden transition-all duration-300"
               >
                 <button
                   onClick={() =>
-                    setExpandedId(expandedId === sport.id ? null : sport.id)
+                    setExpandedId(
+                      expandedId === category.id ? null : category.id,
+                    )
                   }
                   className="w-full p-6 flex items-center justify-between bg-transparent hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors cursor-pointer"
                 >
                   <span className="text-lg font-bold text-brand-navy dark:text-white">
-                    {sport.name}
+                    {t(category.nameKey)}
                   </span>
                   <div
                     className={cn(
                       'w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-brand-navy dark:text-white transition-transform duration-300',
-                      expandedId === sport.id ? 'rotate-180' : '',
+                      expandedId === category.id ? 'rotate-180' : '',
                     )}
                   >
                     <ChevronDown size={18} />
@@ -137,7 +168,7 @@ export default function CalendarEvents() {
                 </button>
 
                 <AnimatePresence>
-                  {expandedId === sport.id && (
+                  {expandedId === category.id && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
@@ -146,22 +177,22 @@ export default function CalendarEvents() {
                     >
                       <div className="p-6 pt-0 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
                         <div className="grid gap-3 mt-4">
-                          {sport.docs.map((doc, index) => (
+                          {/* Standard PDF Links */}
+                          {category.docs.map((doc, index) => (
                             <a
                               key={index}
                               href={doc.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-red dark:hover:border-brand-red hover:shadow-md transition-all group"
                             >
                               <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 rounded-lg bg-brand-red/10 text-brand-red flex items-center justify-center">
-                                  <FileText size={20} />
+                                  <CalendarIcon size={20} />
                                 </div>
                                 <div>
                                   <p className="font-semibold text-brand-navy dark:text-white group-hover:text-brand-red transition-colors">
-                                    {doc.title}
-                                  </p>
-                                  <p className="text-xs text-slate-500 font-mono mt-1">
-                                    PDF • {doc.size}
+                                    {t(doc.titleKey)}
                                   </p>
                                 </div>
                               </div>
@@ -169,10 +200,32 @@ export default function CalendarEvents() {
                                 <span className="text-sm font-bold hidden sm:block">
                                   {t('calendar.download_pdf')}
                                 </span>
-                                <Download size={18} />
+                                <ExternalLink size={18} />
                               </div>
                             </a>
                           ))}
+
+                          {/* Special AARAM Sync Button */}
+                          {category.id === 'aaram' && (
+                            <a
+                              href="https://atletismodamadeira.pt/events/lista/?ical=1"
+                              className="flex items-center justify-between p-4 rounded-xl bg-brand-navy/5 dark:bg-brand-navy/20 border border-brand-navy/20 dark:border-brand-navy/30 hover:border-brand-navy dark:hover:border-brand-red hover:shadow-md transition-all group mt-2"
+                            >
+                              <div className="flex items-center gap-4">
+                                <div className="w-10 h-10 rounded-lg bg-brand-navy text-white flex items-center justify-center shadow-sm">
+                                  <LinkIcon size={20} />
+                                </div>
+                                <div>
+                                  <p className="font-semibold text-brand-navy dark:text-white group-hover:text-brand-red transition-colors">
+                                    {t('calendar.sync_button')}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 text-brand-navy dark:text-white opacity-50 group-hover:opacity-100 group-hover:text-brand-red transition-all">
+                                <ExternalLink size={18} />
+                              </div>
+                            </a>
+                          )}
                         </div>
                       </div>
                     </motion.div>

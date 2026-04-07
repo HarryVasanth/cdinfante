@@ -116,6 +116,9 @@ export const Contact = () => {
                 
                 {/* Honeypot Spam Protection */}
                 <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+                
+                  {/* hCaptcha Spam Protection */}
+                <div className="h-captcha" data-captcha="true"></div>
 
                 <button
                   type="submit"
