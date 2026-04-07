@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { m, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
-import { useScroll } from '../../hooks/useScroll'; // <-- Import the new hook
+import { useScroll } from '../../hooks/useScroll';
 
 export const Hero = () => {
   const { t } = useTranslation();

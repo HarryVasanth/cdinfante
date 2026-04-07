@@ -109,9 +109,9 @@ export default function CalendarEvents() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-white/70 dark:bg-white/[0.03] backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-8 border border-white/30 dark:border-white/[0.1] shadow-2xl mb-20"
+          className="bg-white/70 dark:bg-white/[0.03] backdrop-blur-2xl rounded-[1.5rem] md:rounded-[2.5rem] p-2 sm:p-4 md:p-8 border border-white/30 dark:border-white/[0.1] shadow-2xl mb-12 md:mb-20"
         >
-          <div className="w-full aspect-square md:aspect-[16/9] rounded-2xl overflow-hidden bg-white shadow-inner">
+          <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[16/9] rounded-xl md:rounded-2xl overflow-hidden bg-white shadow-inner">
             <iframe
               src={buildCalendarUrl()}
               style={{ border: 0 }}
