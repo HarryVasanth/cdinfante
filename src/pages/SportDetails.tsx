@@ -1,3 +1,4 @@
+// src/pages/SportDetails.tsx
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -212,6 +213,7 @@ const SportDetails: React.FC = () => {
                         <img
                           src={featuredPost.image}
                           alt={featuredPost.title}
+                          loading="lazy"
                           className="w-full h-full object-cover transition-all duration-700 group-hover/image:scale-105"
                         />
                         <div className="absolute inset-0 bg-white/0 dark:bg-black/0 group-hover/image:bg-white/10 dark:group-hover/image:bg-white/5 backdrop-blur-[0px] group-hover/image:backdrop-blur-[2px] transition-all duration-700" />
@@ -273,6 +275,7 @@ const SportDetails: React.FC = () => {
                                   <img
                                     src={img}
                                     alt=""
+                                    loading="lazy"
                                     className="w-full h-full object-cover transition-all duration-700 group-hover/gallery:scale-110"
                                   />
                                   <div className="absolute inset-0 bg-white/0 dark:bg-black/0 group-hover/gallery:bg-white/10 dark:group-hover/gallery:bg-white/5 backdrop-blur-[0px] group-hover/gallery:backdrop-blur-[2px] transition-all duration-700" />
