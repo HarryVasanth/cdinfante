@@ -110,7 +110,9 @@ export async function getPost(category: string, slug: string): Promise<Post> {
   const attrs = attributes as FrontMatterAttributes;
 
   const [resolvedImage, resolvedImages] = await Promise.all([
-    attrs.image ? resolveImagePath(postDir, attrs.image) : Promise.resolve(undefined),
+    attrs.image
+      ? resolveImagePath(postDir, attrs.image)
+      : Promise.resolve(undefined),
     attrs.images
       ? Promise.all(attrs.images.map((img) => resolveImagePath(postDir, img)))
       : Promise.resolve(undefined),

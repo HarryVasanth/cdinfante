@@ -67,13 +67,13 @@ export const Sports = () => {
             delay={0.5}
             slug="track-field"
           />
-         <BentoCard
+          <BentoCard
             title={t('sports.other_competitions')}
             icon={Target}
             imageUrl="images/main/other-competitions.avif"
             delay={0.8}
             slug="other-competitions"
-          />          
+          />
           <BentoCard
             title={t('sports.handball')}
             icon={CircleDot}
