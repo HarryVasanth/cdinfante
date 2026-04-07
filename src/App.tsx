@@ -1,15 +1,3 @@
-/**
- * Clube Desportivo Infante Dom Henrique - Official Website
- * Built with React, Tailwind CSS, and Framer Motion.
- *
- * Main features:
- * - Bilingual support (pt-PT / en-GB) via i18next
- * - Persistent Dark/Light mode based on system preference and user choice
- * - Modular architecture for clean maintenance
- *
- * @author Harry Vasanth (harryvasanth.com)
- */
-
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
@@ -20,6 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import SportDetails from './pages/SportDetails';
 import Docs from './pages/Docs';
+import CalendarEvents from './pages/CalendarEvents'; // NEW PAGE
 import { Spotlight } from './components/ui/Spotlight';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/sections/Hero';
@@ -40,7 +29,6 @@ function MainContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
 
-  // Keep navigation smooth by scrolling to top or specific sections on route changes
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
@@ -62,7 +50,6 @@ function MainContent() {
     return false;
   });
 
-  // Apply dark mode class and save preference to localStorage so it persists on refresh
   useEffect(() => {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     if (isDark) {
@@ -72,7 +59,6 @@ function MainContent() {
     }
   }, [isDark]);
 
-  // Switch between PT and EN while keeping the HTML lang attribute in sync
   const toggleLanguage = () => {
     const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT';
     i18n.changeLanguage(nextLang);
@@ -80,7 +66,6 @@ function MainContent() {
     document.documentElement.lang = nextLang;
   };
 
-  // Ensure the document language matches i18n state on boot
   useEffect(() => {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
@@ -98,6 +83,7 @@ function MainContent() {
       <Routes>
         <Route path="/docs" element={<Docs />} />
         <Route path="/sports/:sportId" element={<SportDetails />} />
+        <Route path="/calendar" element={<CalendarEvents />} />
         <Route
           path="/"
           element={

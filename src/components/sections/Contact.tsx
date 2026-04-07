@@ -66,36 +66,57 @@ export const Contact = () => {
             </div>
 
             <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/[0.08] shadow-2xl ring-1 ring-white/10">
-              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+              
+              {/* Web3Forms Integration */}
+              <form action="https://api.web3forms.com/submit" method="POST" className="space-y-8">
+                
+                {/* Your provided Access Key */}
+                <input type="hidden" name="access_key" value="47ea1e71-2203-4ffd-ab35-7aaf12aac693" />
+                <input type="hidden" name="subject" value="New Submission from CDInfante Website" />
+                <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+
                 <div className="grid grid-cols-1 gap-8">
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    <label htmlFor="name" className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                       {t('contact.form.name')}
                     </label>
                     <input
                       type="text"
+                      name="name"
+                      id="name"
+                      required
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    <label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                       {t('contact.form.email')}
                     </label>
                     <input
                       type="email"
+                      name="email"
+                      id="email"
+                      required
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                     />
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="message" className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     {t('contact.form.message')}
                   </label>
                   <textarea
+                    name="message"
+                    id="message"
                     rows={5}
+                    required
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                   />
                 </div>
+                
+                {/* Honeypot Spam Protection */}
+                <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+
                 <button
                   type="submit"
                   className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest cursor-pointer focus-visible:ring-4 focus-visible:ring-brand-red/40"

@@ -11,6 +11,7 @@ export const Footer = () => {
     { name: t('nav.home'), href: '#' },
     { name: t('nav.about'), href: '#about' },
     { name: t('nav.sports'), href: '#sports' },
+    { name: t('nav.calendar'), href: 'calendar' },
     { name: t('nav.contact'), href: '#contact' },
   ];
 
