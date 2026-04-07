@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Inter", "system-ui", "sans-serif";
+  --font-sans: 'Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif';
   --radius-4xl: 2rem;
   --radius-5xl: 3rem;
 
@@ -26,5 +26,16 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl,
+  .backdrop-blur-xl {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
 }

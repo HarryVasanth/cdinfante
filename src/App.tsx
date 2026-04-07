@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { LazyMotion, domAnimation } from 'framer-motion';
 
-// Statically imported components (used on the initial load)
+// Statically imported components
 import { Spotlight } from './components/ui/Spotlight';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/sections/Hero';
@@ -33,7 +33,6 @@ export default function App() {
   );
 }
 
-// A simple loading spinner to show while the lazy-loaded chunk is being downloaded
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#FBFBFD] dark:bg-[#020202]">
     <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
@@ -43,6 +42,7 @@ const PageLoader = () => (
 function MainContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State lifted to control global effects
 
   useEffect(() => {
     if (location.hash) {
@@ -87,13 +87,16 @@ function MainContent() {
 
   return (
     <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-700 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden font-plus-jakarta">
-      <Spotlight />
+      {/* Spotlight calculation is skipped when the menu is open to save mobile resources */}
+      {!isMenuOpen && <Spotlight />}
       <ReloadPrompt />
 
       <Navbar
         isDark={isDark}
         setIsDark={setIsDark}
         toggleLanguage={toggleLanguage}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
       />
 
       <Suspense fallback={<PageLoader />}>
