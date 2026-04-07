@@ -137,7 +137,8 @@ const resources = {
             collapsible: 'Collapsible',
             hideable: 'Hideable',
             drop_down: 'Drop Down',
-            content: 'Hidden content that expands when the header is clicked. This component is now interactable!',
+            content:
+              'Hidden content that expands when the header is clicked. This component is now interactable!',
           },
           containers: {
             title: 'Containers',
@@ -170,24 +171,30 @@ const resources = {
         },
         writing_posts: {
           title: 'Writing Posts',
-          intro: 'Guidelines for creating news and sports updates using Markdown files.',
+          intro:
+            'Guidelines for creating news and sports updates using Markdown files.',
           template: 'Markdown Template',
           dos: 'Dos',
           donts: "Don'ts",
           guidelines: {
             filename: 'Filename: Use the format YYYY-MM-DD-title-slug.md.',
-            folder: 'Location: Place the file in the correct subfolder under src/content/.',
-            frontmatter: 'Metadata: Ensure title, date, image, and description are provided.',
-            bilingual: 'Language: Always provide content in both Portuguese and English.',
+            folder:
+              'Location: Place the file in the correct subfolder under src/content/.',
+            frontmatter:
+              'Metadata: Ensure title, date, image, and description are provided.',
+            bilingual:
+              'Language: Always provide content in both Portuguese and English.',
           },
           dos_list: {
             images: 'Use high-quality images and verify URLs.',
             hashtags: 'Include official hashtags: #CDInfante #Madeira.',
-            clear_text: 'Keep descriptions under 150 characters for best display.',
+            clear_text:
+              'Keep descriptions under 150 characters for best display.',
           },
           donts_list: {
-            formatting: "Avoid complex HTML; stick to standard Markdown.",
-            huge_files: 'Do not upload massive images (> 2MB) directly to the repo.',
+            formatting: 'Avoid complex HTML; stick to standard Markdown.',
+            huge_files:
+              'Do not upload massive images (> 2MB) directly to the repo.',
             broken_links: 'Check all links before submitting.',
           },
         },
@@ -329,7 +336,8 @@ const resources = {
             collapsible: 'Colapsável',
             hideable: 'Ocultável',
             drop_down: 'Menu Suspenso',
-            content: 'Conteúdo que se expande quando o cabeçalho é clicado. Este componente é agora interativo!',
+            content:
+              'Conteúdo que se expande quando o cabeçalho é clicado. Este componente é agora interativo!',
           },
           containers: {
             title: 'Contentores',
@@ -338,10 +346,10 @@ const resources = {
             container_inset: 'Contentor Inserido',
             drawer: 'Gaveta',
             modal: 'Modal',
-        modal_title_preview: 'Confirmar Ação',
-        modal_desc_preview: 'Tem a certeza que deseja continuar?',
-        modal_cancel: 'Cancelar',
-        modal_confirm: 'Confirmar',
+            modal_title_preview: 'Confirmar Ação',
+            modal_desc_preview: 'Tem a certeza que deseja continuar?',
+            modal_cancel: 'Cancelar',
+            modal_confirm: 'Confirmar',
           },
           cards: {
             title: 'Cartões',
@@ -362,24 +370,31 @@ const resources = {
         },
         writing_posts: {
           title: 'Escrever Publicações',
-          intro: 'Diretrizes para criar notícias e atualizações desportivas usando ficheiros Markdown.',
+          intro:
+            'Diretrizes para criar notícias e atualizações desportivas usando ficheiros Markdown.',
           template: 'Modelo Markdown',
           dos: 'O que fazer',
           donts: 'O que não fazer',
           guidelines: {
-            filename: 'Nome do Ficheiro: Usa o formato AAAA-MM-DD-slug-do-titulo.md.',
-            folder: 'Localização: Coloca o ficheiro na pasta correta em src/content/.',
-            frontmatter: 'Metadados: Garante que o título, data, imagem e descrição estão presentes.',
-            bilingual: 'Idioma: Fornece sempre o conteúdo em Português e Inglês.',
+            filename:
+              'Nome do Ficheiro: Usa o formato AAAA-MM-DD-slug-do-titulo.md.',
+            folder:
+              'Localização: Coloca o ficheiro na pasta correta em src/content/.',
+            frontmatter:
+              'Metadados: Garante que o título, data, imagem e descrição estão presentes.',
+            bilingual:
+              'Idioma: Fornece sempre o conteúdo em Português e Inglês.',
           },
           dos_list: {
             images: 'Usa imagens de alta qualidade e verifica os URLs.',
             hashtags: 'Inclui as hashtags oficiais: #CDInfante #Madeira.',
-            clear_text: 'Mantém as descrições abaixo de 150 caracteres para uma melhor visualização.',
+            clear_text:
+              'Mantém as descrições abaixo de 150 caracteres para uma melhor visualização.',
           },
           donts_list: {
             formatting: 'Evita HTML complexo; usa Markdown padrão.',
-            huge_files: 'Não envies imagens gigantes (> 2MB) diretamente para o repositório.',
+            huge_files:
+              'Não envies imagens gigantes (> 2MB) diretamente para o repositório.',
             broken_links: 'Verifica todos os links antes de submeter.',
           },
         },
