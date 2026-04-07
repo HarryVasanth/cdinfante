@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  m,
-  useMotionValue,
-  useSpring,
-  useMotionTemplate,
-} from 'framer-motion';
+import { m, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 
 /**
  * Premium mouse-tracking spotlight effect.

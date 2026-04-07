@@ -62,7 +62,11 @@ export default function Docs() {
     { id: 'typography', label: t('docs.typography.title'), icon: Type },
     { id: 'theming', label: t('docs.theming.title'), icon: Palette },
     { id: 'components', label: t('docs.components.title'), icon: Box },
-    { id: 'containers', label: t('docs.components.containers.title'), icon: Layout },
+    {
+      id: 'containers',
+      label: t('docs.components.containers.title'),
+      icon: Layout,
+    },
     { id: 'graphs', label: t('docs.components.graphs.title'), icon: BarChart3 },
     { id: 'writing-posts', label: t('docs.writing_posts.title'), icon: List },
   ];
