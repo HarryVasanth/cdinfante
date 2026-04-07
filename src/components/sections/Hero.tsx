@@ -1,20 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+// src/components/sections/Hero.tsx
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import { useScroll } from '../../hooks/useScroll'; // <-- Import the new hook
 
 export const Hero = () => {
   const { t } = useTranslation();
-  const [scrolled, setScrolled] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 20);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  // Use the custom hook instead of writing all the event listener logic!
+  const scrolled = useScroll(20);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">

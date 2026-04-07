@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// src/App.tsx
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,9 +7,8 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SportDetails from './pages/SportDetails';
-import Docs from './pages/Docs';
-import CalendarEvents from './pages/CalendarEvents'; // NEW PAGE
+
+// Keep these components statically imported as they are used on the initial load (Home page)
 import { Spotlight } from './components/ui/Spotlight';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/sections/Hero';
@@ -17,6 +17,11 @@ import { Sports } from './components/sections/Sports';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/layout/Footer';
 
+// Lazy load the pages that are not needed on the initial render
+const SportDetails = lazy(() => import('./pages/SportDetails'));
+const Docs = lazy(() => import('./pages/Docs'));
+const CalendarEvents = lazy(() => import('./pages/CalendarEvents'));
+
 export default function App() {
   return (
     <Router>
@@ -24,6 +29,13 @@ export default function App() {
     </Router>
   );
 }
+
+// A simple loading spinner to show while the lazy-loaded chunk is being downloaded
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-[#FBFBFD] dark:bg-[#020202]">
+    <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 function MainContent() {
   const { i18n } = useTranslation();
@@ -80,22 +92,25 @@ function MainContent() {
         toggleLanguage={toggleLanguage}
       />
 
-      <Routes>
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/sports/:sportId" element={<SportDetails />} />
-        <Route path="/calendar" element={<CalendarEvents />} />
-        <Route
-          path="/"
-          element={
-            <main>
-              <Hero />
-              <About />
-              <Sports />
-              <Contact />
-            </main>
-          }
-        />
-      </Routes>
+      {/* Wrap the Routes in Suspense to handle the loading state of lazy components */}
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/docs" element={<Docs />} />
+          <Route path="/sports/:sportId" element={<SportDetails />} />
+          <Route path="/calendar" element={<CalendarEvents />} />
+          <Route
+            path="/"
+            element={
+              <main>
+                <Hero />
+                <About />
+                <Sports />
+                <Contact />
+              </main>
+            }
+          />
+        </Routes>
+      </Suspense>
 
       <Footer />
     </div>

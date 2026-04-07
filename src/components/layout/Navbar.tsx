@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+// src/components/layout/Navbar.tsx
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Globe, Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../lib/utils';
 import { Logo } from '../ui/Logo';
+import { useScroll } from '../../hooks/useScroll';
 
 const NavItem = ({
   href,
@@ -78,16 +80,9 @@ interface NavbarProps {
 export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 20);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  // Custom hook cleanly replaces all the scroll event listener logic!
+  const scrolled = useScroll(20);
 
   const navLinks = [
     { name: t('nav.home'), href: '#' },
