@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { m, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 
-/**
- * Premium mouse-tracking spotlight effect.
- * Uses Framer Motion springs to provide fluid, lag-free movement.
- *
- * @author Harry Vasanth (harryvasanth.com)
- */
 export const Spotlight = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const [opacity, setOpacity] = useState(0);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  // Detect if the device is a touch device
+  useEffect(() => {
+    const checkTouch = window.matchMedia(
+      '(hover: none) and (pointer: coarse)',
+    ).matches;
+    setIsTouchDevice(checkTouch);
+  }, []);
 
   const springConfig = { damping: 30, stiffness: 200, mass: 0.5 };
   const smoothX = useSpring(mouseX, springConfig);
@@ -24,9 +28,9 @@ export const Spotlight = () => {
     )
   `;
 
-  const [opacity, setOpacity] = useState(0);
-
   useEffect(() => {
+    if (isTouchDevice) return; // Do not attach listeners on mobile
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -43,7 +47,10 @@ export const Spotlight = () => {
       document.body.removeEventListener('mouseenter', handleMouseEnter);
       document.body.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isTouchDevice]);
+
+  // Completely bypass rendering on touch devices
+  if (isTouchDevice) return null;
 
   return (
     <m.div

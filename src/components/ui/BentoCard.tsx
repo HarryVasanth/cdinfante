@@ -74,6 +74,7 @@ export const BentoCard = ({
             src={imageUrl}
             alt={title}
             loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-80 dark:opacity-40 group-hover:opacity-100 dark:group-hover:opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-black dark:via-black/60 dark:to-transparent" />

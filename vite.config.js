@@ -3,11 +3,23 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { imagetools } from 'vite-imagetools';
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    imagetools(),
+    // Generates .br and .gz files for smaller payloads over the wire
+    viteCompression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+    }),
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+    }),
     VitePWA({
       registerType: 'prompt', // Asks the user before updating
       includeAssets: [
@@ -43,7 +55,7 @@ export default defineConfig({
         // Cache all these file types for offline use
         globPatterns: ['**/*.{js,css,html,ico,png,svg,avif,jpg,jpeg,md}'],
 
-        // Advanced runtime caching for external Google Fonts
+        // Advanced runtime caching for external fonts and local images
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -67,6 +79,21 @@ export default defineConfig({
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Aggressive caching for local images
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|avif|webp)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'local-images-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
               },
               cacheableResponse: {
                 statuses: [0, 200],

@@ -18,8 +18,13 @@
 }
 
 .dark {
-  --background: #020202; /* True black for OLED-like experience */
+  --background: #020202;
   --foreground: #f8fafc;
+}
+
+/* ADD THIS: Removes default mobile tap highlight for a native app feel */
+html {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
