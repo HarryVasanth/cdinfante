@@ -6,56 +6,59 @@ export const Contact = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="contact" className="py-32 px-6 bg-transparent">
+    <section
+      id="contact"
+      className="py-24 md:py-32 px-4 sm:px-6 bg-transparent"
+    >
       <div className="max-w-7xl mx-auto">
-        <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[4rem] p-10 md:p-24 overflow-hidden relative shadow-3xl border border-white/[0.08] transition-colors duration-700">
+        <div className="bg-brand-navy dark:bg-white/[0.02] backdrop-blur-3xl rounded-[2.5rem] md:rounded-[4rem] p-6 sm:p-10 lg:p-24 overflow-hidden relative shadow-3xl border border-white/[0.08] transition-colors duration-700">
           <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-brand-red/20 blur-[120px] rounded-full" />
           <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-brand-navy/20 blur-[120px] rounded-full" />
 
-          <div className="grid lg:grid-cols-2 gap-24 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 relative z-10">
             <div>
-              <h2 className="text-6xl font-black text-white mb-10 tracking-tight">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-10 tracking-tight">
                 {t('contact.title')}
               </h2>
 
-              <div className="space-y-10 mb-16">
-                <div className="flex gap-8 items-start group">
-                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 cursor-pointer">
-                    <MapPin size={28} />
+              <div className="space-y-8 md:space-y-10 mb-12 md:mb-16">
+                <div className="flex gap-6 md:gap-8 items-start group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 cursor-pointer">
+                    <MapPin size={24} className="md:w-7 md:h-7" />
                   </div>
                   <div>
-                    <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
+                    <div className="text-slate-400 text-[10px] md:text-xs font-bold mb-1 md:mb-2 uppercase tracking-[0.2em]">
                       {t('contact.address_label')}
                     </div>
-                    <div className="text-white text-xl font-bold leading-relaxed whitespace-pre-line">
+                    <div className="text-white text-lg md:text-xl font-bold leading-relaxed whitespace-pre-line">
                       {t('contact.address')}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-8 items-start group">
-                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 cursor-pointer">
-                    <Phone size={28} />
+                <div className="flex gap-6 md:gap-8 items-start group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 cursor-pointer">
+                    <Phone size={24} className="md:w-7 md:h-7" />
                   </div>
                   <div>
-                    <div className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-[0.2em]">
+                    <div className="text-slate-400 text-[10px] md:text-xs font-bold mb-1 md:mb-2 uppercase tracking-[0.2em]">
                       {t('contact.phone_label')}
                     </div>
-                    <div className="text-white text-xl font-bold">
+                    <div className="text-white text-lg md:text-xl font-bold">
                       {t('contact.phone_value')}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-1.5 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden">
+              <div className="p-1.5 bg-white/5 rounded-[1.5rem] md:rounded-[2.5rem] border border-white/10 backdrop-blur-sm shadow-inner group overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.4057142371284!2d-16.9032822!3d32.675255299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6061ab187bf7d1%3A0xc3243053e116fb0b!2sClube%20Desportivo%20Infante%20Dom%20Henrique!5e0!3m2!1sen!2spt!4v1774133527004!5m2!1sen!2spt"
                   width="100%"
                   height="300"
                   style={{
                     border: 0,
-                    borderRadius: '2rem',
+                    borderRadius: '1.25rem',
                   }}
                   allowFullScreen
                   loading="lazy"
@@ -65,19 +68,34 @@ export const Contact = () => {
               </div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/[0.08] shadow-2xl ring-1 ring-white/10">
-              
-              {/* Web3Forms Integration */}
-              <form action="https://api.web3forms.com/submit" method="POST" className="space-y-8">
-                
-                {/* Your provided Access Key */}
-                <input type="hidden" name="access_key" value="47ea1e71-2203-4ffd-ab35-7aaf12aac693" />
-                <input type="hidden" name="subject" value="New Submission from CDInfante Website" />
-                <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] md:rounded-[3rem] p-6 sm:p-10 lg:p-14 border border-white/[0.08] shadow-2xl ring-1 ring-white/10">
+              <form
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                className="space-y-6 md:space-y-8"
+              >
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value="47ea1e71-2203-4ffd-ab35-7aaf12aac693"
+                />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value="New Submission from CDInfante Website"
+                />
+                <input
+                  type="hidden"
+                  name="redirect"
+                  value="https://web3forms.com/success"
+                />
 
-                <div className="grid grid-cols-1 gap-8">
-                  <div className="space-y-3">
-                    <label htmlFor="name" className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <div className="grid grid-cols-1 gap-6 md:gap-8">
+                  <div className="space-y-2 md:space-y-3">
+                    <label
+                      htmlFor="name"
+                      className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest ml-1"
+                    >
                       {t('contact.form.name')}
                     </label>
                     <input
@@ -85,11 +103,14 @@ export const Contact = () => {
                       name="name"
                       id="name"
                       required
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                     />
                   </div>
-                  <div className="space-y-3">
-                    <label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <div className="space-y-2 md:space-y-3">
+                    <label
+                      htmlFor="email"
+                      className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest ml-1"
+                    >
                       {t('contact.form.email')}
                     </label>
                     <input
@@ -97,12 +118,15 @@ export const Contact = () => {
                       name="email"
                       id="email"
                       required
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                     />
                   </div>
                 </div>
-                <div className="space-y-3">
-                  <label htmlFor="message" className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <div className="space-y-2 md:space-y-3">
+                  <label
+                    htmlFor="message"
+                    className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest ml-1"
+                  >
                     {t('contact.form.message')}
                   </label>
                   <textarea
@@ -110,19 +134,22 @@ export const Contact = () => {
                     id="message"
                     rows={5}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red transition-all duration-300"
                   />
                 </div>
-                
-                {/* Honeypot Spam Protection */}
-                <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
-                
-                  {/* hCaptcha Spam Protection */}
+
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: 'none' }}
+                />
+
                 <div className="h-captcha" data-captcha="true"></div>
 
                 <button
                   type="submit"
-                  className="w-full py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest cursor-pointer focus-visible:ring-4 focus-visible:ring-brand-red/40"
+                  className="w-full py-4 md:py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-xl md:rounded-2xl font-black text-base md:text-lg transition-all shadow-xl shadow-brand-red/30 active:scale-[0.98] uppercase tracking-widest cursor-pointer focus-visible:ring-4 focus-visible:ring-brand-red/40"
                 >
                   {t('contact.form.send')}
                 </button>

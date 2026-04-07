@@ -38,7 +38,6 @@ const NavItem = ({
       <Link
         to={href === '#' ? '/' : `/${href}`}
         onClick={(e) => {
-          // If we are already on the home page, just scroll
           if (window.location.pathname === '/') {
             e.preventDefault();
             const id = href.replace('#', '');
@@ -48,7 +47,6 @@ const NavItem = ({
             } else if (!id) {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-            // Update hash without triggering reload
             window.history.pushState(null, '', href === '#' ? '/' : `/${href}`);
           }
           if (onClick) onClick();
@@ -80,8 +78,6 @@ interface NavbarProps {
 export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Custom hook cleanly replaces all the scroll event listener logic!
   const scrolled = useScroll(20);
 
   const navLinks = [
@@ -140,25 +136,18 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             {/* Mobile Menu Toggle */}
             <div className="flex md:hidden items-center gap-2">
               <button
-                onClick={() => setIsDark(!isDark)}
-                className="p-2 text-brand-navy dark:text-slate-300 cursor-pointer"
-                aria-label="Toggle theme"
-              >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={() => setIsMenuOpen(true)}
                 className="p-2 text-brand-navy dark:text-slate-300 cursor-pointer"
                 aria-label="Menu"
               >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                <Menu size={24} />
               </button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Elevated z-index to cover floating navbar */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -166,9 +155,33 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-black pt-24 px-6 md:hidden"
+            className="fixed inset-0 z-[100] bg-white dark:bg-black flex flex-col md:hidden overflow-y-auto"
           >
-            <div className="flex flex-col gap-8 text-center">
+            {/* Drawer Header */}
+            <div className="flex items-center justify-between p-6">
+              <div onClick={() => setIsMenuOpen(false)}>
+                <Logo />
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsDark(!isDark)}
+                  className="p-2 text-brand-navy dark:text-slate-300 cursor-pointer"
+                  aria-label="Toggle theme"
+                >
+                  {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                </button>
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 text-brand-navy dark:text-slate-300 cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5 rounded-full transition-colors"
+                  aria-label="Close Menu"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+            </div>
+
+            {/* Drawer Links */}
+            <div className="flex flex-col gap-8 text-center px-6 py-12 flex-1 justify-center">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -193,18 +206,18 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
                     }
                     setIsMenuOpen(false);
                   }}
-                  className="text-3xl font-black text-brand-navy dark:text-white"
+                  className="text-3xl font-black text-brand-navy dark:text-white hover:text-brand-red dark:hover:text-brand-red transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="h-px bg-slate-100 dark:bg-white/10 my-4" />
+              <div className="h-px bg-slate-100 dark:bg-white/10 my-4 mx-12" />
               <button
                 onClick={() => {
                   toggleLanguage();
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center justify-center gap-3 text-brand-navy/70 dark:text-slate-400 font-bold text-lg cursor-pointer"
+                className="flex items-center justify-center gap-3 text-brand-navy/70 dark:text-slate-400 hover:text-brand-red dark:hover:text-brand-red font-bold text-lg cursor-pointer transition-colors"
               >
                 <Globe size={24} />{' '}
                 {i18n.language.startsWith('pt') ? 'English' : 'Português'}
