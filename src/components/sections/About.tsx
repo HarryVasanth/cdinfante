@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export const About = () => {
   const { t } = useTranslation();
@@ -9,7 +9,7 @@ export const About = () => {
     <section id="about" className="py-24 md:py-32 px-6 bg-transparent relative">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -40,8 +40,8 @@ export const About = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -62,7 +62,7 @@ export const About = () => {
                 {t('about.promotion')}
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

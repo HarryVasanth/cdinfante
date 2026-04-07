@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
   ExternalLink,
@@ -87,7 +87,7 @@ export default function CalendarEvents() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-16 text-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -101,11 +101,11 @@ export default function CalendarEvents() {
             <p className="text-xl text-brand-navy/60 dark:text-slate-400 max-w-2xl mx-auto mb-8">
               {t('calendar.subtitle')}
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Google Calendar Embed */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -123,10 +123,10 @@ export default function CalendarEvents() {
               title="CDI Calendar"
             ></iframe>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Accordion for PDFs / Links */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -169,7 +169,7 @@ export default function CalendarEvents() {
 
                 <AnimatePresence>
                   {expandedId === category.id && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -228,13 +228,13 @@ export default function CalendarEvents() {
                           )}
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

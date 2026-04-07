@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useMotionTemplate,
@@ -51,7 +51,7 @@ export const Spotlight = () => {
   }, [mouseX, mouseY]);
 
   return (
-    <motion.div
+    <m.div
       className="pointer-events-none fixed inset-0 z-50"
       style={{ background }}
       animate={{ opacity }}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Globe, Moon, Sun } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { cn } from '../../lib/utils';
 import { Logo } from '../ui/Logo';
 import { useScroll } from '../../hooks/useScroll';
@@ -150,7 +150,7 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
       {/* Mobile Menu Overlay - Elevated z-index to cover floating navbar */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
@@ -223,7 +223,7 @@ export const Navbar = ({ isDark, setIsDark, toggleLanguage }: NavbarProps) => {
                 {i18n.language.startsWith('pt') ? 'English' : 'Português'}
               </button>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

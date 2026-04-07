@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
@@ -7,8 +6,9 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
-// Keep these components statically imported as they are used on the initial load (Home page)
+// Statically imported components
 import { Spotlight } from './components/ui/Spotlight';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/sections/Hero';
@@ -17,20 +17,21 @@ import { Sports } from './components/sections/Sports';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/layout/Footer';
 
-// Lazy load the pages that are not needed on the initial render
+// Lazy loaded pages
 const SportDetails = lazy(() => import('./pages/SportDetails'));
 const Docs = lazy(() => import('./pages/Docs'));
 const CalendarEvents = lazy(() => import('./pages/CalendarEvents'));
 
 export default function App() {
   return (
-    <Router>
-      <MainContent />
-    </Router>
+    <LazyMotion features={domAnimation} strict>
+      <Router>
+        <MainContent />
+      </Router>
+    </LazyMotion>
   );
 }
 
-// A simple loading spinner to show while the lazy-loaded chunk is being downloaded
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#FBFBFD] dark:bg-[#020202]">
     <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
@@ -92,7 +93,6 @@ function MainContent() {
         toggleLanguage={toggleLanguage}
       />
 
-      {/* Wrap the Routes in Suspense to handle the loading state of lazy components */}
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/docs" element={<Docs />} />

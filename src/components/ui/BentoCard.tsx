@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { m, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -43,7 +43,7 @@ export const BentoCard = ({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
@@ -56,7 +56,7 @@ export const BentoCard = ({
         className,
       )}
     >
-      <motion.div
+      <m.div
         className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition duration-300"
         style={{
           background: useMotionTemplate`
@@ -96,6 +96,6 @@ export const BentoCard = ({
       {!imageUrl && (
         <div className="absolute top-0 right-0 w-40 h-40 bg-brand-red/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000" />
       )}
-    </motion.div>
+    </m.div>
   );
 };

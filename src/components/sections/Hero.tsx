@@ -1,7 +1,7 @@
 // src/components/sections/Hero.tsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll'; // <-- Import the new hook
 
@@ -25,7 +25,7 @@ export const Hero = () => {
       </div>
 
       <div className="relative z-20 text-center px-6 max-w-5xl">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
@@ -67,12 +67,12 @@ export const Hero = () => {
               {t('nav.about')}
             </button>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       <AnimatePresence>
         {!scrolled && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -80,7 +80,7 @@ export const Hero = () => {
             className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
           >
             <div className="w-6 h-10 border-2 border-brand-navy/20 dark:border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm shadow-sm">
-              <motion.div
+              <m.div
                 animate={{ y: [0, 16, 0] }}
                 transition={{
                   duration: 2,
@@ -90,7 +90,7 @@ export const Hero = () => {
                 className="w-1.5 h-1.5 bg-brand-red rounded-full"
               />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

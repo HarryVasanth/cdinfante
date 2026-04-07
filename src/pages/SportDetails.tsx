@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import {
   ChevronLeft,
@@ -170,13 +170,13 @@ const SportDetails: React.FC = () => {
 
         {/* Header */}
         <div className="mb-16 relative">
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl lg:text-8xl font-black text-brand-navy dark:text-white mb-6 tracking-tighter"
           >
             {sportName}
-          </motion.h1>
+          </m.h1>
           <div className="h-2 w-32 bg-brand-red rounded-full" />
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-brand-red/10 blur-[80px] rounded-full -z-10" />
         </div>
@@ -196,7 +196,7 @@ const SportDetails: React.FC = () => {
             <div className="lg:col-span-2 space-y-12">
               <AnimatePresence mode="wait">
                 {featuredPost && (
-                  <motion.div
+                  <m.div
                     key={featuredPost.slug}
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -285,7 +285,7 @@ const SportDetails: React.FC = () => {
                           </div>
                         )}
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -346,7 +346,7 @@ const SportDetails: React.FC = () => {
       {/* Lightbox Modal */}
       <AnimatePresence>
         {selectedImageIndex !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -377,7 +377,7 @@ const SportDetails: React.FC = () => {
               </>
             )}
 
-            <motion.div
+            <m.div
               key={selectedImageIndex}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -394,8 +394,8 @@ const SportDetails: React.FC = () => {
               <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white/50 text-sm font-medium">
                 {selectedImageIndex + 1} / {allImages.length}
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
