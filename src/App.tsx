@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { LazyMotion, domAnimation } from 'framer-motion';
 
-// Statically imported components
+// Statically imported components (used on the initial load)
 import { Spotlight } from './components/ui/Spotlight';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/sections/Hero';
@@ -16,6 +16,7 @@ import { About } from './components/sections/About';
 import { Sports } from './components/sections/Sports';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/layout/Footer';
+import { ReloadPrompt } from './components/ui/ReloadPrompt';
 
 // Lazy loaded pages
 const SportDetails = lazy(() => import('./pages/SportDetails'));
@@ -32,6 +33,7 @@ export default function App() {
   );
 }
 
+// A simple loading spinner to show while the lazy-loaded chunk is being downloaded
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#FBFBFD] dark:bg-[#020202]">
     <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
@@ -86,6 +88,7 @@ function MainContent() {
   return (
     <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-700 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden font-plus-jakarta">
       <Spotlight />
+      <ReloadPrompt />
 
       <Navbar
         isDark={isDark}
