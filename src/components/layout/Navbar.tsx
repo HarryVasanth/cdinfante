@@ -52,15 +52,13 @@ export const Navbar = ({
       const id = href.replace('#', '');
       const element = id ? document.getElementById(id) : null;
 
-      // Small timeout to let the drawer close animation start before scrolling
-      setTimeout(() => {
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        window.history.pushState(null, '', href === '#' ? '/' : `/${href}`);
-      }, 300);
+      // Immediately scroll without the setTimeout to prevent lag
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      window.history.pushState(null, '', href === '#' ? '/' : `/${href}`);
     }
   };
 
@@ -74,10 +72,13 @@ export const Navbar = ({
           }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className={cn(
-            'max-w-7xl mx-auto pointer-events-auto transition-all duration-500',
+            // 1. Move 'border' and 'rounded-full' here so they are ALWAYS present
+            'max-w-7xl mx-auto pointer-events-auto transition-all duration-500 border rounded-full',
             scrolled
-              ? 'bg-white/80 dark:bg-black/70 backdrop-blur-lg border border-white/30 dark:border-white/10 py-3 px-8 rounded-full shadow-xl'
-              : 'bg-transparent py-8 px-0',
+              ? // 2. Just change the border color when scrolled
+                'bg-white/80 dark:bg-black/70 backdrop-blur-lg border-white/30 dark:border-white/10 py-3 px-8 shadow-xl'
+              : // 3. Make the border transparent when at the top
+                'bg-transparent border-transparent py-8 px-0 shadow-none',
           )}
         >
           <div className="flex items-center justify-between">
@@ -88,7 +89,12 @@ export const Navbar = ({
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link
-                    to={link.href.startsWith('#') ? '/' : `/${link.href}`}
+                    // Fixed: Preserve the hash so cross-page routing works (e.g. from /docs to /#about)
+                    to={
+                      link.href.startsWith('#')
+                        ? `/${link.href}`
+                        : `/${link.href}`
+                    }
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-colors"
                   >
@@ -133,7 +139,8 @@ export const Navbar = ({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[100] bg-white dark:bg-black flex flex-col md:hidden overflow-y-auto"
+            // Added overscroll-none to prevent rubber-banding the background
+            className="fixed inset-0 z-[100] bg-white dark:bg-black flex flex-col md:hidden overflow-y-auto overscroll-none"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between p-6">
@@ -162,7 +169,11 @@ export const Navbar = ({
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
-                  to={link.href.startsWith('#') ? '/' : `/${link.href}`}
+                  to={
+                    link.href.startsWith('#')
+                      ? `/${link.href}`
+                      : `/${link.href}`
+                  }
                   onClick={(e) => handleLinkClick(e, link.href)}
                   className="text-4xl font-black text-brand-navy dark:text-white hover:text-brand-red transition-colors"
                 >

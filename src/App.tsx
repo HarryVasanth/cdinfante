@@ -42,16 +42,22 @@ const PageLoader = () => (
 function MainContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State lifted to control global effects
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+    // Only apply hash scrolling if we are on the homepage
+    if (location.pathname === '/') {
+      if (location.hash) {
+        const id = location.hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        window.scrollTo(0, 0);
       }
-    } else {
+    } else if (!location.hash) {
+      // Still scroll to top on other route changes if there's no hash
       window.scrollTo(0, 0);
     }
   }, [location.pathname, location.hash]);
