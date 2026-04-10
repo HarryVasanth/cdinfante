@@ -1,7 +1,7 @@
 // src/App.tsx
 
-import { domAnimation, LazyMotion } from 'framer-motion'
-import React, { lazy, Suspense, useEffect, useState, useCallback } from 'react'
+import { LazyMotion, domAnimation } from 'framer-motion'
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Route,
@@ -73,7 +73,7 @@ function MainContent() {
         const saved = localStorage.getItem('theme')
         if (saved) return saved === 'dark'
         return window.matchMedia('(prefers-color-scheme: dark)').matches
-      } catch (error) {
+      } catch {
         // Prevent crash if localStorage is blocked (e.g., Strict Incognito mode)
         console.warn(
           'localStorage is restricted, falling back to system theme.',
@@ -88,7 +88,7 @@ function MainContent() {
   useEffect(() => {
     try {
       localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    } catch (error) {
+    } catch {
       // Ignore gracefully
     }
 
@@ -106,7 +106,7 @@ function MainContent() {
 
     try {
       localStorage.setItem('i18nextLng', nextLang)
-    } catch (error) {
+    } catch {
       // Ignore gracefully
     }
 
@@ -119,7 +119,6 @@ function MainContent() {
 
   return (
     <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-700 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden font-plus-jakarta">
-      {/* Spotlight calculation is skipped when the menu is open to save mobile resources */}
       {!isMenuOpen && <Spotlight />}
       <ReloadPrompt />
 

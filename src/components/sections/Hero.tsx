@@ -1,6 +1,5 @@
 import { AnimatePresence, m } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useScroll } from '../../hooks/useScroll'
 

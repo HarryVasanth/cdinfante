@@ -3,7 +3,6 @@
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import { AnimatePresence, m } from 'framer-motion'
 import { RefreshCw, X } from 'lucide-react'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 export function ReloadPrompt() {
@@ -15,7 +14,7 @@ export function ReloadPrompt() {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
-    onRegistered(r) {
+    onRegistered(_r) {
       console.log('SW Registered')
     },
     onRegisterError(error) {
@@ -48,6 +47,7 @@ export function ReloadPrompt() {
               </p>
             </div>
             <button
+              type="button"
               onClick={close}
               className="text-slate-400 hover:text-brand-red transition-colors p-1"
               aria-label="Close"
@@ -56,6 +56,7 @@ export function ReloadPrompt() {
             </button>
           </div>
           <button
+            type="button"
             onClick={() => updateServiceWorker(true)}
             className="w-full bg-brand-red hover:bg-brand-red/90 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-red/30 active:scale-[0.98]"
           >

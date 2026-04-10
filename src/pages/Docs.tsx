@@ -28,7 +28,7 @@ import {
   User,
   Zap,
 } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../lib/utils'
 
@@ -250,25 +250,25 @@ export default function Docs() {
                 </h3>
                 <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
                   {[
-                    Bell,
-                    Settings,
-                    User,
-                    Calendar,
-                    Send,
-                    Mail,
-                    Search,
-                    Info,
-                    FlagIcon,
-                    MousePointer,
-                    Box,
-                    Layout,
-                    Type,
-                    Palette,
-                    Check,
-                    ArrowLeft,
-                  ].map((Icon, i) => (
+                    { icon: Bell, id: 'bell' },
+                    { icon: Settings, id: 'settings' },
+                    { icon: User, id: 'user' },
+                    { icon: Calendar, id: 'calendar' },
+                    { icon: Send, id: 'send' },
+                    { icon: Mail, id: 'mail' },
+                    { icon: Search, id: 'search' },
+                    { icon: Info, id: 'info' },
+                    { icon: FlagIcon, id: 'flag' },
+                    { icon: MousePointer, id: 'mouse' },
+                    { icon: Box, id: 'box' },
+                    { icon: Layout, id: 'layout' },
+                    { icon: Type, id: 'type' },
+                    { icon: Palette, id: 'palette' },
+                    { icon: Check, id: 'check' },
+                    { icon: ArrowLeft, id: 'arrow-left' },
+                  ].map(({ icon: Icon, id }) => (
                     <div
-                      key={i}
+                      key={id}
                       className="aspect-square flex items-center justify-center rounded-xl bg-slate-50 dark:bg-white/5 text-brand-navy dark:text-white"
                     >
                       <Icon size={24} />
@@ -412,12 +412,15 @@ export default function Docs() {
                 </h3>
                 <div className="flex gap-8 items-center p-8 rounded-2xl bg-slate-50 dark:bg-white/5">
                   <a
-                    href="#"
+                    href="#components"
                     className="text-brand-red hover:underline flex items-center gap-1"
                   >
                     {t('docs.components.links.link')} <ExternalLink size={14} />
                   </a>
-                  <button className="flex items-center gap-2 text-slate-500 hover:text-brand-navy dark:hover:text-white transition-colors cursor-pointer">
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 text-slate-500 hover:text-brand-navy dark:hover:text-white transition-colors cursor-pointer"
+                  >
                     <ArrowLeft size={18} />{' '}
                     {t('docs.components.links.back_link')}
                   </button>
@@ -430,16 +433,28 @@ export default function Docs() {
                   {t('docs.components.buttons.title')}
                 </h3>
                 <div className="flex flex-wrap gap-4 items-center p-8 rounded-2xl bg-slate-50 dark:bg-white/5">
-                  <button className="px-6 py-2.5 bg-brand-red text-white rounded-full font-semibold hover:bg-red-700 transition-colors cursor-pointer">
+                  <button
+                    type="button"
+                    className="px-6 py-2.5 bg-brand-red text-white rounded-full font-semibold hover:bg-red-700 transition-colors cursor-pointer"
+                  >
                     {t('docs.components.buttons.button')}
                   </button>
-                  <button className="px-6 py-2.5 bg-brand-navy text-white rounded-full font-semibold hover:bg-slate-800 transition-colors cursor-pointer">
+                  <button
+                    type="button"
+                    className="px-6 py-2.5 bg-brand-navy text-white rounded-full font-semibold hover:bg-slate-800 transition-colors cursor-pointer"
+                  >
                     Secondary
                   </button>
-                  <button className="px-6 py-2.5 border-2 border-brand-navy dark:border-white text-brand-navy dark:text-white rounded-full font-semibold hover:bg-brand-navy hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer">
+                  <button
+                    type="button"
+                    className="px-6 py-2.5 border-2 border-brand-navy dark:border-white text-brand-navy dark:text-white rounded-full font-semibold hover:bg-brand-navy hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"
+                  >
                     Outline
                   </button>
-                  <button className="flex items-center gap-2 text-brand-red font-semibold hover:gap-3 transition-all cursor-pointer">
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 text-brand-red font-semibold hover:gap-3 transition-all cursor-pointer"
+                  >
                     {t('docs.components.buttons.action')} <Send size={18} />
                   </button>
                 </div>
@@ -489,37 +504,44 @@ export default function Docs() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 rounded-2xl border border-slate-200 dark:border-white/10">
                   <div className="space-y-4">
-                    <label className="text-sm font-medium">
+                    <label htmlFor="text_input" className="text-sm font-medium">
                       {t('docs.components.form_inputs.text_input')}
                     </label>
                     <input
+                      id="text_input"
                       type="text"
                       placeholder="Enter text..."
                       className="w-full px-4 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:ring-2 focus:ring-brand-red outline-none transition-all"
                     />
                   </div>
                   <div className="space-y-4">
-                    <label className="text-sm font-medium">
+                    <label htmlFor="text_area" className="text-sm font-medium">
                       {t('docs.components.form_inputs.text_area')}
                     </label>
                     <textarea
+                      id="text_area"
                       placeholder="Enter message..."
                       rows={3}
                       className="w-full px-4 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:ring-2 focus:ring-brand-red outline-none transition-all"
                     />
                   </div>
                   <div className="md:col-span-2 space-y-4">
-                    <label className="text-sm font-medium">
+                    <label
+                      htmlFor="generate_input"
+                      className="text-sm font-medium"
+                    >
                       {t('docs.components.form_inputs.generate_input')}
                     </label>
                     <div className="flex gap-2">
                       <input
+                        id="generate_input"
                         type="text"
                         readOnly
                         value={generatedId}
                         className="flex-1 px-4 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-dashed border-slate-300 dark:border-white/20 text-slate-500 font-mono text-sm outline-none"
                       />
                       <button
+                        type="button"
                         onClick={handleGenerate}
                         disabled={isGenerating}
                         className="p-2 bg-brand-navy text-white rounded-lg hover:bg-slate-800 transition-colors disabled:opacity-50 cursor-pointer"
@@ -541,12 +563,21 @@ export default function Docs() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8 rounded-2xl bg-slate-50 dark:bg-white/5">
                   <div className="space-y-4">
-                    <label className="text-sm font-medium">
+                    <div className="text-sm font-medium">
                       {t('docs.components.form_controls.checkbox')}
-                    </label>
+                    </div>
                     <div
+                      role="checkbox"
+                      aria-checked={checkboxChecked}
+                      tabIndex={0}
                       className="flex items-center gap-3 cursor-pointer group"
                       onClick={() => setCheckboxChecked(!checkboxChecked)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          setCheckboxChecked(!checkboxChecked)
+                        }
+                      }}
                     >
                       <div
                         className={cn(
@@ -564,10 +595,13 @@ export default function Docs() {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <label className="text-sm font-medium">
+                    <div className="text-sm font-medium">
                       {t('docs.components.form_controls.switch')}
-                    </label>
+                    </div>
                     <div
+                      role="switch"
+                      aria-checked={switchOn}
+                      tabIndex={0}
                       className={cn(
                         'w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-200',
                         switchOn
@@ -575,6 +609,12 @@ export default function Docs() {
                           : 'bg-slate-300 dark:bg-white/10',
                       )}
                       onClick={() => setSwitchOn(!switchOn)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          setSwitchOn(!switchOn)
+                        }
+                      }}
                     >
                       <div
                         className={cn(
@@ -585,15 +625,24 @@ export default function Docs() {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <label className="text-sm font-medium">
+                    <div className="text-sm font-medium">
                       {t('docs.components.form_controls.radio')}
-                    </label>
+                    </div>
                     <div className="flex flex-col gap-2">
                       {['active', 'inactive'].map(option => (
                         <div
                           key={option}
+                          role="radio"
+                          aria-checked={selectedRadio === option}
+                          tabIndex={0}
                           className="flex items-center gap-3 cursor-pointer"
                           onClick={() => setSelectedRadio(option)}
+                          onKeyDown={e => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              setSelectedRadio(option)
+                            }
+                          }}
                         >
                           <div
                             className={cn(
@@ -615,9 +664,9 @@ export default function Docs() {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <label className="text-sm font-medium">
+                    <div className="text-sm font-medium">
                       {t('docs.components.form_controls.select')}
-                    </label>
+                    </div>
                     <div className="relative group">
                       <div className="w-full px-4 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between cursor-pointer hover:border-brand-red transition-colors">
                         <span className="text-sm">Option One</span>
@@ -626,12 +675,16 @@ export default function Docs() {
                     </div>
                   </div>
                   <div className="space-y-4 lg:col-span-2">
-                    <label className="text-sm font-medium">
+                    <label
+                      htmlFor="slider_input"
+                      className="text-sm font-medium"
+                    >
                       {t('docs.components.form_controls.slider')} ({sliderValue}
                       %)
                     </label>
                     <div className="relative w-full h-6 flex items-center">
                       <input
+                        id="slider_input"
                         type="range"
                         min="0"
                         max="100"
@@ -654,8 +707,17 @@ export default function Docs() {
                 <div className="space-y-4 p-8 rounded-2xl border border-slate-200 dark:border-white/10">
                   <div className="border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden">
                     <div
+                      role="button"
+                      aria-expanded={isExpanded}
+                      tabIndex={0}
                       className="p-4 bg-slate-50 dark:bg-white/5 flex items-center justify-between cursor-pointer font-bold text-sm"
                       onClick={() => setIsExpanded(!isExpanded)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          setIsExpanded(!isExpanded)
+                        }
+                      }}
                       data-testid="collapse-header"
                     >
                       {t('docs.components.collapse.collapsible')} Header
@@ -677,7 +739,10 @@ export default function Docs() {
                     )}
                   </div>
                   <div className="flex items-center gap-4">
-                    <button className="px-4 py-2 text-xs font-bold bg-slate-100 dark:bg-white/5 rounded-lg flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer">
+                    <button
+                      type="button"
+                      className="px-4 py-2 text-xs font-bold bg-slate-100 dark:bg-white/5 rounded-lg flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                    >
                       <List size={14} />{' '}
                       {t('docs.components.collapse.drop_down')}
                     </button>
@@ -703,7 +768,10 @@ export default function Docs() {
                       A standard content card with elevation and rounded
                       corners.
                     </p>
-                    <button className="text-brand-red font-semibold text-sm">
+                    <button
+                      type="button"
+                      className="text-brand-red font-semibold text-sm"
+                    >
                       Read More
                     </button>
                   </div>
@@ -755,6 +823,7 @@ export default function Docs() {
                       {['left', 'right'].map(dir => (
                         <button
                           key={dir}
+                          type="button"
                           onClick={() => setActiveToggle(dir)}
                           className={cn(
                             'px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer',
@@ -769,6 +838,7 @@ export default function Docs() {
                     </div>
 
                     <button
+                      type="button"
                       onClick={() => setShowToast(true)}
                       className="w-full py-3 bg-brand-navy text-white rounded-xl font-bold hover:bg-slate-800 transition-colors cursor-pointer"
                     >
@@ -784,6 +854,7 @@ export default function Docs() {
                           </span>
                         </div>
                         <button
+                          type="button"
                           onClick={() => setShowToast(false)}
                           className="text-xs opacity-50 font-bold uppercase hover:opacity-100 cursor-pointer"
                         >
@@ -846,12 +917,14 @@ export default function Docs() {
                 <div className="relative w-full aspect-video bg-slate-900/10 rounded-2xl overflow-hidden flex flex-col items-center justify-center gap-4">
                   <div className="flex gap-4 z-20">
                     <button
+                      type="button"
                       onClick={() => setShowDrawer(true)}
                       className="px-4 py-2 bg-white dark:bg-white/10 rounded-lg text-xs font-bold shadow-sm cursor-pointer"
                     >
                       Open Drawer
                     </button>
                     <button
+                      type="button"
                       onClick={() => setShowModal(true)}
                       className="px-4 py-2 bg-brand-red text-white rounded-lg text-xs font-bold shadow-sm cursor-pointer"
                     >
@@ -862,10 +935,19 @@ export default function Docs() {
                   {/* Drawer Overlay Backdrop Preview */}
                   {(showDrawer || showModal) && (
                     <div
+                      role="button"
+                      tabIndex={0}
                       className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-10"
                       onClick={() => {
                         setShowDrawer(false)
                         setShowModal(false)
+                      }}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          setShowDrawer(false)
+                          setShowModal(false)
+                        }
                       }}
                     />
                   )}
@@ -903,12 +985,14 @@ export default function Docs() {
                       </p>
                       <div className="flex justify-end gap-2">
                         <button
+                          type="button"
                           className="px-3 py-1 bg-slate-100 dark:bg-white/5 rounded text-[10px] font-bold cursor-pointer"
                           onClick={() => setShowModal(false)}
                         >
                           {t('docs.components.containers.modal_cancel')}
                         </button>
                         <button
+                          type="button"
                           data-testid="modal-confirm-btn"
                           className="px-3 py-1 bg-brand-red text-white rounded text-[10px] font-bold cursor-pointer"
                           onClick={() => setShowModal(false)}
@@ -998,9 +1082,9 @@ export default function Docs() {
                       t('docs.writing_posts.dos_list.images'),
                       t('docs.writing_posts.dos_list.hashtags'),
                       t('docs.writing_posts.dos_list.clear_text'),
-                    ].map((item, i) => (
+                    ].map(item => (
                       <li
-                        key={i}
+                        key={item}
                         className="flex gap-3 text-sm text-slate-600 dark:text-slate-400"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 shrink-0" />
@@ -1020,9 +1104,9 @@ export default function Docs() {
                       t('docs.writing_posts.donts_list.formatting'),
                       t('docs.writing_posts.donts_list.huge_files'),
                       t('docs.writing_posts.donts_list.broken_links'),
-                    ].map((item, i) => (
+                    ].map(item => (
                       <li
-                        key={i}
+                        key={item}
                         className="flex gap-3 text-sm text-slate-600 dark:text-slate-400"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-brand-red mt-2 shrink-0" />
@@ -1066,9 +1150,9 @@ English content...`}</pre>
                   t('docs.writing_posts.guidelines.folder'),
                   t('docs.writing_posts.guidelines.frontmatter'),
                   t('docs.writing_posts.guidelines.bilingual'),
-                ].map((item, i) => (
+                ].map(item => (
                   <div
-                    key={i}
+                    key={item}
                     className="p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5"
                   >
                     <p className="text-sm font-medium text-brand-navy dark:text-white">

@@ -1,4 +1,4 @@
-import { MapPin, Phone, CheckCircle2, Loader2 } from 'lucide-react'
+import { CheckCircle2, Loader2, MapPin, Phone } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'

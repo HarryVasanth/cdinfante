@@ -5,7 +5,7 @@ import {
   ExternalLink,
   Link as LinkIcon,
 } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../lib/utils'
 
@@ -143,6 +143,7 @@ export default function CalendarEvents() {
                 className="bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden transition-all duration-300"
               >
                 <button
+                  type="button"
                   onClick={() =>
                     setExpandedId(
                       expandedId === category.id ? null : category.id,
@@ -174,9 +175,9 @@ export default function CalendarEvents() {
                       <div className="p-6 pt-0 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
                         <div className="grid gap-3 mt-4">
                           {/* Standard PDF Links */}
-                          {category.docs.map((doc, index) => (
+                          {category.docs.map(doc => (
                             <a
-                              key={index}
+                              key={doc.titleKey}
                               href={doc.url}
                               target="_blank"
                               rel="noopener noreferrer"

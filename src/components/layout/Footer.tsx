@@ -1,5 +1,4 @@
 import { Facebook, Instagram } from 'lucide-react'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Logo } from '../ui/Logo'

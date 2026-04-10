@@ -6,6 +6,9 @@
     "useIgnoreFile": true,
     "defaultBranch": "main"
   },
+  "organizeImports": {
+    "enabled": true
+  },
   "css": {
     "parser": { "cssModules": true }
   },
@@ -19,25 +22,13 @@
   "formatter": {
     "indentStyle": "space"
   },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": {
-          "options": {
-            "groups": [":NODE:", ":PACKAGE:", ":ALIAS:", ":PATH:"]
-          }
-        }
-      }
-    }
-  },
   "linter": {
     "enabled": true,
     "rules": {
       "nursery": {
-        "useUniqueElementIds": "off"
+        "noStaticElementInteractions": "off"
       },
       "a11y": {
-        "noStaticElementInteractions": "off",
         "useSemanticElements": "off"
       },
       "suspicious": {

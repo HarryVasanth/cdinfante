@@ -1,5 +1,3 @@
-// src/pages/SportDetails.tsx
-
 import { AnimatePresence, m } from 'framer-motion'
 import {
   ArrowRight,
@@ -12,10 +10,10 @@ import {
   X,
 } from 'lucide-react'
 import type React from 'react'
-import { useEffect, useMemo, useState, useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { getSportPosts, type Post } from '../lib/content'
+import { type Post, getSportPosts } from '../lib/content'
 
 /**
  * Displays news and updates for a specific sport.
@@ -73,14 +71,14 @@ const SportDetails: React.FC = () => {
       images.push(featuredPost.image.full)
     }
     if (featuredPost.images) {
-      featuredPost.images.forEach(imgObj => {
+      for (const imgObj of featuredPost.images) {
         if (
           imgObj.full !== featuredPost.image?.full &&
           !images.includes(imgObj.full)
         ) {
           images.push(imgObj.full)
         }
-      })
+      }
     }
     return images
   }, [featuredPost])
@@ -88,23 +86,21 @@ const SportDetails: React.FC = () => {
   const handleNextImage = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation()
-      if (selectedImageIndex !== null) {
-        setSelectedImageIndex(prev => (prev! + 1) % allImages.length)
-      }
+      setSelectedImageIndex(prev =>
+        prev !== null ? (prev + 1) % allImages.length : null,
+      )
     },
-    [selectedImageIndex, allImages.length],
+    [allImages.length],
   )
 
   const handlePrevImage = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation()
-      if (selectedImageIndex !== null) {
-        setSelectedImageIndex(
-          prev => (prev! - 1 + allImages.length) % allImages.length,
-        )
-      }
+      setSelectedImageIndex(prev =>
+        prev !== null ? (prev - 1 + allImages.length) % allImages.length : null,
+      )
     },
-    [selectedImageIndex, allImages.length],
+    [allImages.length],
   )
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -208,8 +204,16 @@ const SportDetails: React.FC = () => {
 
                     {featuredPost.image?.full && (
                       <div
+                        role="button"
+                        tabIndex={0}
                         className="aspect-video w-full overflow-hidden cursor-zoom-in group/image relative"
                         onClick={() => setSelectedImageIndex(0)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            setSelectedImageIndex(0)
+                          }
+                        }}
                       >
                         <img
                           src={featuredPost.image.full}
@@ -231,6 +235,7 @@ const SportDetails: React.FC = () => {
                           </span>
                         </div>
                         <button
+                          type="button"
                           onClick={() => handleShare(featuredPost)}
                           className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-brand-red hover:text-white transition-all text-sm font-bold"
                         >
@@ -254,6 +259,7 @@ const SportDetails: React.FC = () => {
                       {/* INJECT HTML DIRECTLY HERE */}
                       <div
                         className="prose prose-slate dark:prose-invert max-w-none mb-12 prose-headings:font-black prose-headings:tracking-tight prose-p:text-lg prose-p:leading-relaxed prose-p:text-brand-navy/80 dark:prose-p:text-slate-300"
+                        // biome-ignore lint/security/noDangerouslySetInnerHtml: This HTML is pre-compiled at build time from trusted local Markdown files.
                         dangerouslySetInnerHTML={{
                           __html: featuredPost.content,
                         }}
@@ -267,13 +273,26 @@ const SportDetails: React.FC = () => {
                               {t('sports.gallery')}
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                              {featuredPost.images.map((imgObj, i) => (
+                              {featuredPost.images.map(imgObj => (
                                 <div
-                                  key={i}
+                                  key={imgObj.full}
+                                  role="button"
+                                  tabIndex={0}
                                   onClick={() => {
                                     const index = allImages.indexOf(imgObj.full)
                                     if (index !== -1) {
                                       setSelectedImageIndex(index)
+                                    }
+                                  }}
+                                  onKeyDown={e => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                      e.preventDefault()
+                                      const index = allImages.indexOf(
+                                        imgObj.full,
+                                      )
+                                      if (index !== -1) {
+                                        setSelectedImageIndex(index)
+                                      }
                                     }
                                   }}
                                   className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-zoom-in group/gallery relative"
@@ -304,6 +323,7 @@ const SportDetails: React.FC = () => {
               <div className="space-y-4">
                 {posts.map(post => (
                   <button
+                    type="button"
                     key={post.slug}
                     onClick={() => {
                       navigate(`#${post.slug}`, { replace: true })
@@ -359,6 +379,7 @@ const SportDetails: React.FC = () => {
             onClick={() => setSelectedImageIndex(null)}
           >
             <button
+              type="button"
               className="absolute top-8 right-8 text-white/70 hover:text-white transition-colors z-[110]"
               onClick={() => setSelectedImageIndex(null)}
             >
@@ -368,12 +389,14 @@ const SportDetails: React.FC = () => {
             {allImages.length > 1 && (
               <>
                 <button
+                  type="button"
                   className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-[110]"
                   onClick={handlePrevImage}
                 >
                   <ChevronLeft size={24} />
                 </button>
                 <button
+                  type="button"
                   className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-[110]"
                   onClick={handleNextImage}
                 >
