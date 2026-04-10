@@ -82,7 +82,8 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'local-images-cache',
-              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              // OPTIMIZATION: Increased maxEntries from 100 to 500 to support large galleries
+              expiration: { maxEntries: 500, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
