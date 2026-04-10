@@ -44,26 +44,20 @@ function MainContent() {
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // OPTIMIZATION: Non-blocking scroll behavior using requestAnimationFrame
+  // OPTIMIZATION: Clean, reactive scroll management based solely on Router state
   useEffect(() => {
-    const handleScroll = () => {
-      if (location.pathname === '/') {
-        if (location.hash) {
-          const id = location.hash.replace('#', '')
-          const element = document.getElementById(id)
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-          }
-        } else {
-          window.scrollTo(0, 0)
+    // requestAnimationFrame ensures the DOM has painted before calculating elements
+    requestAnimationFrame(() => {
+      if (location.hash) {
+        const id = location.hash.replace('#', '')
+        const element = document.getElementById(id)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
         }
-      } else if (!location.hash) {
-        window.scrollTo(0, 0)
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
-    }
-
-    // Defer scroll until after the new route paints to avoid visual blocking
-    requestAnimationFrame(handleScroll)
+    })
   }, [location.pathname, location.hash])
 
   // OPTIMIZATION: Prevent FOUC by initializing from the document class set in index.html

@@ -1,6 +1,7 @@
+// src/components/layout/Navbar.tsx
+
 import { AnimatePresence, m } from 'framer-motion'
 import { Globe, Menu, Moon, Sun, X } from 'lucide-react'
-import type React from 'react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -34,29 +35,18 @@ export const Navbar = ({
     }
   }, [isMenuOpen])
 
+  // OPTIMIZATION: Use absolute routing paths so React Router handles them natively
   const navLinks = [
-    { name: t('nav.home'), href: '#' },
-    { name: t('nav.about'), href: '#about' },
-    { name: t('nav.sports'), href: '#sports' },
-    { name: t('nav.calendar'), href: 'calendar' },
-    { name: t('nav.contact'), href: '#contact' },
+    { name: t('nav.home'), href: '/' },
+    { name: t('nav.about'), href: '/#about' },
+    { name: t('nav.sports'), href: '/#sports' },
+    { name: t('nav.calendar'), href: '/calendar' },
+    { name: t('nav.contact'), href: '/#contact' },
   ]
 
-  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+  // OPTIMIZATION: Removed manual history.pushState and scroll overrides
+  const handleLinkClick = () => {
     setIsMenuOpen(false)
-
-    if (window.location.pathname === '/' && href.startsWith('#')) {
-      e.preventDefault()
-      const id = href.replace('#', '')
-      const element = id ? document.getElementById(id) : null
-
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-      window.history.pushState(null, '', href === '#' ? '/' : `/${href}`)
-    }
   }
 
   return (
@@ -82,12 +72,8 @@ export const Navbar = ({
               {navLinks.map(link => (
                 <li key={link.name}>
                   <Link
-                    to={
-                      link.href.startsWith('#')
-                        ? `/${link.href}`
-                        : `/${link.href}`
-                    }
-                    onClick={e => handleLinkClick(e, link.href)}
+                    to={link.href}
+                    onClick={handleLinkClick}
                     className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-colors"
                   >
                     {link.name}
@@ -166,12 +152,8 @@ export const Navbar = ({
               {navLinks.map(link => (
                 <Link
                   key={link.name}
-                  to={
-                    link.href.startsWith('#')
-                      ? `/${link.href}`
-                      : `/${link.href}`
-                  }
-                  onClick={e => handleLinkClick(e, link.href)}
+                  to={link.href}
+                  onClick={handleLinkClick}
                   className="text-4xl font-black text-brand-navy dark:text-white hover:text-brand-red transition-colors"
                 >
                   {link.name}
