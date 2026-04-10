@@ -1,16 +1,16 @@
 ---
-title: 'XLIX edição da Estafeta Câmara de Lobos – Funchal 2026'
-date: '2026-02-22'
-image: './2026-estafeta-camara-de-lobos-funchal-0.jpg'
-description: 'Nesta edição contamos com 5 equipas, 2 equipas só com elementos femininos e 3 só com elementos masculinos.'
+title: "XLIX edição da Estafeta Câmara de Lobos – Funchal 2026"
+date: "2026-02-22"
+image: "./2026-estafeta-camara-de-lobos-funchal-0.jpg"
+description: "Nesta edição contamos com 5 equipas, 2 equipas só com elementos femininos e 3 só com elementos masculinos."
 images:
-  - './2026-estafeta-camara-de-lobos-funchal-0.jpg'
-  - './2026-estafeta-camara-de-lobos-funchal-1.jpg'
-  - './2026-estafeta-camara-de-lobos-funchal-2.jpg'
-  - './2026-estafeta-camara-de-lobos-funchal-3.jpg'
-  - './2026-estafeta-camara-de-lobos-funchal-4.jpg'
-  - './2026-estafeta-camara-de-lobos-funchal-5.jpg'
-  - './2026-estafeta-camara-de-lobos-funchal-6.jpg'
+  - "./2026-estafeta-camara-de-lobos-funchal-0.jpg"
+  - "./2026-estafeta-camara-de-lobos-funchal-1.jpg"
+  - "./2026-estafeta-camara-de-lobos-funchal-2.jpg"
+  - "./2026-estafeta-camara-de-lobos-funchal-3.jpg"
+  - "./2026-estafeta-camara-de-lobos-funchal-4.jpg"
+  - "./2026-estafeta-camara-de-lobos-funchal-5.jpg"
+  - "./2026-estafeta-camara-de-lobos-funchal-6.jpg"
 ---
 
 Decorreu na manhã do dia 22 de fevereiro, a XLIX edição da Estafeta Câmara de Lobos – Funchal, prova a contar para o campeonato do Madeira a Correr - Coletiva. Nesta edição contamos com 5 equipas, 2 equipas só com elementos femininos e 3 só com elementos masculinos.

@@ -1,8 +1,8 @@
 ---
-title: 'Convívo Fazenda Sá 2025'
-date: '2025-11-01'
-image: './2025-convivo-fazenda-sa-0.jpg'
-description: 'Jantar comemorativo do 44° aniversário do Clube Desportivo Infante.'
+title: "Convívo Fazenda Sá 2025"
+date: "2025-11-01"
+image: "./2025-convivo-fazenda-sa-0.jpg"
+description: "Jantar comemorativo do 44° aniversário do Clube Desportivo Infante."
 images:
   - ./2025-convivo-fazenda-sa-0.jpg
   - ./2025-convivo-fazenda-sa-1.jpg

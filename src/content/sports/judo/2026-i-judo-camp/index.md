@@ -1,17 +1,17 @@
 ---
-title: 'I Judo Camp 2026'
-date: '2026-02-08'
-image: './2026-i-judo-camp-0.jpg'
-description: '🥋✨ Judocamp inesquecível! ✨🥋'
+title: "I Judo Camp 2026"
+date: "2026-02-08"
+image: "./2026-i-judo-camp-0.jpg"
+description: "🥋✨ Judocamp inesquecível! ✨🥋"
 images:
-  - './2026-i-judo-camp-0.jpg'
-  - './2026-i-judo-camp-1.jpg'
-  - './2026-i-judo-camp-2.jpg'
-  - './2026-i-judo-camp-3.jpg'
-  - './2026-i-judo-camp-4.jpg'
-  - './2026-i-judo-camp-5.jpg'
-  - './2026-i-judo-camp-6.jpg'
-  - './2026-i-judo-camp-7.jpg'
+  - "./2026-i-judo-camp-0.jpg"
+  - "./2026-i-judo-camp-1.jpg"
+  - "./2026-i-judo-camp-2.jpg"
+  - "./2026-i-judo-camp-3.jpg"
+  - "./2026-i-judo-camp-4.jpg"
+  - "./2026-i-judo-camp-5.jpg"
+  - "./2026-i-judo-camp-6.jpg"
+  - "./2026-i-judo-camp-7.jpg"
 ---
 
 O Clube Desportivo Infante marcou presença, no passado fim de semana, no I Judo Camp 2026, organizado pela Associação de Judo da Madeira, no dojo do Clube Naval do Funchal.

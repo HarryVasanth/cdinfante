@@ -5,13 +5,13 @@ Guarda o ficheiro com o nome `ano-post-slug.md` na pasta correspondente `src/con
 
 ```markdown
 ---
-title: 'Título da Notícia / News Title'
-date: '2024-03-25'
-image: 'https://link-da-imagem-principal.jpg'
-description: 'Breve resumo do que aconteceu / Short summary of the event.'
+title: "Título da Notícia / News Title"
+date: "2024-03-25"
+image: "https://link-da-imagem-principal.jpg"
+description: "Breve resumo do que aconteceu / Short summary of the event."
 images:
-  - 'https://link-da-galeria-1.jpg'
-  - 'https://link-da-galeria-2.png'
+  - "https://link-da-galeria-1.jpg"
+  - "https://link-da-galeria-2.png"
 ---
 
 ### Português

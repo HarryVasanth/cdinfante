@@ -1,32 +1,32 @@
 ---
-title: 'Clube Desportivo Infante em destaque nas I Jornadas de Juventude 2026'
-date: '2026-02-28'
-image: './2026-jornadas-juventude-0.jpg'
-description: 'A Associação de Judo da Madeira organizou no passado sábado, 28 de fevereiro as I Jornadas da Juventude de Judo, no Polidesportivo da Escola da Levada.'
+title: "Clube Desportivo Infante em destaque nas I Jornadas de Juventude 2026"
+date: "2026-02-28"
+image: "./2026-jornadas-juventude-0.jpg"
+description: "A Associação de Judo da Madeira organizou no passado sábado, 28 de fevereiro as I Jornadas da Juventude de Judo, no Polidesportivo da Escola da Levada."
 images:
-  - './2026-jornadas-juventude-0.jpg'
-  - './2026-jornadas-juventude-1.jpg'
-  - './2026-jornadas-juventude-2.jpg'
-  - './2026-jornadas-juventude-3.jpg'
-  - './2026-jornadas-juventude-4.jpg'
-  - './2026-jornadas-juventude-5.jpg'
-  - './2026-jornadas-juventude-6.jpg'
-  - './2026-jornadas-juventude-7.jpg'
-  - './2026-jornadas-juventude-8.jpg'
-  - './2026-jornadas-juventude-9.jpg'
-  - './2026-jornadas-juventude-10.jpg'
-  - './2026-jornadas-juventude-11.jpg'
-  - './2026-jornadas-juventude-12.jpg'
-  - './2026-jornadas-juventude-13.jpg'
-  - './2026-jornadas-juventude-14.jpg'
-  - './2026-jornadas-juventude-15.jpg'
-  - './2026-jornadas-juventude-16.jpg'
-  - './2026-jornadas-juventude-17.jpg'
-  - './2026-jornadas-juventude-18.jpg'
-  - './2026-jornadas-juventude-19.jpg'
-  - './2026-jornadas-juventude-20.jpg'
-  - './2026-jornadas-juventude-21.jpg'
-  - './2026-jornadas-juventude-22.jpg'
+  - "./2026-jornadas-juventude-0.jpg"
+  - "./2026-jornadas-juventude-1.jpg"
+  - "./2026-jornadas-juventude-2.jpg"
+  - "./2026-jornadas-juventude-3.jpg"
+  - "./2026-jornadas-juventude-4.jpg"
+  - "./2026-jornadas-juventude-5.jpg"
+  - "./2026-jornadas-juventude-6.jpg"
+  - "./2026-jornadas-juventude-7.jpg"
+  - "./2026-jornadas-juventude-8.jpg"
+  - "./2026-jornadas-juventude-9.jpg"
+  - "./2026-jornadas-juventude-10.jpg"
+  - "./2026-jornadas-juventude-11.jpg"
+  - "./2026-jornadas-juventude-12.jpg"
+  - "./2026-jornadas-juventude-13.jpg"
+  - "./2026-jornadas-juventude-14.jpg"
+  - "./2026-jornadas-juventude-15.jpg"
+  - "./2026-jornadas-juventude-16.jpg"
+  - "./2026-jornadas-juventude-17.jpg"
+  - "./2026-jornadas-juventude-18.jpg"
+  - "./2026-jornadas-juventude-19.jpg"
+  - "./2026-jornadas-juventude-20.jpg"
+  - "./2026-jornadas-juventude-21.jpg"
+  - "./2026-jornadas-juventude-22.jpg"
 ---
 
 A Associação de Judo da Madeira organizou no passado sábado, 28 de fevereiro as I Jornadas da Juventude de Judo, no Polidesportivo da Escola da Levada. Um evento que marcou o arranque do calendário competitivo e formativo de 2026 para os escalões mais jovens da modalidade na região.

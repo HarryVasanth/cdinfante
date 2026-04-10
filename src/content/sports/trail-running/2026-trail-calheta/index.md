@@ -1,22 +1,22 @@
 ---
-title: 'VI Edição do Trail da Calheta 2026'
-date: '2026-03-08'
-image: './2026-trail-calheta-0.jpg'
-description: 'De salientar, o bom desempenho da nossa atleta Carla Caires, com uma excelente 2ª posição no seu escalão.'
+title: "VI Edição do Trail da Calheta 2026"
+date: "2026-03-08"
+image: "./2026-trail-calheta-0.jpg"
+description: "De salientar, o bom desempenho da nossa atleta Carla Caires, com uma excelente 2ª posição no seu escalão."
 images:
-  - './2026-trail-calheta-0.jpg'
-  - './2026-trail-calheta-1.jpg'
-  - './2026-trail-calheta-2.jpg'
-  - './2026-trail-calheta-3.jpg'
-  - './2026-trail-calheta-4.jpg'
-  - './2026-trail-calheta-5.jpg'
-  - './2026-trail-calheta-6.jpg'
-  - './2026-trail-calheta-7.jpg'
-  - './2026-trail-calheta-8.jpg'
-  - './2026-trail-calheta-9.jpg'
-  - './2026-trail-calheta-10.jpg'
-  - './2026-trail-calheta-11.jpg'
-  - './2026-trail-calheta-12.jpg'
+  - "./2026-trail-calheta-0.jpg"
+  - "./2026-trail-calheta-1.jpg"
+  - "./2026-trail-calheta-2.jpg"
+  - "./2026-trail-calheta-3.jpg"
+  - "./2026-trail-calheta-4.jpg"
+  - "./2026-trail-calheta-5.jpg"
+  - "./2026-trail-calheta-6.jpg"
+  - "./2026-trail-calheta-7.jpg"
+  - "./2026-trail-calheta-8.jpg"
+  - "./2026-trail-calheta-9.jpg"
+  - "./2026-trail-calheta-10.jpg"
+  - "./2026-trail-calheta-11.jpg"
+  - "./2026-trail-calheta-12.jpg"
 ---
 
 Decorreu no dia 8 de março, a VI edição do Trail da Calheta, prova a contar para o Campeonato Regional de Trail Ultra e Sprint. No Trail Ultra, com uma distância aproximada de 35 km e com um desnível positivo de 1950 m, contamos com a presença os nossos atletas Rui Coelho e Carla Caires, no Trail Sprint, numa distância aproximada de 13 km e com um desnível positivo de 800 m, tivemos a presença dos nossos atletas Milton Alves, Joana Sousa, Márcio Gonçalves, Harry Vasanth, José Arias, Lee Silva, Rodrigo Lima, Laura Silva, Caio Camacho, Énio Dantas e Cláudia Sousa.
