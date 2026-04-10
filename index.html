@@ -20,7 +20,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cdinfante.harryvasanth.com/" />
     <meta property="og:title" content="Clube Desportivo Infante Dom Henrique" />
@@ -33,7 +32,6 @@
       content="https://cdinfante.harryvasanth.com/icons/ci_logo_hr.png"
     />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta
       property="twitter:url"
@@ -52,7 +50,6 @@
       content="https://cdinfante.harryvasanth.com/icons/ci_logo_hr.png"
     />
 
-    <!-- Favicons & Mobile Icons -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -88,15 +85,17 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
+
+    <link
+      rel="preload"
+      as="image"
+      href="/images/main/cover.avif"
+      type="image/avif"
+      fetchpriority="high"
+    />
+
     <title>Clube Desportivo Infante Dom Henrique</title>
-    <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafgraph/spa-github-pages
-      // This script checks to see if a redirect is present in the query string,
-      // converts it back into the correct url and adds it to the
-      // browser's history using window.history.replaceState(...),
-      // which won't cause the browser to refresh the page
       (function (l) {
         if (l.search[1] === '/') {
           var decoded = l.search
@@ -114,11 +113,42 @@
         }
       })(window.location);
     </script>
-    <!-- End Single Page Apps for GitHub Pages -->
     <script src="https://web3forms.com/client/script.js" async defer></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <style>
+        #initial-loader {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          width: 100vw;
+          background-color: #fdfdfd; /* Light theme background */
+        }
+        .spinner {
+          width: 40px;
+          height: 40px;
+          border: 4px solid rgba(182, 23, 30, 0.1);
+          border-top-color: #b6171e; /* Brand Red */
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        @media (prefers-color-scheme: dark) {
+          #initial-loader {
+            background-color: #020202; /* Dark theme background */
+          }
+        }
+      </style>
+      <div id="initial-loader">
+        <div class="spinner"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

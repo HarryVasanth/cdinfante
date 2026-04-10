@@ -1,62 +1,62 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
-  ArrowLeft,
-  Search,
-  Bell,
-  ChevronDown,
-  Layout,
-  Palette,
-  Type,
-  Box,
-  MousePointer,
-  Check,
-  Info,
-  Loader2,
-  Flag as FlagIcon,
-  MoreHorizontal,
-  Mail,
-  Send,
-  User,
-  Settings,
-  Calendar,
-  BarChart3,
   Activity,
-  LineChart,
+  ArrowLeft,
+  BarChart3,
+  Bell,
+  Box,
+  Calendar,
+  Check,
+  ChevronDown,
   ExternalLink,
-  Maximize2,
+  Flag as FlagIcon,
+  Info,
+  Layout,
+  LineChart,
   List,
-  Zap,
+  Loader2,
+  Mail,
+  Maximize2,
   Menu,
+  MoreHorizontal,
+  MousePointer,
+  Palette,
   Radar,
-} from 'lucide-react';
-import { cn } from '../lib/utils';
+  Search,
+  Send,
+  Settings,
+  Type,
+  User,
+  Zap,
+} from 'lucide-react'
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { cn } from '../lib/utils'
 
 export default function Docs() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   // Interactive States
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [showDrawer, setShowDrawer] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [checkboxChecked, setCheckboxChecked] = useState(true);
-  const [switchOn, setSwitchOn] = useState(true);
-  const [selectedRadio, setSelectedRadio] = useState('active');
-  const [sliderValue, setSliderValue] = useState(66);
-  const [activeToggle, setActiveToggle] = useState('right');
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedId, setGeneratedId] = useState('AUTO-GENERATED-ID-123');
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [showDrawer, setShowDrawer] = useState(false)
+  const [showToast, setShowToast] = useState(false)
+  const [checkboxChecked, setCheckboxChecked] = useState(true)
+  const [switchOn, setSwitchOn] = useState(true)
+  const [selectedRadio, setSelectedRadio] = useState('active')
+  const [sliderValue, setSliderValue] = useState(66)
+  const [activeToggle, setActiveToggle] = useState('right')
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [generatedId, setGeneratedId] = useState('AUTO-GENERATED-ID-123')
 
   const handleGenerate = () => {
-    setIsGenerating(true);
+    setIsGenerating(true)
     setTimeout(() => {
       setGeneratedId(
         `ID-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-      );
-      setIsGenerating(false);
-    }, 800);
-  };
+      )
+      setIsGenerating(false)
+    }, 800)
+  }
 
   const sections = [
     { id: 'typography', label: t('docs.typography.title'), icon: Type },
@@ -69,7 +69,7 @@ export default function Docs() {
     },
     { id: 'graphs', label: t('docs.components.graphs.title'), icon: BarChart3 },
     { id: 'writing-posts', label: t('docs.writing_posts.title'), icon: List },
-  ];
+  ]
 
   return (
     <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
@@ -87,7 +87,7 @@ export default function Docs() {
             </div>
 
             <nav className="space-y-1">
-              {sections.map((section) => (
+              {sections.map(section => (
                 <a
                   key={section.id}
                   href={`#${section.id}`}
@@ -149,7 +149,7 @@ export default function Docs() {
                     { label: 'text-2xl', size: '24px' },
                     { label: 'text-3xl', size: '30px' },
                     { label: 'text-4xl', size: '36px' },
-                  ].map((item) => (
+                  ].map(item => (
                     <div
                       key={item.label}
                       className="flex items-baseline gap-4 p-4 rounded-xl bg-slate-50 dark:bg-white/5"
@@ -183,7 +183,7 @@ export default function Docs() {
                     { weight: 'font-medium', value: '500' },
                     { weight: 'font-semibold', value: '600' },
                     { weight: 'font-bold', value: '700' },
-                  ].map((item) => (
+                  ].map(item => (
                     <div
                       key={item.weight}
                       className="p-4 rounded-xl border border-slate-200 dark:border-white/10 text-center"
@@ -589,7 +589,7 @@ export default function Docs() {
                       {t('docs.components.form_controls.radio')}
                     </label>
                     <div className="flex flex-col gap-2">
-                      {['active', 'inactive'].map((option) => (
+                      {['active', 'inactive'].map(option => (
                         <div
                           key={option}
                           className="flex items-center gap-3 cursor-pointer"
@@ -636,8 +636,8 @@ export default function Docs() {
                         min="0"
                         max="100"
                         value={sliderValue}
-                        onChange={(e) =>
-                          setSliderValue(parseInt(e.target.value))
+                        onChange={e =>
+                          setSliderValue(Number.parseInt(e.target.value))
                         }
                         className="w-full h-1.5 bg-slate-200 dark:bg-white/10 rounded-full appearance-none cursor-pointer accent-brand-red"
                       />
@@ -708,7 +708,7 @@ export default function Docs() {
                     </button>
                   </div>
                   <div className="flex flex-col gap-4">
-                    {[1, 2].map((i) => (
+                    {[1, 2].map(i => (
                       <div
                         key={i}
                         className="p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center gap-4"
@@ -752,7 +752,7 @@ export default function Docs() {
                   </h3>
                   <div className="space-y-4 p-8 rounded-2xl bg-slate-50 dark:bg-white/5 h-full">
                     <div className="flex gap-2 p-1 bg-slate-200 dark:bg-white/5 rounded-xl w-fit">
-                      {['left', 'right'].map((dir) => (
+                      {['left', 'right'].map(dir => (
                         <button
                           key={dir}
                           onClick={() => setActiveToggle(dir)}
@@ -864,8 +864,8 @@ export default function Docs() {
                     <div
                       className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-10"
                       onClick={() => {
-                        setShowDrawer(false);
-                        setShowModal(false);
+                        setShowDrawer(false)
+                        setShowModal(false)
                       }}
                     />
                   )}
@@ -1082,7 +1082,7 @@ English content...`}</pre>
         </main>
       </div>
     </div>
-  );
+  )
 }
 
 function ColorSwatch({
@@ -1091,10 +1091,10 @@ function ColorSwatch({
   variable,
   dark,
 }: {
-  color: string;
-  name: string;
-  variable: string;
-  dark?: boolean;
+  color: string
+  name: string
+  variable: string
+  dark?: boolean
 }) {
   return (
     <div
@@ -1119,5 +1119,5 @@ function ColorSwatch({
         <p className="text-[10px] font-mono text-slate-400">{variable}</p>
       </div>
     </div>
-  );
+  )
 }

@@ -1,51 +1,46 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { m, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion'
 import {
+  Calendar as CalendarIcon,
   ChevronDown,
   ExternalLink,
-  Calendar as CalendarIcon,
   Link as LinkIcon,
-} from 'lucide-react';
-import { cn } from '../lib/utils';
+} from 'lucide-react'
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { cn } from '../lib/utils'
 
 // ------------------------------------------------------------------
 // GOOGLE CALENDAR CONFIGURATION
 // ------------------------------------------------------------------
-// To add a new calendar in the future, simply add a new object to this array.
-// You need the Calendar ID (src) and a hex color code (color).
-// Note: Replace '#' in hex colors with '%23' (e.g., #d50000 -> %23d50000).
 const GOOGLE_CALENDARS = [
   {
-    // 🏃 CDInfante - Calendário
+    // 💙❤️ CDInfante - Calendário ❤️💙
     id: '4003e3c4c371fd3f0790289e87ec2b282e36e5bf41bc34f3e4bb6358edc5a99b@group.calendar.google.com',
-    color: '%23d50000', // Red #d50000
+    color: '%23d50000',
   },
   {
     // Atletismo da Madeira - Calendário
     id: 'cv0bgl3r64ghto82nlv4eh76mg0shlnp@import.calendar.google.com',
-    color: '%234285f4', // Blue #4285f4
+    color: '%234285f4',
   },
-  // Example of adding a new one:
-  // { id: 'YOUR_NEW_CALENDAR_ID', color: '%2333b679' }
-];
+]
 
-// Helper function to dynamically construct the iframe URL
 const buildCalendarUrl = () => {
   const baseUrl =
-    'https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Atlantic%2FMadeira&showPrint=0';
+    'https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Atlantic%2FMadeira&showPrint=0'
 
-  // Google Calendar requires all '&src=' params first, followed by all '&color=' params
   const srcParams = GOOGLE_CALENDARS.map(
-    (cal) => `&src=${encodeURIComponent(cal.id)}`,
-  ).join('');
-  const colorParams = GOOGLE_CALENDARS.map((cal) => `&color=${cal.color}`).join(
+    cal => `&src=${encodeURIComponent(cal.id)}`,
+  ).join('')
+  const colorParams = GOOGLE_CALENDARS.map(cal => `&color=${cal.color}`).join(
     '',
-  );
+  )
 
-  return `${baseUrl}${srcParams}${colorParams}`;
-};
-// ------------------------------------------------------------------
+  return `${baseUrl}${srcParams}${colorParams}`
+}
+
+// OPTIMIZATION: Calculate this ONCE outside the component
+const GOOGLE_CALENDAR_URL = buildCalendarUrl()
 
 const sportsDocuments = [
   {
@@ -76,11 +71,11 @@ const sportsDocuments = [
       },
     ],
   },
-];
+]
 
 export default function CalendarEvents() {
-  const { t } = useTranslation();
-  const [expandedId, setExpandedId] = useState<string | null>('aaram');
+  const { t } = useTranslation()
+  const [expandedId, setExpandedId] = useState<string | null>('aaram')
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-6">
@@ -113,7 +108,8 @@ export default function CalendarEvents() {
         >
           <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[16/9] rounded-xl md:rounded-2xl overflow-hidden bg-white shadow-inner">
             <iframe
-              src={buildCalendarUrl()}
+              src={GOOGLE_CALENDAR_URL}
+              loading="lazy"
               style={{ border: 0 }}
               width="100%"
               height="100%"
@@ -121,7 +117,7 @@ export default function CalendarEvents() {
               scrolling="no"
               className="dark:invert dark:hue-rotate-180 dark:opacity-90 transition-all duration-700"
               title="CDI Calendar"
-            ></iframe>
+            />
           </div>
         </m.div>
 
@@ -141,7 +137,7 @@ export default function CalendarEvents() {
           </div>
 
           <div className="grid gap-4">
-            {sportsDocuments.map((category) => (
+            {sportsDocuments.map(category => (
               <div
                 key={category.id}
                 className="bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden transition-all duration-300"
@@ -237,5 +233,5 @@ export default function CalendarEvents() {
         </m.div>
       </div>
     </div>
-  );
+  )
 }

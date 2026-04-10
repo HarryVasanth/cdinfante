@@ -1,19 +1,19 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Activity,
-  Mountain,
-  Target,
   ArrowUpRight,
-  Footprints,
   CircleDot,
-  ShieldCheck,
+  Footprints,
   LayoutGrid,
-} from 'lucide-react';
-import { BentoCard } from '../ui/BentoCard';
+  Mountain,
+  ShieldCheck,
+  Target,
+} from 'lucide-react'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { BentoCard } from '../ui/BentoCard'
 
 export const Sports = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <section id="sports" className="py-32 px-6 bg-transparent">
@@ -99,5 +99,5 @@ export const Sports = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

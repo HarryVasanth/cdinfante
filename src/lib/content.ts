@@ -1,122 +1,120 @@
-// @ts-expect-error front-matter might not have types
-import fm from 'front-matter';
+// src/lib/content.ts
 
-/**
- * Interface representing a single post's metadata and content.
- */
+export interface ImageAssets {
+  thumbnail: string
+  full: string
+}
+
 export interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  image?: string;
-  description: string;
-  images?: string[];
-  content: string;
-  sport: string;
+  slug: string
+  title: string
+  date: string
+  image?: ImageAssets
+  description: string
+  images?: ImageAssets[]
+  content: string // This is now pre-compiled HTML!
+  sport: string
 }
 
 interface FrontMatterAttributes {
-  title: string;
-  date: string;
-  image?: string;
-  description: string;
-  images?: string[];
+  title: string
+  date: string
+  image?: string
+  description: string
+  images?: string[]
 }
 
 /**
- * Uses Vite's glob import to automatically discover all Markdown files in the
- * src/content directory. This ensures new posts are picked up without
- * manual registration in a JSON manifest.
+ * Notice we REMOVED the `?raw` query! Vite-plugin-markdown will process these.
  */
-const allPosts = import.meta.glob('../content/**/index.md', {
-  query: '?raw',
-  import: 'default',
-});
+const allPosts = import.meta.glob('../content/**/index.md')
 
-/**
- * Discovers all images in the content directory to resolve them as static assets.
- */
-const allImages = import.meta.glob('../content/**/*.{jpg,jpeg,png,webp,avif}', {
-  import: 'default',
-});
+// Dual-Res Image generators
+const gridImages = import.meta.glob(
+  '../content/**/*.{jpg,jpeg,png,webp,avif}',
+  {
+    query: { format: 'webp', w: '400', h: '400', fit: 'cover', quality: '80' },
+    import: 'default',
+  },
+)
 
-/**
- * Resolves a relative image path from a post's frontmatter to its processed URL.
- *
- * @param postDir - The directory path of the post.
- * @param imagePath - The path from the frontmatter (e.g., './image.jpg').
- * @returns The resolved image URL or the original path if it's external or absolute.
- */
+const lightboxImages = import.meta.glob(
+  '../content/**/*.{jpg,jpeg,png,webp,avif}',
+  {
+    query: { format: 'webp', w: '1600', quality: '90' },
+    import: 'default',
+  },
+)
+
 async function resolveImagePath(
   postDir: string,
   imagePath: string,
-): Promise<string> {
-  // If it's an external URL or an absolute path starting with /, return it as-is.
+): Promise<ImageAssets> {
   if (!imagePath || imagePath.startsWith('http') || imagePath.startsWith('/')) {
-    return imagePath;
+    return { thumbnail: imagePath, full: imagePath }
   }
 
-  // Resolve relative paths like './image.jpg' or '../images/...'
-  // Normalize the path by joining postDir and imagePath
-  const parts = postDir.split('/');
-  const imageParts = imagePath.split('/');
+  const parts = postDir.split('/')
+  const imageParts = imagePath.split('/')
 
   for (const part of imageParts) {
-    if (part === '.') continue;
+    if (part === '.') continue
     if (part === '..') {
-      parts.pop();
+      parts.pop()
     } else {
-      parts.push(part);
+      parts.push(part)
     }
   }
 
-  const resolvedPath = parts.join('/');
-  const fetcher = allImages[resolvedPath];
+  const resolvedPath = parts.join('/')
 
-  if (fetcher) {
-    return (await fetcher()) as string;
+  const fetchThumbnail = gridImages[resolvedPath]
+  const fetchFull = lightboxImages[resolvedPath]
+
+  if (fetchThumbnail && fetchFull) {
+    const [thumbnailUrl, fullUrl] = await Promise.all([
+      fetchThumbnail(),
+      fetchFull(),
+    ])
+    return {
+      thumbnail: thumbnailUrl as string,
+      full: fullUrl as string,
+    }
   }
 
-  return imagePath;
+  return { thumbnail: imagePath, full: imagePath }
 }
 
-/**
- * Fetches and parses a specific post's markdown content.
- *
- * @param category - The directory name of the category (e.g., 'sports/handball' or 'others').
- * @param slug - The directory name of the post.
- * @returns A Post object.
- */
 export async function getPost(category: string, slug: string): Promise<Post> {
   const postDir =
     category === 'others'
       ? `../content/others/${slug}`
       : category.includes('/')
         ? `../content/${category}/${slug}`
-        : `../content/sports/${category}/${slug}`;
+        : `../content/sports/${category}/${slug}`
 
-  const path = `${postDir}/index.md`;
+  const path = `${postDir}/index.md`
+  const fetcher = allPosts[path]
 
-  const fetcher = allPosts[path];
+  if (!fetcher) throw new Error(`Post not found: ${path}`)
 
-  if (!fetcher) {
-    throw new Error(`Post not found: ${path}`);
+  // Vite-plugin-markdown exports `attributes` and `html` natively!
+  const module = (await fetcher()) as {
+    attributes: FrontMatterAttributes
+    html: string
   }
 
-  const rawContent = (await fetcher()) as string;
-  // @ts-expect-error front-matter return type
-  const { attributes, body } = fm(rawContent);
-
-  const attrs = attributes as FrontMatterAttributes;
+  const attrs = module.attributes
+  const compiledHTML = module.html
 
   const [resolvedImage, resolvedImages] = await Promise.all([
     attrs.image
       ? resolveImagePath(postDir, attrs.image)
       : Promise.resolve(undefined),
     attrs.images
-      ? Promise.all(attrs.images.map((img) => resolveImagePath(postDir, img)))
+      ? Promise.all(attrs.images.map(img => resolveImagePath(postDir, img)))
       : Promise.resolve(undefined),
-  ]);
+  ])
 
   return {
     slug,
@@ -124,40 +122,30 @@ export async function getPost(category: string, slug: string): Promise<Post> {
     ...attrs,
     image: resolvedImage,
     images: resolvedImages,
-    content: body as string,
-  };
+    content: compiledHTML, // Passing the static HTML
+  }
 }
 
-/**
- * Discovers all posts for a given sport by scanning the imported glob.
- *
- * @param sport - The directory name of the sport.
- * @returns An array of Post objects sorted by date descending.
- */
 export async function getSportPosts(sport: string): Promise<Post[]> {
   try {
     const sportPrefix =
-      sport === 'others' ? `../content/others/` : `../content/sports/${sport}/`;
-
-    const sportPosts = Object.keys(allPosts).filter((path) =>
+      sport === 'others' ? `../content/others/` : `../content/sports/${sport}/`
+    const sportPosts = Object.keys(allPosts).filter(path =>
       path.startsWith(sportPrefix),
-    );
+    )
 
-    const postPromises = sportPosts.map(async (path) => {
-      // Path is like '../content/sports/handball/2025-torneio-calheta-beach-handball/index.md'
-      const parts = path.split('/');
-      const slug = parts[parts.length - 2];
-      return getPost(sport === 'others' ? 'others' : sport, slug);
-    });
+    const postPromises = sportPosts.map(async path => {
+      const parts = path.split('/')
+      const slug = parts[parts.length - 2]
+      return getPost(sport === 'others' ? 'others' : sport, slug)
+    })
 
-    const results = await Promise.all(postPromises);
-
-    // Sort by date descending
+    const results = await Promise.all(postPromises)
     return results.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    );
+    )
   } catch (error) {
-    console.error(`Error discovering posts for ${sport}:`, error);
-    return [];
+    console.error(`Error discovering posts for ${sport}:`, error)
+    return []
   }
 }

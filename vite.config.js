@@ -1,16 +1,21 @@
 // vite.config.js
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import { VitePWA } from 'vite-plugin-pwa';
-import { imagetools } from 'vite-imagetools';
-import viteCompression from 'vite-plugin-compression';
+
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+import { imagetools } from 'vite-imagetools'
+import { plugin as markdown, Mode } from 'vite-plugin-markdown'
+import viteCompression from 'vite-plugin-compression'
+import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
     imagetools(),
+    // Parses markdown into HTML at build time!
+    markdown({ mode: [Mode.HTML] }),
+
     // Generates .br and .gz files for smaller payloads over the wire
     viteCompression({
       algorithm: 'brotliCompress',
@@ -21,7 +26,7 @@ export default defineConfig({
       ext: '.gz',
     }),
     VitePWA({
-      registerType: 'prompt', // Asks the user before updating
+      registerType: 'prompt',
       includeAssets: [
         'icons/favicon.ico',
         'icons/apple-touch-icon.png',
@@ -47,28 +52,20 @@ export default defineConfig({
             src: '/icons/android-chrome-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable', // Best practice for Android scaling
+            purpose: 'any maskable',
           },
         ],
       },
       workbox: {
-        // Cache all these file types for offline use
         globPatterns: ['**/*.{js,css,html,ico,png,svg,avif,jpg,jpeg,md}'],
-
-        // Advanced runtime caching for external fonts and local images
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
             options: {
               cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // Cache fonts for 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
             },
           },
           {
@@ -76,28 +73,17 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365,
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
             },
           },
-          // Aggressive caching for local images
           {
             urlPattern: /\.(?:png|jpg|jpeg|svg|avif|webp)$/,
             handler: 'CacheFirst',
             options: {
               cacheName: 'local-images-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [0, 200] },
             },
           },
         ],
@@ -105,4 +91,4 @@ export default defineConfig({
     }),
   ],
   base: '/',
-});
+})

@@ -1,20 +1,21 @@
 // src/pages/SportDetails.tsx
-import React, { useEffect, useState, useMemo } from 'react';
-import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { m, AnimatePresence } from 'framer-motion';
-import ReactMarkdown from 'react-markdown';
+
+import { AnimatePresence, m } from 'framer-motion'
 import {
-  ChevronLeft,
-  Calendar,
-  Image as ImageIcon,
   ArrowRight,
-  X,
-  ChevronRight,
-  Share2,
+  Calendar,
   Check,
-} from 'lucide-react';
-import { getSportPosts, type Post } from '../lib/content';
+  ChevronLeft,
+  ChevronRight,
+  Image as ImageIcon,
+  Share2,
+  X,
+} from 'lucide-react'
+import type React from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { getSportPosts, type Post } from '../lib/content'
 
 /**
  * Displays news and updates for a specific sport.
@@ -23,110 +24,105 @@ import { getSportPosts, type Post } from '../lib/content';
  * @author Harry Vasanth (harryvasanth.com)
  */
 const SportDetails: React.FC = () => {
-  const { sportId } = useParams<{ sportId: string }>();
-  const { hash } = useLocation();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { sportId } = useParams<{ sportId: string }>()
+  const { hash } = useLocation()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
-  );
-  const [copied, setCopied] = useState(false);
+  )
+  const [copied, setCopied] = useState(false)
 
-  // Clear old state when switching sports to prevent "content flickering"
-  const [prevSportId, setPrevSportId] = useState(sportId);
+  const [prevSportId, setPrevSportId] = useState(sportId)
   if (sportId !== prevSportId) {
-    setPrevSportId(sportId);
-    setLoading(true);
-    setPosts([]);
+    setPrevSportId(sportId)
+    setLoading(true)
+    setPosts([])
   }
 
   useEffect(() => {
     if (sportId) {
-      getSportPosts(sportId).then((data) => {
-        setPosts(data);
-        setLoading(false);
-      });
+      getSportPosts(sportId).then(data => {
+        setPosts(data)
+        setLoading(false)
+      })
     }
-  }, [sportId]);
+  }, [sportId])
 
-  // Select the featured post - either from the URL hash or the most recent one
   const featuredPost = useMemo(() => {
-    if (posts.length === 0) return null;
-    const slug = hash.replace('#', '');
+    if (posts.length === 0) return null
+    const slug = hash.replace('#', '')
     if (slug) {
-      return posts.find((p) => p.slug === slug) || posts[0];
+      return posts.find(p => p.slug === slug) || posts[0]
     }
-    return posts[0];
-  }, [posts, hash]);
+    return posts[0]
+  }, [posts, hash])
 
-  // Scroll to top when featured post changes
   useEffect(() => {
     if (featuredPost) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  }, [featuredPost?.slug]);
+  }, [featuredPost?.slug])
 
-  // Handle Escape key for Lightbox
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedImageIndex(null);
-      }
-    };
-
-    if (selectedImageIndex !== null) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedImageIndex]);
-
-  // Combine hero image and gallery for the Lightbox, avoiding duplicates
   const allImages = useMemo(() => {
-    if (!featuredPost) return [];
-    const images: string[] = [];
-    if (featuredPost.image) {
-      images.push(featuredPost.image);
+    if (!featuredPost) return []
+    const images: string[] = []
+    if (featuredPost.image?.full) {
+      images.push(featuredPost.image.full)
     }
     if (featuredPost.images) {
-      featuredPost.images.forEach((img) => {
-        if (img !== featuredPost.image && !images.includes(img)) {
-          images.push(img);
+      featuredPost.images.forEach(imgObj => {
+        if (
+          imgObj.full !== featuredPost.image?.full &&
+          !images.includes(imgObj.full)
+        ) {
+          images.push(imgObj.full)
         }
-      });
+      })
     }
-    return images;
-  }, [featuredPost]);
+    return images
+  }, [featuredPost])
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#020202]">
-        <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
+  const handleNextImage = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      if (selectedImageIndex !== null) {
+        setSelectedImageIndex(prev => (prev! + 1) % allImages.length)
+      }
+    },
+    [selectedImageIndex, allImages.length],
+  )
 
-  const handleNextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePrevImage = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      if (selectedImageIndex !== null) {
+        setSelectedImageIndex(
+          prev => (prev! - 1 + allImages.length) % allImages.length,
+        )
+      }
+    },
+    [selectedImageIndex, allImages.length],
+  )
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setSelectedImageIndex(null)
+    }
+  }, [])
+
+  useEffect(() => {
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex + 1) % allImages.length);
+      window.addEventListener('keydown', handleKeyDown)
     }
-  };
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedImageIndex, handleKeyDown])
 
-  const handlePrevImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (selectedImageIndex !== null) {
-      setSelectedImageIndex(
-        (selectedImageIndex - 1 + allImages.length) % allImages.length,
-      );
-    }
-  };
-
-  // Support native OS sharing or fallback to clipboard
-  const handleShare = async (post: Post) => {
-    const baseUrl = window.location.origin + window.location.pathname;
-    const url = `${baseUrl}#${post.slug}`;
+  const handleShare = useCallback(async (post: Post) => {
+    const baseUrl = window.location.origin + window.location.pathname
+    const url = `${baseUrl}#${post.slug}`
 
     if (navigator.share) {
       try {
@@ -134,29 +130,35 @@ const SportDetails: React.FC = () => {
           title: post.title,
           text: post.title,
           url: url,
-        });
+        })
       } catch (err) {
-        console.error('Error sharing:', err);
+        console.error('Error sharing:', err)
       }
     } else {
       try {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        await navigator.clipboard.writeText(url)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
       } catch (err) {
-        console.error('Error copying to clipboard:', err);
+        console.error('Error copying to clipboard:', err)
       }
     }
-  };
+  }, [])
 
-  // Get sport display name
-  const sportKey = sportId?.replace('-', '_') || '';
-  const sportName = t(`sports.${sportKey}`, sportId || '');
+  const sportKey = sportId?.replace('-', '_') || ''
+  const sportName = t(`sports.${sportKey}`, sportId || '')
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#020202]">
+        <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#020202] text-brand-navy dark:text-white pt-32 pb-20 px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Back Link */}
         <Link
           to="/"
           className="inline-flex items-center text-brand-red font-semibold mb-8 hover:underline group"
@@ -168,7 +170,6 @@ const SportDetails: React.FC = () => {
           {t('common.back_home')}
         </Link>
 
-        {/* Header */}
         <div className="mb-16 relative">
           <m.h1
             initial={{ opacity: 0, y: 20 }}
@@ -192,7 +193,6 @@ const SportDetails: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Featured Post */}
             <div className="lg:col-span-2 space-y-12">
               <AnimatePresence mode="wait">
                 {featuredPost && (
@@ -205,15 +205,17 @@ const SportDetails: React.FC = () => {
                     className="bg-white/70 dark:bg-white/[0.03] backdrop-blur-2xl rounded-[2.5rem] overflow-hidden border border-white dark:border-white/[0.08] shadow-2xl relative"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
-                    {featuredPost.image && (
+
+                    {featuredPost.image?.full && (
                       <div
                         className="aspect-video w-full overflow-hidden cursor-zoom-in group/image relative"
                         onClick={() => setSelectedImageIndex(0)}
                       >
                         <img
-                          src={featuredPost.image}
+                          src={featuredPost.image.full}
                           alt={featuredPost.title}
-                          loading="lazy"
+                          loading="eager"
+                          decoding="async"
                           className="w-full h-full object-cover transition-all duration-700 group-hover/image:scale-105"
                         />
                         <div className="absolute inset-0 bg-white/0 dark:bg-black/0 group-hover/image:bg-white/10 dark:group-hover/image:bg-white/5 backdrop-blur-[0px] group-hover/image:backdrop-blur-[2px] transition-all duration-700" />
@@ -248,11 +250,15 @@ const SportDetails: React.FC = () => {
                       <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-8 leading-[1.1] tracking-tight text-brand-navy dark:text-white">
                         {featuredPost.title}
                       </h2>
-                      <div className="prose prose-slate dark:prose-invert max-w-none mb-12 prose-headings:font-black prose-headings:tracking-tight prose-p:text-lg prose-p:leading-relaxed prose-p:text-brand-navy/80 dark:prose-p:text-slate-300">
-                        <ReactMarkdown>{featuredPost.content}</ReactMarkdown>
-                      </div>
 
-                      {/* Post Gallery */}
+                      {/* INJECT HTML DIRECTLY HERE */}
+                      <div
+                        className="prose prose-slate dark:prose-invert max-w-none mb-12 prose-headings:font-black prose-headings:tracking-tight prose-p:text-lg prose-p:leading-relaxed prose-p:text-brand-navy/80 dark:prose-p:text-slate-300"
+                        dangerouslySetInnerHTML={{
+                          __html: featuredPost.content,
+                        }}
+                      />
+
                       {featuredPost.images &&
                         featuredPost.images.length > 0 && (
                           <div className="mt-12">
@@ -261,21 +267,22 @@ const SportDetails: React.FC = () => {
                               {t('sports.gallery')}
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                              {featuredPost.images.map((img, i) => (
+                              {featuredPost.images.map((imgObj, i) => (
                                 <div
                                   key={i}
                                   onClick={() => {
-                                    const index = allImages.indexOf(img);
+                                    const index = allImages.indexOf(imgObj.full)
                                     if (index !== -1) {
-                                      setSelectedImageIndex(index);
+                                      setSelectedImageIndex(index)
                                     }
                                   }}
                                   className="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-zoom-in group/gallery relative"
                                 >
                                   <img
-                                    src={img}
+                                    src={imgObj.thumbnail}
                                     alt=""
                                     loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover transition-all duration-700 group-hover/gallery:scale-110"
                                   />
                                   <div className="absolute inset-0 bg-white/0 dark:bg-black/0 group-hover/gallery:bg-white/10 dark:group-hover/gallery:bg-white/5 backdrop-blur-[0px] group-hover/gallery:backdrop-blur-[2px] transition-all duration-700" />
@@ -290,17 +297,16 @@ const SportDetails: React.FC = () => {
               </AnimatePresence>
             </div>
 
-            {/* Past Posts List */}
             <div className="space-y-6">
               <h3 className="text-xl font-bold mb-8 flex items-center gap-2">
                 {t('sports.past_posts')}
               </h3>
               <div className="space-y-4">
-                {posts.map((post) => (
+                {posts.map(post => (
                   <button
                     key={post.slug}
                     onClick={() => {
-                      navigate(`#${post.slug}`, { replace: true });
+                      navigate(`#${post.slug}`, { replace: true })
                     }}
                     className={`w-full text-left p-6 rounded-[2rem] border transition-all duration-500 group relative overflow-hidden ${
                       featuredPost?.slug === post.slug
@@ -343,7 +349,6 @@ const SportDetails: React.FC = () => {
         )}
       </div>
 
-      {/* Lightbox Modal */}
       <AnimatePresence>
         {selectedImageIndex !== null && (
           <m.div
@@ -384,11 +389,13 @@ const SportDetails: React.FC = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="relative max-w-5xl w-full max-h-full flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
             >
               <img
                 src={allImages[selectedImageIndex]}
                 alt=""
+                decoding="async"
+                loading="lazy"
                 className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
               />
               <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white/50 text-sm font-medium">
@@ -399,7 +406,7 @@ const SportDetails: React.FC = () => {
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}
 
-export default SportDetails;
+export default SportDetails

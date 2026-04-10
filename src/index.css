@@ -1,8 +1,8 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif';
+  --font-sans: "Plus Jakarta Sans", "Inter", "system-ui", "sans-serif";
   --radius-4xl: 2rem;
   --radius-5xl: 3rem;
 

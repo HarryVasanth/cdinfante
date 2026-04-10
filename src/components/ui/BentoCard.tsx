@@ -1,10 +1,11 @@
 // src/components/ui/BentoCard.tsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { m, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { ChevronRight, type LucideIcon } from 'lucide-react';
-import { cn } from '../../lib/utils';
+
+import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { ChevronRight, type LucideIcon } from 'lucide-react'
+import type React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { cn } from '../../lib/utils'
 
 /**
  * Interactive Bento Card with premium glassmorphism.
@@ -20,26 +21,26 @@ export const BentoCard = ({
   delay = 0,
   slug,
 }: {
-  title: string;
-  icon: LucideIcon;
-  imageUrl?: string;
-  className?: string;
-  delay?: number;
-  slug: string;
+  title: string
+  icon: LucideIcon
+  imageUrl?: string
+  className?: string
+  delay?: number
+  slug: string
 }) => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
   function handleMouseMove({
     currentTarget,
     clientX,
     clientY,
   }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+    const { left, top } = currentTarget.getBoundingClientRect()
+    mouseX.set(clientX - left)
+    mouseY.set(clientY - top)
   }
 
   return (
@@ -98,5 +99,5 @@ export const BentoCard = ({
         <div className="absolute top-0 right-0 w-40 h-40 bg-brand-red/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000" />
       )}
     </m.div>
-  );
-};
+  )
+}

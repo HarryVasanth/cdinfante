@@ -1,15 +1,12 @@
-// src/components/sections/Hero.tsx
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { m, AnimatePresence } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
-import { useScroll } from '../../hooks/useScroll';
+import { AnimatePresence, m } from 'framer-motion'
+import { ChevronRight } from 'lucide-react'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useScroll } from '../../hooks/useScroll'
 
 export const Hero = () => {
-  const { t } = useTranslation();
-
-  // Use the custom hook instead of writing all the event listener logic!
-  const scrolled = useScroll(20);
+  const { t } = useTranslation()
+  const scrolled = useScroll(20)
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
@@ -17,6 +14,8 @@ export const Hero = () => {
         <img
           src="images/main/cover.avif"
           alt="CDI-M Cover"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover opacity-20 dark:opacity-5 grayscale brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FBFBFD]/50 to-[#FBFBFD] dark:via-black/50 dark:to-black z-10" />
@@ -41,31 +40,22 @@ export const Hero = () => {
             {t('hero.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button
-              onClick={() =>
-                document
-                  .getElementById('contact')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
+            <a
+              href="#contact"
               className="group px-10 py-5 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-bold transition-all shadow-2xl shadow-brand-red/40 hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
             >
               {t('hero.cta')}
-
               <ChevronRight
                 size={20}
                 className="group-hover:translate-x-1 transition-transform"
               />
-            </button>
-            <button
-              onClick={() =>
-                document
-                  .getElementById('about')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
+            </a>
+            <a
+              href="#about"
               className="px-10 py-5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white rounded-full font-bold hover:bg-slate-50 dark:hover:bg-white/10 backdrop-blur-md transition-all shadow-sm cursor-pointer"
             >
               {t('nav.about')}
-            </button>
+            </a>
           </div>
         </m.div>
       </div>
@@ -84,7 +74,7 @@ export const Hero = () => {
                 animate={{ y: [0, 16, 0] }}
                 transition={{
                   duration: 2,
-                  repeat: Infinity,
+                  repeat: Number.POSITIVE_INFINITY,
                   ease: 'easeInOut',
                 }}
                 className="w-1.5 h-1.5 bg-brand-red rounded-full"
@@ -94,5 +84,5 @@ export const Hero = () => {
         )}
       </AnimatePresence>
     </section>
-  );
-};
+  )
+}

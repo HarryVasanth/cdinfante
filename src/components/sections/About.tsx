@@ -1,9 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { m } from 'framer-motion';
+import { m } from 'framer-motion'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export const About = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <section id="about" className="py-24 md:py-32 px-6 bg-transparent relative">
@@ -66,5 +66,5 @@ export const About = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

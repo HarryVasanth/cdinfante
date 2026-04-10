@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Facebook, Instagram } from 'lucide-react';
-import { Logo } from '../ui/Logo';
+import { Facebook, Instagram } from 'lucide-react'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import { Logo } from '../ui/Logo'
 
 export const Footer = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const navLinks = [
     { name: t('nav.home'), href: '#' },
@@ -13,7 +13,7 @@ export const Footer = () => {
     { name: t('nav.sports'), href: '#sports' },
     { name: t('nav.calendar'), href: 'calendar' },
     { name: t('nav.contact'), href: '#contact' },
-  ];
+  ]
 
   return (
     <footer className="py-24 border-t border-slate-200/50 dark:border-white/5 bg-[#FBFBFD] dark:bg-black transition-colors duration-700">
@@ -40,7 +40,7 @@ export const Footer = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mt-12 mb-12">
-          {navLinks.map((link) => (
+          {navLinks.map(link => (
             <Link
               key={link.name}
               to={`/${link.href}`}
@@ -58,5 +58,5 @@ export const Footer = () => {
         </p>
       </div>
     </footer>
-  );
-};
+  )
+}

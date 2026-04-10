@@ -1,27 +1,27 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+// src/App.tsx
+
+import { domAnimation, LazyMotion } from 'framer-motion'
+import React, { lazy, Suspense, useEffect, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
   useLocation,
-} from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { LazyMotion, domAnimation } from 'framer-motion';
-
-// Statically imported components
-import { Spotlight } from './components/ui/Spotlight';
-import { Navbar } from './components/layout/Navbar';
-import { Hero } from './components/sections/Hero';
-import { About } from './components/sections/About';
-import { Sports } from './components/sections/Sports';
-import { Contact } from './components/sections/Contact';
-import { Footer } from './components/layout/Footer';
-import { ReloadPrompt } from './components/ui/ReloadPrompt';
+} from 'react-router-dom'
+import { Footer } from './components/layout/Footer'
+import { Navbar } from './components/layout/Navbar'
+import { About } from './components/sections/About'
+import { Contact } from './components/sections/Contact'
+import { Hero } from './components/sections/Hero'
+import { Sports } from './components/sections/Sports'
+import { ReloadPrompt } from './components/ui/ReloadPrompt'
+import { Spotlight } from './components/ui/Spotlight'
 
 // Lazy loaded pages
-const SportDetails = lazy(() => import('./pages/SportDetails'));
-const Docs = lazy(() => import('./pages/Docs'));
-const CalendarEvents = lazy(() => import('./pages/CalendarEvents'));
+const SportDetails = lazy(() => import('./pages/SportDetails'))
+const Docs = lazy(() => import('./pages/Docs'))
+const CalendarEvents = lazy(() => import('./pages/CalendarEvents'))
 
 export default function App() {
   return (
@@ -30,66 +30,92 @@ export default function App() {
         <MainContent />
       </Router>
     </LazyMotion>
-  );
+  )
 }
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#FBFBFD] dark:bg-[#020202]">
     <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
   </div>
-);
+)
 
 function MainContent() {
-  const { i18n } = useTranslation();
-  const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { i18n } = useTranslation()
+  const location = useLocation()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  // OPTIMIZATION: Non-blocking scroll behavior using requestAnimationFrame
   useEffect(() => {
-    // Only apply hash scrolling if we are on the homepage
-    if (location.pathname === '/') {
-      if (location.hash) {
-        const id = location.hash.replace('#', '');
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+    const handleScroll = () => {
+      if (location.pathname === '/') {
+        if (location.hash) {
+          const id = location.hash.replace('#', '')
+          const element = document.getElementById(id)
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' })
+          }
+        } else {
+          window.scrollTo(0, 0)
         }
-      } else {
-        window.scrollTo(0, 0);
+      } else if (!location.hash) {
+        window.scrollTo(0, 0)
       }
-    } else if (!location.hash) {
-      // Still scroll to top on other route changes if there's no hash
-      window.scrollTo(0, 0);
     }
-  }, [location.pathname, location.hash]);
 
+    // Defer scroll until after the new route paints to avoid visual blocking
+    requestAnimationFrame(handleScroll)
+  }, [location.pathname, location.hash])
+
+  // OPTIMIZATION: Safe theme initialization with try/catch
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved) return saved === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      try {
+        const saved = localStorage.getItem('theme')
+        if (saved) return saved === 'dark'
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+      } catch (error) {
+        // Prevent crash if localStorage is blocked (e.g., Strict Incognito mode)
+        console.warn(
+          'localStorage is restricted, falling back to system theme.',
+        )
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+      }
     }
-    return false;
-  });
+    return false
+  })
 
+  // OPTIMIZATION: Safe theme saving
   useEffect(() => {
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    try {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light')
+    } catch (error) {
+      // Ignore gracefully
+    }
+
     if (isDark) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove('dark')
     }
-  }, [isDark]);
+  }, [isDark])
 
-  const toggleLanguage = () => {
-    const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT';
-    i18n.changeLanguage(nextLang);
-    localStorage.setItem('i18nextLng', nextLang);
-    document.documentElement.lang = nextLang;
-  };
+  // OPTIMIZATION: Wrap in useCallback so Navbar doesn't re-render unnecessarily
+  const toggleLanguage = useCallback(() => {
+    const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT'
+    i18n.changeLanguage(nextLang)
+
+    try {
+      localStorage.setItem('i18nextLng', nextLang)
+    } catch (error) {
+      // Ignore gracefully
+    }
+
+    document.documentElement.lang = nextLang
+  }, [i18n])
 
   useEffect(() => {
-    document.documentElement.lang = i18n.language;
-  }, [i18n.language]);
+    document.documentElement.lang = i18n.language
+  }, [i18n.language])
 
   return (
     <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-700 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden font-plus-jakarta">
@@ -126,5 +152,5 @@ function MainContent() {
 
       <Footer />
     </div>
-  );
+  )
 }

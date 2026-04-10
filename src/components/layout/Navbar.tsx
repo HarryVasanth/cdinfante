@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Menu, X, Globe, Moon, Sun } from 'lucide-react';
-import { m, AnimatePresence } from 'framer-motion';
-import { cn } from '../../lib/utils';
-import { Logo } from '../ui/Logo';
-import { useScroll } from '../../hooks/useScroll';
+import { AnimatePresence, m } from 'framer-motion'
+import { Globe, Menu, Moon, Sun, X } from 'lucide-react'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import { useScroll } from '../../hooks/useScroll'
+import { cn } from '../../lib/utils'
+import { Logo } from '../ui/Logo'
 
 interface NavbarProps {
-  isDark: boolean;
-  setIsDark: (dark: boolean) => void;
-  toggleLanguage: () => void;
-  isMenuOpen: boolean;
-  setIsMenuOpen: (open: boolean) => void;
+  isDark: boolean
+  setIsDark: (dark: boolean) => void
+  toggleLanguage: () => void
+  isMenuOpen: boolean
+  setIsMenuOpen: (open: boolean) => void
 }
 
 export const Navbar = ({
@@ -22,17 +23,17 @@ export const Navbar = ({
   isMenuOpen,
   setIsMenuOpen,
 }: NavbarProps) => {
-  const { t, i18n } = useTranslation();
-  const scrolled = useScroll(20);
+  const { t, i18n } = useTranslation()
+  const scrolled = useScroll(20)
 
   // Prevent body scroll when menu is open to improve mobile performance
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset'
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen])
 
   const navLinks = [
     { name: t('nav.home'), href: '#' },
@@ -40,27 +41,27 @@ export const Navbar = ({
     { name: t('nav.sports'), href: '#sports' },
     { name: t('nav.calendar'), href: 'calendar' },
     { name: t('nav.contact'), href: '#contact' },
-  ];
+  ]
 
   const handleLinkClick = (e: React.MouseEvent, href: string) => {
     // First, close the menu
-    setIsMenuOpen(false);
+    setIsMenuOpen(false)
 
     // Handle scroll logic for hash links on the home page
     if (window.location.pathname === '/' && href.startsWith('#')) {
-      e.preventDefault();
-      const id = href.replace('#', '');
-      const element = id ? document.getElementById(id) : null;
+      e.preventDefault()
+      const id = href.replace('#', '')
+      const element = id ? document.getElementById(id) : null
 
       // Immediately scroll without the setTimeout to prevent lag
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'smooth' })
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
-      window.history.pushState(null, '', href === '#' ? '/' : `/${href}`);
+      window.history.pushState(null, '', href === '#' ? '/' : `/${href}`)
     }
-  };
+  }
 
   return (
     <>
@@ -86,7 +87,7 @@ export const Navbar = ({
 
             {/* Desktop Nav */}
             <ul className="hidden md:flex items-center gap-10">
-              {navLinks.map((link) => (
+              {navLinks.map(link => (
                 <li key={link.name}>
                   <Link
                     // Fixed: Preserve the hash so cross-page routing works (e.g. from /docs to /#about)
@@ -95,7 +96,7 @@ export const Navbar = ({
                         ? `/${link.href}`
                         : `/${link.href}`
                     }
-                    onClick={(e) => handleLinkClick(e, link.href)}
+                    onClick={e => handleLinkClick(e, link.href)}
                     className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-colors"
                   >
                     {link.name}
@@ -166,7 +167,7 @@ export const Navbar = ({
 
             {/* Drawer Links */}
             <div className="flex flex-col gap-8 text-center px-6 py-12 flex-1 justify-center">
-              {navLinks.map((link) => (
+              {navLinks.map(link => (
                 <Link
                   key={link.name}
                   to={
@@ -174,7 +175,7 @@ export const Navbar = ({
                       ? `/${link.href}`
                       : `/${link.href}`
                   }
-                  onClick={(e) => handleLinkClick(e, link.href)}
+                  onClick={e => handleLinkClick(e, link.href)}
                   className="text-4xl font-black text-brand-navy dark:text-white hover:text-brand-red transition-colors"
                 >
                   {link.name}
@@ -183,8 +184,8 @@ export const Navbar = ({
               <div className="h-px bg-slate-100 dark:bg-white/10 my-4 mx-12" />
               <button
                 onClick={() => {
-                  toggleLanguage();
-                  setIsMenuOpen(false);
+                  toggleLanguage()
+                  setIsMenuOpen(false)
                 }}
                 className="flex items-center justify-center gap-3 text-brand-navy/70 dark:text-slate-400 hover:text-brand-red dark:hover:text-brand-red font-bold text-lg cursor-pointer transition-colors"
               >
@@ -196,5 +197,5 @@ export const Navbar = ({
         )}
       </AnimatePresence>
     </>
-  );
-};
+  )
+}

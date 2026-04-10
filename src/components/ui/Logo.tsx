@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 /**
  * Official Branding Logo.
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
  * @author Harry Vasanth (harryvasanth.com)
  */
 export const Logo = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Link to="/" className="flex items-center gap-3 group cursor-pointer">
       <div className="relative">
@@ -29,5 +29,5 @@ export const Logo = () => {
         </span>
       </div>
     </Link>
-  );
-};
+  )
+}

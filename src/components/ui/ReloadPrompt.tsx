@@ -1,13 +1,14 @@
 // src/components/ui/ReloadPrompt.tsx
-import React from 'react';
-import { useRegisterSW } from 'virtual:pwa-register/react';
-import { RefreshCw, X } from 'lucide-react';
-import { m, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+
+import { useRegisterSW } from 'virtual:pwa-register/react'
+import { AnimatePresence, m } from 'framer-motion'
+import { RefreshCw, X } from 'lucide-react'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export function ReloadPrompt() {
-  const { i18n } = useTranslation();
-  const isPT = i18n.language.startsWith('pt');
+  const { i18n } = useTranslation()
+  const isPT = i18n.language.startsWith('pt')
 
   // Hook provided by vite-plugin-pwa
   const {
@@ -15,16 +16,16 @@ export function ReloadPrompt() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered(r) {
-      console.log('SW Registered');
+      console.log('SW Registered')
     },
     onRegisterError(error) {
-      console.log('SW registration error', error);
+      console.log('SW registration error', error)
     },
-  });
+  })
 
   const close = () => {
-    setNeedRefresh(false);
-  };
+    setNeedRefresh(false)
+  }
 
   return (
     <AnimatePresence>
@@ -64,5 +65,5 @@ export function ReloadPrompt() {
         </m.div>
       )}
     </AnimatePresence>
-  );
+  )
 }
