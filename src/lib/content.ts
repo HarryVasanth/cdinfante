@@ -141,9 +141,10 @@ export async function getSportPosts(sport: string): Promise<Post[]> {
     })
 
     const results = await Promise.all(postPromises)
-    return results.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    )
+
+    // OPTIMIZATION: Avoid costly Date parsing on every comparison cycle.
+    // Uses efficient string locale comparison (assumes YYYY-MM-DD front-matter format)
+    return results.sort((a, b) => b.date.localeCompare(a.date))
   } catch (error) {
     console.error(`Error discovering posts for ${sport}:`, error)
     return []
