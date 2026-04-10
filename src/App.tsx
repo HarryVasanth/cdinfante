@@ -44,9 +44,7 @@ function MainContent() {
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // OPTIMIZATION: Clean, reactive scroll management based solely on Router state
   useEffect(() => {
-    // requestAnimationFrame ensures the DOM has painted before calculating elements
     requestAnimationFrame(() => {
       if (location.hash) {
         const id = location.hash.replace('#', '')
@@ -60,7 +58,6 @@ function MainContent() {
     })
   }, [location.pathname, location.hash])
 
-  // OPTIMIZATION: Prevent FOUC by initializing from the document class set in index.html
   const [isDark, setIsDark] = useState(() => {
     if (typeof document !== 'undefined') {
       return document.documentElement.classList.contains('dark')
@@ -68,7 +65,6 @@ function MainContent() {
     return false
   })
 
-  // OPTIMIZATION: Safe theme saving
   useEffect(() => {
     try {
       localStorage.setItem('theme', isDark ? 'dark' : 'light')
@@ -83,17 +79,10 @@ function MainContent() {
     }
   }, [isDark])
 
-  // OPTIMIZATION: Wrap in useCallback so Navbar doesn't re-render unnecessarily
+  // OPTIMIZATION: Removed manual localStorage management. i18next-browser-languagedetector handles it natively.
   const toggleLanguage = useCallback(() => {
     const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT'
     i18n.changeLanguage(nextLang)
-
-    try {
-      localStorage.setItem('i18nextLng', nextLang)
-    } catch {
-      // Ignore gracefully
-    }
-
     document.documentElement.lang = nextLang
   }, [i18n])
 

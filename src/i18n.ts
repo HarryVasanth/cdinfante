@@ -1,4 +1,7 @@
+// src/i18n.ts
+
 import i18n from 'i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 
 const resources = {
@@ -442,17 +445,21 @@ const resources = {
  *
  * Default: pt-PT
  * Fallback: en-GB
- * Persistence: localStorage ('i18nextLng')
+ * Persistence: i18next-browser-languagedetector natively handles localStorage ('i18nextLng')
  *
  * @author Harry Vasanth (harryvasanth.com)
  */
-i18n.use(initReactI18next).init({
-  resources,
-  lng: localStorage.getItem('i18nextLng') || 'pt-PT',
-  fallbackLng: 'en-GB',
-  interpolation: {
-    escapeValue: false,
-  },
-})
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    // Provide fallback and explicit support logic in case detection fails
+    fallbackLng: 'pt-PT',
+    supportedLngs: ['pt-PT', 'en-GB'],
+    interpolation: {
+      escapeValue: false,
+    },
+  })
 
 export default i18n
