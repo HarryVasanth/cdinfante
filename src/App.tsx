@@ -66,20 +66,10 @@ function MainContent() {
     requestAnimationFrame(handleScroll)
   }, [location.pathname, location.hash])
 
-  // OPTIMIZATION: Safe theme initialization with try/catch
+  // OPTIMIZATION: Prevent FOUC by initializing from the document class set in index.html
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('theme')
-        if (saved) return saved === 'dark'
-        return window.matchMedia('(prefers-color-scheme: dark)').matches
-      } catch {
-        // Prevent crash if localStorage is blocked (e.g., Strict Incognito mode)
-        console.warn(
-          'localStorage is restricted, falling back to system theme.',
-        )
-        return window.matchMedia('(prefers-color-scheme: dark)').matches
-      }
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark')
     }
     return false
   })
