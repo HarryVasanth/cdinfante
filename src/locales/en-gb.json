@@ -1,0 +1,200 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "sports": "Sports",
+    "calendar": "Calendar & Events",
+    "contact": "Contact"
+  },
+  "hero": {
+    "location": "Funchal, Madeira",
+    "club_name": "Clube Desportivo",
+    "club_suffix": "Infante Dom Henrique",
+    "title": "Clube Desportivo Infante Dom Henrique",
+    "subtitle": "A sports association promoting athletics and youth sports, focusing on running and handball.",
+    "cta": "Join Us"
+  },
+  "about": {
+    "title": "About Us",
+    "content": "Clube Desportivo Infante Dom Henrique is a sports association promoting athletics and youth sports, focusing on road running, trail running, vertical km, skyrunning, track & field, and handball. We encourage sports practice and the development of young talents in our region.",
+    "subtitle": "Founded to foster sports among youth and adults, our club promotes values such as teamwork, resilience, and respect for sport. We regularly compete in regional and national events, excelling in running and handball.",
+    "years_count": "40+",
+    "years_label": "Years of Excellence",
+    "members_count": "100+",
+    "members_label": "Active Members",
+    "since": "Since 1980",
+    "promotion": "Promoting Excellence in Madeira Sports"
+  },
+  "sports": {
+    "title": "Our Sports",
+    "subtitle": "Discover the diverse sports disciplines we offer and support at our club.",
+    "learn_more": "Learn more",
+    "road_running": "Road Running",
+    "trail_running": "Trail Running",
+    "vertical_km": "Vertical KM",
+    "skyrunning_kv": "Skyrunning & Vertical KM",
+    "track_field": "Track & Field",
+    "handball": "Handball",
+    "judo": "Judo",
+    "other_competitions": "Other Competitions",
+    "others": "General Activities",
+    "no_posts": "No updates available at the moment.",
+    "check_back_soon": "Check back soon for new news and events.",
+    "gallery": "Gallery",
+    "past_posts": "Latest Updates",
+    "read_article": "Read Article",
+    "share": "Share",
+    "link_copied": "Link copied to clipboard!"
+  },
+  "calendar": {
+    "title": "Calendar & Events",
+    "subtitle": "Stay up to date with our upcoming competitions, training sessions, and club events.",
+    "sync_button": "Sync AARAM Calendar (.ics)",
+    "documents_title": "Official Calendars & Documents",
+    "documents_subtitle": "Access the official interactive and PDF calendars from regional and national associations.",
+    "download_pdf": "View / Download",
+    "aaram_title": "AARAM - Associação de Atletismo da R.A.M.",
+    "fpa_title": "FPA - Federação Portuguesa de Atletismo",
+    "cal_aaram": "Calendário AARAM",
+    "cal_madeira_correr": "Calendário Madeira a Correr",
+    "cal_trail": "Calendário Trail Madeira",
+    "cal_nacional": "Calendário Nacional (FPA)"
+  },
+  "common": {
+    "back_home": "Back to Home"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "address_label": "Address",
+    "phone_label": "Phone",
+    "phone_value": "+351 291 783 775",
+    "address": "Colégio Infante D. Henrique\nCaminho do Monte n.º 180,\nMonte, 9050-288\nFunchal, Portugal",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "docs": {
+    "title": "Brand & Identity Documentation",
+    "guidelines": "Guidelines",
+    "typography": {
+      "title": "Typography",
+      "typefaces": "Typefaces",
+      "font_sizes": "Font Sizes",
+      "font_weights": "Font Weights"
+    },
+    "theming": {
+      "title": "Theming",
+      "colors": "Colors",
+      "icons": "Icons",
+      "spinner": "Spinner"
+    },
+    "components": {
+      "title": "Components",
+      "flags": "Flags",
+      "text_standards": {
+        "title": "Text Standards",
+        "title_item": "Title",
+        "modal_title": "Modal Title",
+        "section": "Section",
+        "text": "Text",
+        "label": "Label"
+      },
+      "indicators": {
+        "title": "Indicators",
+        "ribbon": "Ribbon",
+        "banner": "Banner"
+      },
+      "links": {
+        "title": "Links",
+        "link": "Link",
+        "back_link": "Back Link"
+      },
+      "buttons": {
+        "title": "Buttons",
+        "button": "Button",
+        "action": "Action"
+      },
+      "navbar": "Navbar",
+      "resizable_container": "Resizable Container",
+      "search_bar": "Search Bar",
+      "form_inputs": {
+        "title": "Form Inputs",
+        "text_input": "Text Input",
+        "text_area": "Text Area",
+        "generate_input": "Generate Input"
+      },
+      "form_controls": {
+        "title": "Form Controls",
+        "select": "Select",
+        "radio": "Radio",
+        "switch": "Switch",
+        "checkbox": "Checkbox",
+        "slider": "Slider"
+      },
+      "collapse": {
+        "title": "Collapse",
+        "collapsible": "Collapsible",
+        "hideable": "Hideable",
+        "drop_down": "Menu Suspenso",
+        "content": "Hidden content that expands when the header is clicked. This component is now interactable!"
+      },
+      "containers": {
+        "title": "Containers",
+        "page_container": "Page Container",
+        "container_shadow": "Container Shadow",
+        "container_inset": "Container Inset",
+        "drawer": "Drawer",
+        "modal": "Modal",
+        "modal_title_preview": "Confirm Action",
+        "modal_desc_preview": "Are you sure you want to proceed?",
+        "modal_cancel": "Cancel",
+        "modal_confirm": "Confirm"
+      },
+      "cards": {
+        "title": "Cards",
+        "card": "Card",
+        "list_card": "List Card",
+        "events_panel": "Events Panel"
+      },
+      "toggle": "Toggle",
+      "toast": "Toast",
+      "graphs": {
+        "title": "Graphs",
+        "bar_graph": "Bar Graph",
+        "progress_bar": "Progress Bar",
+        "line_graph": "Line Graph",
+        "conic_graph": "Conic Graph",
+        "radar_chart": "Radar Chart"
+      }
+    },
+    "writing_posts": {
+      "title": "Writing Posts",
+      "intro": "Guidelines for creating news and sports updates using Markdown files.",
+      "template": "Markdown Template",
+      "dos": "Dos",
+      "donts": "Don'ts",
+      "guidelines": {
+        "filename": "Filename: Use the format YYYY-MM-DD-title-slug.md.",
+        "folder": "Location: Place the file in the correct subfolder under src/content/.",
+        "frontmatter": "Metadata: Ensure title, date, image, and description are provided.",
+        "bilingual": "Language: Always provide content in both Portuguese and English."
+      },
+      "dos_list": {
+        "images": "Use high-quality images and verify URLs.",
+        "hashtags": "Include official hashtags: #CDInfante #Madeira.",
+        "clear_text": "Keep descriptions under 150 characters for best display."
+      },
+      "donts_list": {
+        "formatting": "Avoid complex HTML; stick to standard Markdown.",
+        "huge_files": "Do not upload massive images (> 2MB) directly to the repo.",
+        "broken_links": "Check all links before submitting."
+      }
+    }
+  }
+}

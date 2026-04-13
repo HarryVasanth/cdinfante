@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import {
   Activity,
   ArrowUpRight,
@@ -9,7 +10,7 @@ import {
   Target,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { BentoCard } from '../ui/BentoCard'
+import { BentoCard } from '../ui/bento-card'
 
 export const Sports = () => {
   const { t } = useTranslation()

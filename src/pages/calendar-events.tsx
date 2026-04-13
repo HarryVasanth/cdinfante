@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { AnimatePresence, m } from 'framer-motion'
 import {
   Calendar as CalendarIcon,
@@ -9,17 +10,12 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../lib/utils'
 
-// ------------------------------------------------------------------
-// GOOGLE CALENDAR CONFIGURATION
-// ------------------------------------------------------------------
 const GOOGLE_CALENDARS = [
   {
-    // 💙❤️ CDInfante - Calendário ❤️💙
     id: '4003e3c4c371fd3f0790289e87ec2b282e36e5bf41bc34f3e4bb6358edc5a99b@group.calendar.google.com',
     color: '%23d50000',
   },
   {
-    // Atletismo da Madeira - Calendário
     id: 'cv0bgl3r64ghto82nlv4eh76mg0shlnp@import.calendar.google.com',
     color: '%234285f4',
   },
@@ -39,7 +35,6 @@ const buildCalendarUrl = () => {
   return `${baseUrl}${srcParams}${colorParams}`
 }
 
-// OPTIMIZATION: Calculate this ONCE outside the component
 const GOOGLE_CALENDAR_URL = buildCalendarUrl()
 
 const sportsDocuments = [

@@ -1,4 +1,4 @@
-// src/components/ui/BentoCard.tsx
+// @author CD Infante Team (CDI) / Harry Vasanth
 
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import { ChevronRight, type LucideIcon } from 'lucide-react'

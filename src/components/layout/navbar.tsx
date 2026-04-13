@@ -1,13 +1,13 @@
-// src/components/layout/Navbar.tsx
+// @author CD Infante Team (CDI) / Harry Vasanth
 
 import { AnimatePresence, m } from 'framer-motion'
 import { Globe, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { useScroll } from '../../hooks/useScroll'
+import { useScroll } from '../../hooks/use-scroll'
 import { cn } from '../../lib/utils'
-import { Logo } from '../ui/Logo'
+import { Logo } from '../ui/logo'
 
 interface NavbarProps {
   isDark: boolean
@@ -35,7 +35,6 @@ export const Navbar = ({
     }
   }, [isMenuOpen])
 
-  // OPTIMIZATION: Use absolute routing paths so React Router handles them natively
   const navLinks = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.about'), href: '/#about' },
@@ -44,7 +43,6 @@ export const Navbar = ({
     { name: t('nav.contact'), href: '/#contact' },
   ]
 
-  // OPTIMIZATION: Removed manual history.pushState and scroll overrides
   const handleLinkClick = () => {
     setIsMenuOpen(false)
   }

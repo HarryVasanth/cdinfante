@@ -1,7 +1,7 @@
-// src/App.tsx
+// @author CD Infante Team (CDI) / Harry Vasanth
 
-import { LazyMotion, domAnimation } from 'framer-motion'
-import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
+import { domAnimation, LazyMotion } from 'framer-motion'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Route,
@@ -9,19 +9,18 @@ import {
   Routes,
   useLocation,
 } from 'react-router-dom'
-import { Footer } from './components/layout/Footer'
-import { Navbar } from './components/layout/Navbar'
-import { About } from './components/sections/About'
-import { Contact } from './components/sections/Contact'
-import { Hero } from './components/sections/Hero'
-import { Sports } from './components/sections/Sports'
-import { ReloadPrompt } from './components/ui/ReloadPrompt'
-import { Spotlight } from './components/ui/Spotlight'
+import { Footer } from './components/layout/footer'
+import { Navbar } from './components/layout/navbar'
+import { About } from './components/sections/about'
+import { Contact } from './components/sections/contact'
+import { Hero } from './components/sections/hero'
+import { Sports } from './components/sections/sports'
+import { ReloadPrompt } from './components/ui/reload-prompt'
+import { Spotlight } from './components/ui/spotlight'
 
-// Lazy loaded pages
-const SportDetails = lazy(() => import('./pages/SportDetails'))
-const Docs = lazy(() => import('./pages/Docs'))
-const CalendarEvents = lazy(() => import('./pages/CalendarEvents'))
+const SportDetails = lazy(() => import('./pages/sport-details'))
+const Docs = lazy(() => import('./pages/docs'))
+const CalendarEvents = lazy(() => import('./pages/calendar-events'))
 
 export default function App() {
   return (
@@ -68,9 +67,7 @@ function MainContent() {
   useEffect(() => {
     try {
       localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    } catch {
-      // Ignore gracefully
-    }
+    } catch {}
 
     if (isDark) {
       document.documentElement.classList.add('dark')
@@ -79,7 +76,6 @@ function MainContent() {
     }
   }, [isDark])
 
-  // OPTIMIZATION: Removed manual localStorage management. i18next-browser-languagedetector handles it natively.
   const toggleLanguage = useCallback(() => {
     const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT'
     i18n.changeLanguage(nextLang)

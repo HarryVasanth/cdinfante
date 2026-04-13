@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { m, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
@@ -7,7 +8,6 @@ export const Spotlight = () => {
   const [opacity, setOpacity] = useState(0)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
 
-  // Detect if the device is a touch device
   useEffect(() => {
     const checkTouch = window.matchMedia(
       '(hover: none) and (pointer: coarse)',
@@ -49,7 +49,6 @@ export const Spotlight = () => {
     }
   }, [mouseX, mouseY, isTouchDevice])
 
-  // Completely bypass rendering on touch devices
   if (isTouchDevice) return null
 
   return (

@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import {
   Activity,
   ArrowLeft,
@@ -35,7 +36,6 @@ import { cn } from '../lib/utils'
 export default function Docs() {
   const { t } = useTranslation()
 
-  // Interactive States
   const [isExpanded, setIsExpanded] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showDrawer, setShowDrawer] = useState(false)

@@ -1,7 +1,8 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { Facebook, Instagram } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { Logo } from '../ui/Logo'
+import { Logo } from '../ui/logo'
 
 export const Footer = () => {
   const { t } = useTranslation()

@@ -1,4 +1,4 @@
-// src/hooks/useScroll.ts
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { useEffect, useState } from 'react'
 
 /**
@@ -25,8 +25,6 @@ export function useScroll(threshold = 20) {
 
     window.addEventListener('scroll', handleScroll, { passive: true })
 
-    // Check the initial scroll position just in case the user
-    // refreshes the page while already scrolled down
     handleScroll()
 
     return () => window.removeEventListener('scroll', handleScroll)

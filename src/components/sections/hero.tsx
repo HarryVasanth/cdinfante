@@ -1,7 +1,8 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { AnimatePresence, m } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useScroll } from '../../hooks/useScroll'
+import { useScroll } from '../../hooks/use-scroll'
 
 export const Hero = () => {
   const { t } = useTranslation()

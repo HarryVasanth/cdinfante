@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 

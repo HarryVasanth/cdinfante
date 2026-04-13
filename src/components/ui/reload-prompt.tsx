@@ -1,4 +1,4 @@
-// src/components/ui/ReloadPrompt.tsx
+// @author CD Infante Team (CDI) / Harry Vasanth
 
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import { AnimatePresence, m } from 'framer-motion'
@@ -9,7 +9,6 @@ export function ReloadPrompt() {
   const { i18n } = useTranslation()
   const isPT = i18n.language.startsWith('pt')
 
-  // Hook provided by vite-plugin-pwa
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,

@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { CheckCircle2, Loader2, MapPin, Phone } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
@@ -6,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 export const Contact = () => {
   const { t } = useTranslation()
 
-  // Form state management
   const [status, setStatus] = useState<
     'idle' | 'submitting' | 'success' | 'error'
   >('idle')
@@ -16,7 +16,6 @@ export const Contact = () => {
     setStatus('submitting')
 
     const formData = new FormData(e.currentTarget)
-    // Web3Forms access key
     formData.append('access_key', '47ea1e71-2203-4ffd-ab35-7aaf12aac693')
     formData.append('subject', 'New Submission from CDInfante Website')
 
@@ -30,10 +29,8 @@ export const Contact = () => {
 
       if (data.success) {
         setStatus('success')
-        // Optional: Reset form fields here
         ;(e.target as HTMLFormElement).reset()
 
-        // Reset success message after 5 seconds
         setTimeout(() => setStatus('idle'), 5000)
       } else {
         console.error('Web3Forms Error:', data)

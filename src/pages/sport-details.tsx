@@ -1,3 +1,4 @@
+// @author CD Infante Team (CDI) / Harry Vasanth
 import { AnimatePresence, m } from 'framer-motion'
 import {
   ArrowRight,
@@ -13,7 +14,7 @@ import type React from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { type Post, getSportPosts } from '../lib/content'
+import { getSportPosts, type Post } from '../lib/content'
 
 /**
  * Displays news and updates for a specific sport.
@@ -259,7 +260,6 @@ const SportDetails: React.FC = () => {
                       {/* INJECT HTML DIRECTLY HERE */}
                       <div
                         className="prose prose-slate dark:prose-invert max-w-none mb-12 prose-headings:font-black prose-headings:tracking-tight prose-p:text-lg prose-p:leading-relaxed prose-p:text-brand-navy/80 dark:prose-p:text-slate-300"
-                        // biome-ignore lint/security/noDangerouslySetInnerHtml: This HTML is pre-compiled at build time from trusted local Markdown files.
                         dangerouslySetInnerHTML={{
                           __html: featuredPost.content,
                         }}
