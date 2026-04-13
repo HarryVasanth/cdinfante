@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import { ChevronRight, type LucideIcon } from 'lucide-react'

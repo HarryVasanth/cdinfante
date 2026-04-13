@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 import { AnimatePresence, m } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'

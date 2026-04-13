@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 import {
   Activity,
   ArrowLeft,

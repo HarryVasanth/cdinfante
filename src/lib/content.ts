@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 
 /**
  * Assets representation for an image in both thumbnail and full resolutions.

@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 import { m, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 

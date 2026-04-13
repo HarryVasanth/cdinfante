@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 import { CheckCircle2, Loader2, MapPin, Phone } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'

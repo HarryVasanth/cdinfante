@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 
 import { domAnimation, LazyMotion } from 'framer-motion'
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react'

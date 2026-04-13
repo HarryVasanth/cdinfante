@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import { AnimatePresence, m } from 'framer-motion'

@@ -1,4 +1,4 @@
-// @author CD Infante Team (CDI) / Harry Vasanth
+// @author HarryVasanth (https://github.com/harryvasanth)
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
