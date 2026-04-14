@@ -3,6 +3,13 @@ import type React from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+/**
+ * Contact Section Component.
+ * Includes a contact form integrated with Web3Forms and club location information.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const Contact = () => {
   const { t } = useTranslation()
 
@@ -66,7 +73,7 @@ export const Contact = () => {
                   href="https://maps.app.goo.gl/vMhHkfHUCZUC1eiJA"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex gap-6 md:gap-8 items-start group outline-none"
+                  className="flex gap-6 md:gap-8 items-start group outline-none cursor-pointer"
                 >
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 group-focus-visible:ring-2 group-focus-visible:ring-brand-red">
                     <MapPin size={24} className="md:w-7 md:h-7" />
@@ -81,10 +88,9 @@ export const Contact = () => {
                   </div>
                 </a>
 
-                {/* OPTIMIZATION: Converted to semantic <a> tag for tap-to-call */}
                 <a
                   href={`tel:${t('contact.phone_value')?.replace(/\s/g, '')}`}
-                  className="flex gap-6 md:gap-8 items-start group outline-none"
+                  className="flex gap-6 md:gap-8 items-start group outline-none cursor-pointer"
                 >
                   <div className="w-12 h-12 md:w-14 md:h-14 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-red shrink-0 group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 border border-white/10 group-focus-visible:ring-2 group-focus-visible:ring-brand-red">
                     <Phone size={24} className="md:w-7 md:h-7" />

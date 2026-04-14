@@ -3,6 +3,13 @@ import { ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useScroll } from '../../hooks/useScroll'
 
+/**
+ * Hero Section Component.
+ * The primary entry section of the website featuring the club's name, call-to-action, and an atmospheric background.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const Hero = () => {
   const { t } = useTranslation()
   const scrolled = useScroll(20)

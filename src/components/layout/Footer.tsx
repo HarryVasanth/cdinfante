@@ -3,6 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Logo } from '../ui/Logo'
 
+/**
+ * Footer Component.
+ * Contains branding, social links, navigation, and copyright information.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const Footer = () => {
   const { t } = useTranslation()
 
@@ -24,7 +31,7 @@ export const Footer = () => {
             href="https://www.facebook.com/CDInfante"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm"
+            className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm cursor-pointer"
           >
             <Facebook size={20} />
           </a>
@@ -32,7 +39,7 @@ export const Footer = () => {
             href="https://www.instagram.com/cdinfante_atletismo/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm"
+            className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-brand-navy dark:text-white hover:bg-brand-red hover:text-white transition-all shadow-sm cursor-pointer"
           >
             <Instagram size={20} />
           </a>
@@ -43,7 +50,7 @@ export const Footer = () => {
             <Link
               key={link.name}
               to={`/${link.href}`}
-              className="text-sm font-bold text-brand-navy/50 dark:text-slate-500 hover:text-brand-red transition-colors uppercase tracking-widest"
+              className="text-sm font-bold text-brand-navy/50 dark:text-slate-500 hover:text-brand-red transition-colors uppercase tracking-widest cursor-pointer"
             >
               {link.name}
             </Link>

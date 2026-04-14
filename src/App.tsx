@@ -1,8 +1,5 @@
-// src/App.tsx
-
-import { LazyMotion, domAnimation } from 'framer-motion'
-import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { domAnimation, LazyMotion } from 'framer-motion'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import {
   Route,
   BrowserRouter as Router,
@@ -15,14 +12,24 @@ import { About } from './components/sections/About'
 import { Contact } from './components/sections/Contact'
 import { Hero } from './components/sections/Hero'
 import { Sports } from './components/sections/Sports'
+import { PageLoader } from './components/ui/PageLoader'
 import { ReloadPrompt } from './components/ui/ReloadPrompt'
 import { Spotlight } from './components/ui/Spotlight'
+import { useLanguage } from './hooks/useLanguage'
+import { useTheme } from './hooks/useTheme'
 
 // Lazy loaded pages
 const SportDetails = lazy(() => import('./pages/SportDetails'))
 const Docs = lazy(() => import('./pages/Docs'))
 const CalendarEvents = lazy(() => import('./pages/CalendarEvents'))
 
+/**
+ * Main App Component.
+ * Sets up routing, global providers, and core layout.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export default function App() {
   return (
     <LazyMotion features={domAnimation} strict>
@@ -33,16 +40,11 @@ export default function App() {
   )
 }
 
-const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-[#FBFBFD] dark:bg-[#020202]">
-    <div className="w-8 h-8 border-4 border-brand-red border-t-transparent rounded-full animate-spin" />
-  </div>
-)
-
 function MainContent() {
-  const { i18n } = useTranslation()
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isDark, setIsDark] = useTheme()
+  const { toggleLanguage } = useLanguage()
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -57,38 +59,6 @@ function MainContent() {
       }
     })
   }, [location.pathname, location.hash])
-
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof document !== 'undefined') {
-      return document.documentElement.classList.contains('dark')
-    }
-    return false
-  })
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    } catch {
-      // Ignore gracefully
-    }
-
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [isDark])
-
-  // OPTIMIZATION: Removed manual localStorage management. i18next-browser-languagedetector handles it natively.
-  const toggleLanguage = useCallback(() => {
-    const nextLang = i18n.language.startsWith('pt') ? 'en-GB' : 'pt-PT'
-    i18n.changeLanguage(nextLang)
-    document.documentElement.lang = nextLang
-  }, [i18n])
-
-  useEffect(() => {
-    document.documentElement.lang = i18n.language
-  }, [i18n.language])
 
   return (
     <div className="min-h-screen bg-[#FBFBFD] dark:bg-[#020202] transition-colors duration-700 selection:bg-brand-red/20 selection:text-brand-navy overflow-x-hidden font-plus-jakarta">

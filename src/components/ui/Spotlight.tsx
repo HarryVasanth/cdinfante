@@ -1,6 +1,14 @@
 import { m, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
+/**
+ * Global Spotlight Effect Component.
+ * Follows the user's cursor with a subtle radial gradient glow.
+ * Optimized for performance and automatically disabled on touch devices.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const Spotlight = () => {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)

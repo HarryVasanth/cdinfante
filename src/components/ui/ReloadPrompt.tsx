@@ -1,10 +1,15 @@
-// src/components/ui/ReloadPrompt.tsx
-
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import { AnimatePresence, m } from 'framer-motion'
 import { RefreshCw, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+/**
+ * PWA Reload Prompt Component.
+ * Displays a notification when a new service worker version is available.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export function ReloadPrompt() {
   const { i18n } = useTranslation()
   const isPT = i18n.language.startsWith('pt')
@@ -49,7 +54,7 @@ export function ReloadPrompt() {
             <button
               type="button"
               onClick={close}
-              className="text-slate-400 hover:text-brand-red transition-colors p-1"
+              className="text-slate-400 hover:text-brand-red transition-colors p-1 cursor-pointer"
               aria-label="Close"
             >
               <X size={20} />
@@ -58,7 +63,7 @@ export function ReloadPrompt() {
           <button
             type="button"
             onClick={() => updateServiceWorker(true)}
-            className="w-full bg-brand-red hover:bg-brand-red/90 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-red/30 active:scale-[0.98]"
+            className="w-full bg-brand-red hover:bg-brand-red/90 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-red/30 active:scale-[0.98] cursor-pointer"
           >
             <RefreshCw size={16} />
             {isPT ? 'Atualizar Agora' : 'Update Now'}

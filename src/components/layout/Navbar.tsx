@@ -1,5 +1,3 @@
-// src/components/layout/Navbar.tsx
-
 import { AnimatePresence, m } from 'framer-motion'
 import { Globe, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect } from 'react'
@@ -17,6 +15,13 @@ interface NavbarProps {
   setIsMenuOpen: (open: boolean) => void
 }
 
+/**
+ * Navbar Component.
+ * Responsive navigation bar with sticky behavior, theme toggle, and language selector.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const Navbar = ({
   isDark,
   setIsDark,
@@ -35,7 +40,6 @@ export const Navbar = ({
     }
   }, [isMenuOpen])
 
-  // OPTIMIZATION: Use absolute routing paths so React Router handles them natively
   const navLinks = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.about'), href: '/#about' },
@@ -44,7 +48,6 @@ export const Navbar = ({
     { name: t('nav.contact'), href: '/#contact' },
   ]
 
-  // OPTIMIZATION: Removed manual history.pushState and scroll overrides
   const handleLinkClick = () => {
     setIsMenuOpen(false)
   }
@@ -74,7 +77,7 @@ export const Navbar = ({
                   <Link
                     to={link.href}
                     onClick={handleLinkClick}
-                    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-colors"
+                    className="text-sm font-semibold text-brand-navy/70 hover:text-brand-red dark:text-slate-300 dark:hover:text-brand-red transition-colors cursor-pointer"
                   >
                     {link.name}
                   </Link>
@@ -154,7 +157,7 @@ export const Navbar = ({
                   key={link.name}
                   to={link.href}
                   onClick={handleLinkClick}
-                  className="text-4xl font-black text-brand-navy dark:text-white hover:text-brand-red transition-colors"
+                  className="text-4xl font-black text-brand-navy dark:text-white hover:text-brand-red transition-colors cursor-pointer"
                 >
                   {link.name}
                 </Link>

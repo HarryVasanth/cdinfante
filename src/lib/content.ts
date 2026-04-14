@@ -1,5 +1,3 @@
-// src/lib/content.ts
-
 export interface ImageAssets {
   thumbnail: string
   full: string
@@ -12,7 +10,7 @@ export interface Post {
   image?: ImageAssets
   description: string
   images?: ImageAssets[]
-  content: string // This is now pre-compiled HTML!
+  content: string // Pre-compiled HTML from Markdown
   sport: string
 }
 
@@ -25,11 +23,18 @@ interface FrontMatterAttributes {
 }
 
 /**
- * Notice we REMOVED the `?raw` query! Vite-plugin-markdown will process these.
+ * Global content discovery using Vite's import.meta.glob.
+ * Processes all Markdown files within the content directory.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
  */
 const allPosts = import.meta.glob('../content/**/index.md')
 
-// Dual-Res Image generators
+/**
+ * Dual-Res Image generators.
+ * Uses vite-imagetools to generate optimized thumbnails and lightbox images.
+ */
 const gridImages = import.meta.glob(
   '../content/**/*.{jpg,jpeg,png,webp,avif}',
   {
@@ -46,6 +51,14 @@ const lightboxImages = import.meta.glob(
   },
 )
 
+/**
+ * Resolves a relative image path from a post directory into optimized asset URLs.
+ * Handles local paths, absolute paths, and external URLs.
+ *
+ * @param postDir - The directory path of the post.
+ * @param imagePath - The path to the image as defined in front-matter.
+ * @returns Promise<ImageAssets> - Object containing optimized thumbnail and full URLs.
+ */
 async function resolveImagePath(
   postDir: string,
   imagePath: string,
@@ -85,6 +98,13 @@ async function resolveImagePath(
   return { thumbnail: imagePath, full: imagePath }
 }
 
+/**
+ * Fetches and processes a single post by category and slug.
+ *
+ * @param category - The sport category or 'others'.
+ * @param slug - The unique slug for the post.
+ * @returns Promise<Post> - The processed post object.
+ */
 export async function getPost(category: string, slug: string): Promise<Post> {
   const postDir =
     category === 'others'
@@ -98,7 +118,6 @@ export async function getPost(category: string, slug: string): Promise<Post> {
 
   if (!fetcher) throw new Error(`Post not found: ${path}`)
 
-  // Vite-plugin-markdown exports `attributes` and `html` natively!
   const module = (await fetcher()) as {
     attributes: FrontMatterAttributes
     html: string
@@ -122,14 +141,21 @@ export async function getPost(category: string, slug: string): Promise<Post> {
     ...attrs,
     image: resolvedImage,
     images: resolvedImages,
-    content: compiledHTML, // Passing the static HTML
+    content: compiledHTML,
   }
 }
 
+/**
+ * Fetches all posts for a specific sport category.
+ * Posts are sorted by date in descending order.
+ *
+ * @param sport - The sport category slug.
+ * @returns Promise<Post[]> - Array of processed posts.
+ */
 export async function getSportPosts(sport: string): Promise<Post[]> {
   try {
     const sportPrefix =
-      sport === 'others' ? `../content/others/` : `../content/sports/${sport}/`
+      sport === 'others' ? '../content/others/' : `../content/sports/${sport}/`
     const sportPosts = Object.keys(allPosts).filter(path =>
       path.startsWith(sportPrefix),
     )
@@ -142,8 +168,6 @@ export async function getSportPosts(sport: string): Promise<Post[]> {
 
     const results = await Promise.all(postPromises)
 
-    // OPTIMIZATION: Avoid costly Date parsing on every comparison cycle.
-    // Uses efficient string locale comparison (assumes YYYY-MM-DD front-matter format)
     return results.sort((a, b) => b.date.localeCompare(a.date))
   } catch (error) {
     console.error(`Error discovering posts for ${sport}:`, error)

@@ -13,13 +13,15 @@ import type React from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { type Post, getSportPosts } from '../lib/content'
+import { getSportPosts, type Post } from '../lib/content'
 
 /**
+ * Sport Details Page Component.
  * Displays news and updates for a specific sport.
  * Shows a main featured post with a gallery, and a list of historical updates.
  *
  * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
  */
 const SportDetails: React.FC = () => {
   const { sportId } = useParams<{ sportId: string }>()
@@ -157,7 +159,7 @@ const SportDetails: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <Link
           to="/"
-          className="inline-flex items-center text-brand-red font-semibold mb-8 hover:underline group"
+          className="inline-flex items-center text-brand-red font-semibold mb-8 hover:underline group cursor-pointer"
         >
           <ChevronLeft
             size={20}
@@ -237,7 +239,7 @@ const SportDetails: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleShare(featuredPost)}
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-brand-red hover:text-white transition-all text-sm font-bold"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-brand-red hover:text-white transition-all text-sm font-bold cursor-pointer"
                         >
                           {copied ? (
                             <>
@@ -256,7 +258,6 @@ const SportDetails: React.FC = () => {
                         {featuredPost.title}
                       </h2>
 
-                      {/* INJECT HTML DIRECTLY HERE */}
                       <div
                         className="prose prose-slate dark:prose-invert max-w-none mb-12 prose-headings:font-black prose-headings:tracking-tight prose-p:text-lg prose-p:leading-relaxed prose-p:text-brand-navy/80 dark:prose-p:text-slate-300"
                         // biome-ignore lint/security/noDangerouslySetInnerHtml: This HTML is pre-compiled at build time from trusted local Markdown files.
@@ -328,7 +329,7 @@ const SportDetails: React.FC = () => {
                     onClick={() => {
                       navigate(`#${post.slug}`, { replace: true })
                     }}
-                    className={`w-full text-left p-6 rounded-[2rem] border transition-all duration-500 group relative overflow-hidden ${
+                    className={`w-full text-left p-6 rounded-[2rem] border transition-all duration-500 group relative overflow-hidden cursor-pointer ${
                       featuredPost?.slug === post.slug
                         ? 'bg-brand-red text-white border-brand-red shadow-xl scale-[1.02]'
                         : 'bg-white/60 dark:bg-white/[0.02] backdrop-blur-md border-white/20 dark:border-white/10 hover:border-brand-red/50 hover:bg-white/80 dark:hover:bg-white/[0.05]'
@@ -375,12 +376,12 @@ const SportDetails: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10 cursor-pointer"
             onClick={() => setSelectedImageIndex(null)}
           >
             <button
               type="button"
-              className="absolute top-8 right-8 text-white/70 hover:text-white transition-colors z-[110]"
+              className="absolute top-8 right-8 text-white/70 hover:text-white transition-colors z-[110] cursor-pointer"
               onClick={() => setSelectedImageIndex(null)}
             >
               <X size={32} />
@@ -390,14 +391,14 @@ const SportDetails: React.FC = () => {
               <>
                 <button
                   type="button"
-                  className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-[110]"
+                  className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-[110] cursor-pointer"
                   onClick={handlePrevImage}
                 >
                   <ChevronLeft size={24} />
                 </button>
                 <button
                   type="button"
-                  className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-[110]"
+                  className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-[110] cursor-pointer"
                   onClick={handleNextImage}
                 >
                   <ChevronRight size={24} />
