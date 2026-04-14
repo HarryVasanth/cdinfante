@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
  * Features a glowing background effect on hover.
  *
  * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
  */
 export const Logo = () => {
   const { t } = useTranslation()

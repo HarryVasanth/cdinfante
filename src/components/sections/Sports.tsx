@@ -11,6 +11,13 @@ import {
 import { useTranslation } from 'react-i18next'
 import { BentoCard } from '../ui/BentoCard'
 
+/**
+ * Sports Section Component.
+ * Displays various sports categories offered by the club using BentoCard layout.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const Sports = () => {
   const { t } = useTranslation()
 

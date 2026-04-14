@@ -1,5 +1,3 @@
-// src/components/ui/BentoCard.tsx
-
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import { ChevronRight, type LucideIcon } from 'lucide-react'
 import type React from 'react'
@@ -12,6 +10,7 @@ import { cn } from '../../lib/utils'
  * Features dynamic edge-lighting and high-performance hover effects.
  *
  * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
  */
 export const BentoCard = ({
   title,

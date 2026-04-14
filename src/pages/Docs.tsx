@@ -32,6 +32,14 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../lib/utils'
 
+/**
+ * Documentation Page Component.
+ * Comprehensive guide detailing branding identity, components, and content creation guidelines.
+ * Includes interactive previews of all UI components.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export default function Docs() {
   const { t } = useTranslation()
 
@@ -91,7 +99,7 @@ export default function Docs() {
                 <a
                   key={section.id}
                   href={`#${section.id}`}
-                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer"
                 >
                   <section.icon size={18} />
                   {section.label}
@@ -413,7 +421,7 @@ export default function Docs() {
                 <div className="flex gap-8 items-center p-8 rounded-2xl bg-slate-50 dark:bg-white/5">
                   <a
                     href="#components"
-                    className="text-brand-red hover:underline flex items-center gap-1"
+                    className="text-brand-red hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     {t('docs.components.links.link')} <ExternalLink size={14} />
                   </a>
@@ -770,7 +778,7 @@ export default function Docs() {
                     </p>
                     <button
                       type="button"
-                      className="text-brand-red font-semibold text-sm"
+                      className="text-brand-red font-semibold text-sm cursor-pointer"
                     >
                       Read More
                     </button>
@@ -937,7 +945,7 @@ export default function Docs() {
                     <div
                       role="button"
                       tabIndex={0}
-                      className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-10"
+                      className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-10 cursor-pointer"
                       onClick={() => {
                         setShowDrawer(false)
                         setShowModal(false)

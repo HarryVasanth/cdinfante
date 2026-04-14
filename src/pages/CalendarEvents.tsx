@@ -39,7 +39,6 @@ const buildCalendarUrl = () => {
   return `${baseUrl}${srcParams}${colorParams}`
 }
 
-// OPTIMIZATION: Calculate this ONCE outside the component
 const GOOGLE_CALENDAR_URL = buildCalendarUrl()
 
 const sportsDocuments = [
@@ -73,6 +72,13 @@ const sportsDocuments = [
   },
 ]
 
+/**
+ * Calendar and Events Page.
+ * Features an embedded Google Calendar and links to official regional/national athletic calendars.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export default function CalendarEvents() {
   const { t } = useTranslation()
   const [expandedId, setExpandedId] = useState<string | null>('aaram')
@@ -80,7 +86,6 @@ export default function CalendarEvents() {
   return (
     <div className="min-h-screen pt-32 pb-20 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="mb-16 text-center">
           <m.div
             initial={{ opacity: 0, y: 20 }}
@@ -99,7 +104,6 @@ export default function CalendarEvents() {
           </m.div>
         </div>
 
-        {/* Google Calendar Embed */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,7 +125,6 @@ export default function CalendarEvents() {
           </div>
         </m.div>
 
-        {/* Accordion for PDFs / Links */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -174,14 +177,13 @@ export default function CalendarEvents() {
                     >
                       <div className="p-6 pt-0 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
                         <div className="grid gap-3 mt-4">
-                          {/* Standard PDF Links */}
                           {category.docs.map(doc => (
                             <a
                               key={doc.titleKey}
                               href={doc.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-red dark:hover:border-brand-red hover:shadow-md transition-all group"
+                              className="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-red dark:hover:border-brand-red hover:shadow-md transition-all group cursor-pointer"
                             >
                               <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 rounded-lg bg-brand-red/10 text-brand-red flex items-center justify-center">
@@ -202,11 +204,10 @@ export default function CalendarEvents() {
                             </a>
                           ))}
 
-                          {/* Special AARAM Sync Button */}
                           {category.id === 'aaram' && (
                             <a
                               href="https://atletismodamadeira.pt/events/lista/?ical=1"
-                              className="flex items-center justify-between p-4 rounded-xl bg-brand-navy/5 dark:bg-brand-navy/20 border border-brand-navy/20 dark:border-brand-navy/30 hover:border-brand-navy dark:hover:border-brand-red hover:shadow-md transition-all group mt-2"
+                              className="flex items-center justify-between p-4 rounded-xl bg-brand-navy/5 dark:bg-brand-navy/20 border border-brand-navy/20 dark:border-brand-navy/30 hover:border-brand-navy dark:hover:border-brand-red hover:shadow-md transition-all group mt-2 cursor-pointer"
                             >
                               <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 rounded-lg bg-brand-navy text-white flex items-center justify-center shadow-sm">

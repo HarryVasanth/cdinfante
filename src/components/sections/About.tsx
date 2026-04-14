@@ -1,6 +1,13 @@
 import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
+/**
+ * About Section Component.
+ * Provides a detailed overview of the club's history, mission, and key metrics.
+ *
+ * @author Harry Vasanth (harryvasanth.com)
+ * @copyright (c) 2026
+ */
 export const About = () => {
   const { t } = useTranslation()
 
